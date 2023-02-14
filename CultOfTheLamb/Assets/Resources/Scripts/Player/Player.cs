@@ -21,6 +21,10 @@ public class Player : MonoBehaviour
     {
         m_Position = pos;
     }
+    public Vector3 GetPosition()
+    {
+        return m_Position;
+    }
 
     private int m_MaxHp = default;
     private int m_CurrentHp = default;
@@ -69,8 +73,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    public direction m_direction;
-
+    private Direction m_direction;
+    public void SetDirection(Direction direction)
+    {
+        m_direction = direction;
+    }
+    public Direction GetDirection()
+    {
+        return m_direction;
+    }
 
 
     void Start()
@@ -84,14 +95,43 @@ public class Player : MonoBehaviour
     {
 
         Debug.Log($"State Pattern Debug : Current State : {m_PlayerState}");
+
         m_PlayerState.Action(this);
-        // KeyInput();
+        //CheckDirection();
 
     }
 
     private void CheckDirection()
     {
-
+        if (0 < m_Position.y)
+        {
+            if (m_Position.x != 0)
+            {
+                m_direction = Direction.UP_DIAGONAL;
+            }
+            else
+            {
+                m_direction = Direction.UP;
+            }
+        }
+        else if (m_Position.y < 0)
+        {
+            if (m_Position.x != 0)
+            {
+                m_direction = Direction.DOWN_DIAGONAL;
+            }
+            else
+            {
+                m_direction = Direction.DOWN;
+            }
+        }
+        else
+        {
+            if (m_Position.x != 0)
+            {
+                m_direction = Direction.HORIZONTAL;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -101,12 +141,7 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        //myPosition = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-        // myPosition.x = Input.GetAxis("Horizontal");
-        // myPosition.z = Input.GetAxis("Vertical");
-        // myPosition.y = 0;
         m_Rigidbody.MovePosition(transform.position + m_Position * Speed * Time.deltaTime);
-
     }
 
     public void Hit()
@@ -119,8 +154,5 @@ public class Player : MonoBehaviour
         StartCoroutine(coroutineMethod);
     }
 
-    public enum direction
-    {
-        NONE, LEFT_TOP, TOP, RIGHT_TOP, RIGHT, RIGHT_DOWN, DOWN, LEFT_DOWN, LEFT,
-    }
+
 }

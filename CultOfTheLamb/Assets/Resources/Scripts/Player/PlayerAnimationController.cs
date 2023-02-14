@@ -14,6 +14,7 @@ public class PlayerAnimationController : MonoBehaviour
     #endregion
     Player player;
     IPlayerState previousPlayerState;
+    Direction previousDirection;
     public Spine.Animation nextAnimation;
 
     void Start()
@@ -23,18 +24,22 @@ public class PlayerAnimationController : MonoBehaviour
         player = GetComponent<Player>();
         if (player == null) return;
         previousPlayerState = player.GetState();
+        previousDirection = player.GetDirection();
         nextAnimation = idle;
     }
 
     void Update()
     {
         IPlayerState currentPlayerState = player.GetState();
-        if (previousPlayerState != currentPlayerState)
+        Direction currentDirection = player.GetDirection();
+        if (previousPlayerState != currentPlayerState || previousDirection != currentDirection)
         {
-            currentPlayerState.SetAnimation(this);
+            currentPlayerState.SetAnimation(this, currentDirection);
             PlayNewStableAnimation();
         }
         previousPlayerState = currentPlayerState;
+        previousDirection = currentDirection;
+        Turn();
     }
     void PlayNewStableAnimation()
     {
@@ -43,6 +48,13 @@ public class PlayerAnimationController : MonoBehaviour
 
     void Turn()
     {
-
+        if (0 < player.GetPosition().x)
+        {
+            skeletonAnimation.skeleton.ScaleX = -1;
+        }
+        else if (player.GetPosition().x < 0)
+        {
+            skeletonAnimation.skeleton.ScaleX = 1;
+        }
     }
 }

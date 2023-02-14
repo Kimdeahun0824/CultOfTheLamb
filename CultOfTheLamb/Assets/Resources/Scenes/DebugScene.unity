@@ -516,7 +516,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Speed: 0
-  RollingAnimation: roll
 --- !u!4 &522263837
 Transform:
   m_ObjectHideFlags: 0
@@ -761,7 +760,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: attack-combo1
+  _animationName: 
   loop: 1
   timeScale: 1
 --- !u!23 &1910915267
