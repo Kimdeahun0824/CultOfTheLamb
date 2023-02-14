@@ -5,6 +5,14 @@ using Spine.Unity;
 
 public class Player : MonoBehaviour
 {
+    private GameObject m_AttackCollider = default;
+    public GameObject AttackColloder
+    {
+        get
+        {
+            return m_AttackCollider;
+        }
+    }
     private IPlayerState m_PlayerState = default;
     public void SetState(IPlayerState state)
     {
@@ -52,13 +60,7 @@ public class Player : MonoBehaviour
     private float m_ActionDelay = default;
 
     private Rigidbody m_Rigidbody = default;
-    public Rigidbody Rigidbody
-    {
-        get
-        {
-            return m_Rigidbody;
-        }
-    }
+
 
     private bool m_IsRolling;
     public bool IsRolling
@@ -88,50 +90,14 @@ public class Player : MonoBehaviour
     {
         m_Rigidbody = GetComponent<Rigidbody>();
         m_PlayerState = new IdleState();
+        m_AttackCollider = transform.GetChild(1).gameObject;
         m_Speed = 10.0f;
     }
 
     void Update()
     {
-
         Debug.Log($"State Pattern Debug : Current State : {m_PlayerState}");
-
         m_PlayerState.Action(this);
-        //CheckDirection();
-
-    }
-
-    private void CheckDirection()
-    {
-        if (0 < m_Position.y)
-        {
-            if (m_Position.x != 0)
-            {
-                m_direction = Direction.UP_DIAGONAL;
-            }
-            else
-            {
-                m_direction = Direction.UP;
-            }
-        }
-        else if (m_Position.y < 0)
-        {
-            if (m_Position.x != 0)
-            {
-                m_direction = Direction.DOWN_DIAGONAL;
-            }
-            else
-            {
-                m_direction = Direction.DOWN;
-            }
-        }
-        else
-        {
-            if (m_Position.x != 0)
-            {
-                m_direction = Direction.HORIZONTAL;
-            }
-        }
     }
 
     private void FixedUpdate()

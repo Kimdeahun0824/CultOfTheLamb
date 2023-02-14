@@ -1,0 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public static partial class ConvenienceFunc
+{
+    public static GameObject FindRootObject(string objName)
+    {
+        return null;
+    }
+    public static GameObject FindObject(this GameObject obj_, string objName)
+    {
+
+        return null;
+    }
+    public static GameObject FindObject(this GameObject obj_, int objIdx)
+    {
+        return null;
+    }
+}

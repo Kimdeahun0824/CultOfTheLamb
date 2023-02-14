@@ -132,26 +132,26 @@ public class MoveState : IPlayerState
 
     public void SetAnimation(PlayerAnimationController playerAnimationController, Direction direction)
     {
-        switch (direction)
-        {
-            case Direction.UP:
-                playerAnimationController.nextAnimation = playerAnimationController.run_up;
-                break;
-            case Direction.UP_DIAGONAL:
-                playerAnimationController.nextAnimation = playerAnimationController.run_up_diagonal;
-                break;
-            case Direction.DOWN:
-                playerAnimationController.nextAnimation = playerAnimationController.run_down;
-                break;
-            case Direction.DOWN_DIAGONAL:
-                playerAnimationController.nextAnimation = playerAnimationController.run;
-                break;
-            case Direction.HORIZONTAL:
-                playerAnimationController.nextAnimation = playerAnimationController.run_horizontal;
-                break;
-            default:
-                break;
-        }
+        // switch (direction)
+        // {
+        //     case Direction.UP:
+        //         playerAnimationController.nextAnimation = playerAnimationController.run_up;
+        //         break;
+        //     case Direction.UP_DIAGONAL:
+        //         playerAnimationController.nextAnimation = playerAnimationController.run_up_diagonal;
+        //         break;
+        //     case Direction.DOWN:
+        //         playerAnimationController.nextAnimation = playerAnimationController.run_down;
+        //         break;
+        //     case Direction.DOWN_DIAGONAL:
+        //         playerAnimationController.nextAnimation = playerAnimationController.run;
+        //         break;
+        //     case Direction.HORIZONTAL:
+        //         playerAnimationController.nextAnimation = playerAnimationController.run_horizontal;
+        //         break;
+        //     default:
+        //         break;
+        // }
 
 
     }
@@ -189,32 +189,31 @@ public class RollingState : IPlayerState
     IEnumerator Rolling(Player player)
     {
         player.IsRolling = true;
-        player.Speed *= 2.0f;
-        yield return new WaitForSeconds(0.5f);
         player.Speed *= 0.5f;
+        yield return new WaitForSeconds(0.5f);
+        player.Speed *= 2f;
         player.IsRolling = false;
         player.SetState(new IdleState());
-
     }
 
     public void SetAnimation(PlayerAnimationController playerAnimationController, Direction direction)
     {
-        switch (direction)
-        {
-            case Direction.HORIZONTAL:
-                playerAnimationController.nextAnimation = playerAnimationController.roll;
-                break;
-            case Direction.UP:
-            case Direction.UP_DIAGONAL:
-                playerAnimationController.nextAnimation = playerAnimationController.roll_up;
-                break;
-            case Direction.DOWN:
-            case Direction.DOWN_DIAGONAL:
-                playerAnimationController.nextAnimation = playerAnimationController.roll_down;
-                break;
-            default:
-                break;
-        }
+        // switch (direction)
+        // {
+        //     case Direction.HORIZONTAL:
+        //         playerAnimationController.nextAnimation = playerAnimationController.roll;
+        //         break;
+        //     case Direction.UP:
+        //     case Direction.UP_DIAGONAL:
+        //         playerAnimationController.nextAnimation = playerAnimationController.roll_up;
+        //         break;
+        //     case Direction.DOWN:
+        //     case Direction.DOWN_DIAGONAL:
+        //         playerAnimationController.nextAnimation = playerAnimationController.roll_down;
+        //         break;
+        //     default:
+        //         break;
+        // }
 
     }
 }
