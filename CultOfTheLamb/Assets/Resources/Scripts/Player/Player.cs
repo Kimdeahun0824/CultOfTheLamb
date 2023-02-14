@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
         m_PlayerState = new IdleState();
         m_AttackCollider = transform.GetChild(1).gameObject;
-        m_Speed = 10.0f;
+        m_Speed = 500.0f;
     }
 
     void Update()
@@ -107,7 +107,8 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        m_Rigidbody.MovePosition(transform.position + m_Position * Speed * Time.deltaTime);
+        //m_Rigidbody.MovePosition(transform.localPosition + m_Position * Speed * Time.deltaTime);
+        m_Rigidbody.velocity = m_Position * Speed * Time.deltaTime;
     }
 
     public void Hit()
