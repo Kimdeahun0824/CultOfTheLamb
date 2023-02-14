@@ -463,9 +463,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 522263837}
-  - component: {fileID: 522263836}
   - component: {fileID: 522263835}
   - component: {fileID: 522263834}
+  - component: {fileID: 522263836}
+  - component: {fileID: 522263838}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -514,6 +515,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6ec52a2f435674eb497ddaa5320d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Speed: 0
+  RollingAnimation: roll
 --- !u!4 &522263837
 Transform:
   m_ObjectHideFlags: 0
@@ -531,6 +534,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &522263838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522263833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c54657fc0e0924cbd70392b8f0907e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonAnimation: {fileID: 1910915266}
+  idle: {fileID: 11400000, guid: 1a07618ef770d3244a4050029c00cdb1, type: 2}
+  idle_up: {fileID: 11400000, guid: ab5c9814ab5fe5a478e48adaea3f8fd1, type: 2}
+  run: {fileID: 11400000, guid: a06312564e63c014393c2b2fa3d3bdd0, type: 2}
+  run_down: {fileID: 11400000, guid: acbcdb9a9ce90b2468c7a81e11113400, type: 2}
+  run_horizontal: {fileID: 11400000, guid: 742c529ce3121f2428661bd8d4a654fc, type: 2}
+  run_up: {fileID: 11400000, guid: 8c808803e47323c4f926733d9315614c, type: 2}
+  run_up_diagonal: {fileID: 11400000, guid: c37b2373ad67d8549957915d190bc65a, type: 2}
+  roll: {fileID: 11400000, guid: 2eec555c545e3304cb1507d695e9daca, type: 2}
+  roll_up: {fileID: 11400000, guid: ee23dc94bc477384b976d8be745174d0, type: 2}
+  roll_down: {fileID: 11400000, guid: 3cde1a74519041342b8b887fc21f0ac2, type: 2}
+  attack_combo_1: {fileID: 11400000, guid: a31b2546a7fad4c46b1dff3279623007, type: 2}
+  attack_combo_2: {fileID: 11400000, guid: a42a4cb83a3ffb546be78387da779578, type: 2}
+  attack_combo_3: {fileID: 11400000, guid: 2c7edeaf90fafef4eab102a039017f79, type: 2}
+  knockback: {fileID: 11400000, guid: 4cb41bc413dbce84fb335e8ae6b690cf, type: 2}
+  die: {fileID: 11400000, guid: b0b6071eb4a9c084c82f382818d351bc, type: 2}
 --- !u!1 &647503774
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,7 +761,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: idle
+  _animationName: attack-combo1
   loop: 1
   timeScale: 1
 --- !u!23 &1910915267

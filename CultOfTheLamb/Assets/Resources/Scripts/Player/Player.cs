@@ -6,12 +6,21 @@ using Spine.Unity;
 public class Player : MonoBehaviour
 {
     private IPlayerState m_PlayerState = default;
+    public void SetState(IPlayerState state)
+    {
+        m_PlayerState = state;
+    }
+
+    public IPlayerState GetState()
+    {
+        return m_PlayerState;
+    }
+
     private Vector3 m_Position = default;
     public void SetPosition(Vector3 pos)
     {
         m_Position = pos;
     }
-    private Quaternion m_Quaternion = default;
 
     private int m_MaxHp = default;
     private int m_CurrentHp = default;
@@ -23,7 +32,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private float m_Speed = default;
+    public float m_Speed = default;
     public float Speed
     {
         get
@@ -47,19 +56,23 @@ public class Player : MonoBehaviour
         }
     }
 
-    private SpineAnimation m_SpineAnimation = default;
-
     private bool m_IsRolling;
-    public void SetIsRolling(bool IsRolling)
+    public bool IsRolling
     {
-
+        get
+        {
+            return m_IsRolling;
+        }
+        set
+        {
+            m_IsRolling = value;
+        }
     }
 
-    public void SetState(IPlayerState state)
-    {
-        m_PlayerState = state;
-        //myPlayerState.Action(this);
-    }
+    public direction m_direction;
+
+
+
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -69,13 +82,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // if (Input.GetMouseButtonDown(0))
-        // {
-        //     Hit();
-        // }
+
         Debug.Log($"State Pattern Debug : Current State : {m_PlayerState}");
         m_PlayerState.Action(this);
         // KeyInput();
+
+    }
+
+    private void CheckDirection()
+    {
 
     }
 
@@ -99,4 +114,13 @@ public class Player : MonoBehaviour
         m_PlayerState.Hit(this);
     }
 
+    public void StateStartCoroutine(IEnumerator coroutineMethod)
+    {
+        StartCoroutine(coroutineMethod);
+    }
+
+    public enum direction
+    {
+        NONE, LEFT_TOP, TOP, RIGHT_TOP, RIGHT, RIGHT_DOWN, DOWN, LEFT_DOWN, LEFT,
+    }
 }
