@@ -25,3 +25,6 @@
 ###         - 2. StartCoroutine() 함수는 MonoBehaviour를 상속을 받아야만 실행이 가능함
 ###         - 3. 해당 동작을 구현하기 위해서 StartCoroutine 클래스를 Player클래스에서 구현 혹은 Coroutine 함수를 실행하는 Handler Class를 싱글톤 패턴으로 구현하여서 
 ###             Coroutine함수를 실행하게끔 구현하면 해결될 것으로 보임
+
+## 오후 2:36 2023-02-15
+## Enemy의 이동을 구현하기 위한 A* 알고리즘 R&D, 관련 지식으로 ManhattanDistance Algorithm학습

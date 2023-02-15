@@ -43,8 +43,8 @@ public class Player : MonoBehaviour
             return m_CurrentHp;
         }
     }
-
-    public float m_Speed = default;
+    public float m_Default_Speed = 500f;
+    private float m_Speed = default;
     public float Speed
     {
         get
@@ -57,10 +57,35 @@ public class Player : MonoBehaviour
         }
     }
 
+    private float m_Damage = default;
+    public float Damage
+    {
+        get
+        {
+            return m_Damage;
+        }
+        private set
+        {
+            m_Damage = value;
+        }
+    }
+
     private float m_ActionDelay = default;
 
     private Rigidbody m_Rigidbody = default;
 
+    private bool m_IsAttack;
+    public bool IsAttack
+    {
+        get
+        {
+            return m_IsAttack;
+        }
+        set
+        {
+            m_IsAttack = value;
+        }
+    }
 
     private bool m_IsRolling;
     public bool IsRolling
@@ -91,6 +116,7 @@ public class Player : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
         m_PlayerState = new IdleState();
         m_AttackCollider = transform.GetChild(1).gameObject;
+        m_AttackCollider.SetActive(false);
         m_Speed = 500.0f;
     }
 
@@ -120,6 +146,4 @@ public class Player : MonoBehaviour
     {
         StartCoroutine(coroutineMethod);
     }
-
-
 }

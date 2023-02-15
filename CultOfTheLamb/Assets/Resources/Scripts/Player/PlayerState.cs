@@ -71,13 +71,17 @@ public class MoveState : IPlayerState
 {
     public void Action(Player player)
     {
-        if (Input.GetAxisRaw("Horizontal").Equals(0) && Input.GetAxisRaw("Vertical").Equals(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            player.SetState(new IdleState());
+            player.SetState(new AttackState());
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
             player.SetState(new RollingState());
+        }
+        else if (Input.GetAxisRaw("Horizontal").Equals(0) && Input.GetAxisRaw("Vertical").Equals(0))
+        {
+            player.SetState(new IdleState());
         }
         else
         {
@@ -222,7 +226,15 @@ public class AttackState : IPlayerState
 {
     public void Action(Player player)
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            player.Speed = player.m_Default_Speed;
+            player.SetState(new RollingState());
+        }
+        if (!player.IsAttack)
+        {
+            player.StartCoroutine(ComboAttack(player));
+        }
     }
 
     public void Hit(Player player)
@@ -240,15 +252,35 @@ public class AttackState : IPlayerState
         player.SetState(new GetObjectState());
     }
 
-    IEnumerator ComboAttack()
+    IEnumerator ComboAttack(Player player)
     {
-
+        // 마우스 클릭이 되었을 때 해당 방향으로 전진하며 공격
+        // 방향키를 입력하면 해당 방향으로 전진하며 공격
+        player.AttackColloder.SetActive(true);
+        player.IsAttack = true;
+        player.Speed = 0;
         yield return new WaitForSeconds(0.5f);
+        player.AttackColloder.SetActive(false);
+        player.IsAttack = false;
+        player.Speed = player.m_Default_Speed;
+        player.SetState(new IdleState());
     }
 
     public void SetAnimation(PlayerAnimationController playerAnimationController, Direction direction)
     {
-        throw new System.NotImplementedException();
+        switch (direction)
+        {
+            case Direction.UP:
+            case Direction.UP_DIAGONAL:
+            case Direction.DOWN:
+            case Direction.DOWN_DIAGONAL:
+            case Direction.HORIZONTAL:
+                playerAnimationController.nextAnimation = playerAnimationController.attack_combo_1;
+                break;
+            default:
+                break;
+
+        }
     }
 }
 
