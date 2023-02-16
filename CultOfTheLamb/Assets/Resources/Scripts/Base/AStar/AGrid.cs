@@ -10,7 +10,7 @@ public class AGrid : MonoBehaviour
     float nodeDiameter = default;
     int gridSizeX = default;
     int gridSizeY = default;
-
+    public List<AStarNode> path;
     void Start()
     {
         nodeDiameter = nodeRadius * 2;
@@ -30,13 +30,13 @@ public class AGrid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++)
             {
                 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-                bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
+                //bool walkable = !(Physics.CheckBox());
+                //Vector3 middlePoint = new Vector3()
+                bool walkable = !Physics.CheckBox(worldPoint, new Vector3(nodeRadius * 0.5f, nodeRadius * 0.5f, nodeRadius * 0.5f), Quaternion.identity, unwalkableMask);
                 grid[x, y] = new AStarNode(walkable, worldPoint, x, y);
             }
         }
     }
-
-
 
     // 입력 노드에 이웃 노드(8방면)을 찾는 함수
     public List<AStarNode> GetNeighborNode(AStarNode node)
@@ -84,6 +84,16 @@ public class AGrid : MonoBehaviour
             foreach (var node in grid)
             {
                 Gizmos.color = (node.isWalkAvailable) ? Color.white : Color.red;
+                if (path != null)
+                {
+                    if (path.Contains(node))
+                    {
+                        if (path.Contains(node))
+                        {
+                            Gizmos.color = Color.black;
+                        }
+                    }
+                }
                 Gizmos.DrawCube(node.pos, Vector3.one * (nodeDiameter - .1f));
             }
         }

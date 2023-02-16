@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public IEnemyState m_EnemyState = default;
+    protected IEnemyState enemyState = default;
+    public GameObject player = default;
     public float speed;
     public float damage;
     public float maxHp;

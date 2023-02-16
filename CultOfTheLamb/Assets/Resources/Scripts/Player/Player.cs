@@ -100,6 +100,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    private bool m_IsHit;
+    public bool IsHit
+    {
+        get
+        {
+            return m_IsHit;
+        }
+        set
+        {
+            m_IsHit = value;
+        }
+    }
+
     private Direction m_direction;
     public void SetDirection(Direction direction)
     {
@@ -145,5 +158,13 @@ public class Player : MonoBehaviour
     public void StateStartCoroutine(IEnumerator coroutineMethod)
     {
         StartCoroutine(coroutineMethod);
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "EnemyWeapon")
+        {
+            Hit();
+        }
     }
 }

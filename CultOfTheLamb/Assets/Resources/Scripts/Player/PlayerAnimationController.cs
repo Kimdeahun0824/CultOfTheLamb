@@ -26,6 +26,7 @@ public class PlayerAnimationController : MonoBehaviour
         previousPlayerState = player.GetState();
         previousDirection = player.GetDirection();
         nextAnimation = idle;
+        PlayNewStableAnimation();
     }
 
     void Update()

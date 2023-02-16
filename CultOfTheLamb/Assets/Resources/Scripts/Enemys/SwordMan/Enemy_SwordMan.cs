@@ -1,8 +1,12 @@
+using UnityEngine;
 public class Enemy_SwordMan : Enemy
 {
+    public GameObject attackCollider = default;
     private void Start()
     {
-
+        player = GameObject.Find("Player");
+        enemyState = new EnemyDieState();
+        currentHp = maxHp;
     }
 
     private void Update()

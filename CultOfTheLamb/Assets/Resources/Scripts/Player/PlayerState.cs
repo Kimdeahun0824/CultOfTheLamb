@@ -195,7 +195,7 @@ public class RollingState : IPlayerState
         player.IsRolling = true;
         player.Speed *= 2f;
         yield return new WaitForSeconds(0.3f);
-        player.Speed *= 0.5f;
+        player.Speed = player.m_Default_Speed;
         player.IsRolling = false;
         player.SetState(new IdleState());
     }
@@ -230,6 +230,7 @@ public class AttackState : IPlayerState
         {
             player.Speed = player.m_Default_Speed;
             player.SetState(new RollingState());
+            //player.StopCoroutine(Rolling)
         }
         if (!player.IsAttack)
         {
@@ -316,7 +317,10 @@ public class HitState : IPlayerState
 {
     public void Action(Player player)
     {
-
+        if (!player.IsHit)
+        {
+            player.StartCoroutine(playerHit(player));
+        }
     }
 
     public void Hit(Player player)
@@ -334,9 +338,16 @@ public class HitState : IPlayerState
         player.SetState(new GetObjectState());
     }
 
+    IEnumerator playerHit(Player player)
+    {
+        player.IsHit = true;
+        yield return new WaitForSeconds(0.5f);
+        player.IsHit = false;
+        player.SetState(new IdleState());
+    }
     public void SetAnimation(PlayerAnimationController playerAnimationController, Direction direction)
     {
-        throw new System.NotImplementedException();
+        playerAnimationController.nextAnimation = playerAnimationController.knockback;
     }
 }
 
