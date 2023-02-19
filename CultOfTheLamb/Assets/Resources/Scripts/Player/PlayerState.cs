@@ -8,7 +8,6 @@ public interface IPlayerState
 {
     public void Action(Player player);
     public void Hit(Player player);
-    public void Die(Player player);
     public void GetObject(Player player);
     public void SetAnimation(PlayerAnimationController playerAnimationController, Direction direction);
 }
@@ -39,10 +38,6 @@ public class IdleState : IPlayerState
     public void Hit(Player player)
     {
         player.SetState(new HitState());
-    }
-    public void Die(Player player)
-    {
-        player.SetState(new DieState());
     }
 
     public void GetObject(Player player)
@@ -116,19 +111,12 @@ public class MoveState : IPlayerState
                     player.SetDirection(Direction.HORIZONTAL);
                 }
             }
-            Debug.Log($"Player Direction Debug : {player.GetDirection()}");
         }
     }
     public void Hit(Player player)
     {
         player.SetState(new HitState());
     }
-
-    public void Die(Player player)
-    {
-        player.SetState(new DieState());
-    }
-
     public void GetObject(Player player)
     {
         player.SetState(new GetObjectState());
@@ -179,12 +167,6 @@ public class RollingState : IPlayerState
     {
         player.SetState(new HitState());
     }
-
-    public void Die(Player player)
-    {
-        player.SetState(new DieState());
-    }
-
     public void GetObject(Player player)
     {
         player.SetState(new GetObjectState());
@@ -243,11 +225,6 @@ public class AttackState : IPlayerState
         player.SetState(new HitState());
     }
 
-    public void Die(Player player)
-    {
-        player.SetState(new DieState());
-    }
-
     public void GetObject(Player player)
     {
         player.SetState(new GetObjectState());
@@ -296,12 +273,6 @@ public class ChargeState : IPlayerState
     {
         player.SetState(new HitState());
     }
-
-    public void Die(Player player)
-    {
-        player.SetState(new DieState());
-    }
-
     public void GetObject(Player player)
     {
         player.SetState(new GetObjectState());
@@ -327,12 +298,6 @@ public class HitState : IPlayerState
     {
         player.SetState(new HitState());
     }
-
-    public void Die(Player player)
-    {
-        player.SetState(new DieState());
-    }
-
     public void GetObject(Player player)
     {
         player.SetState(new GetObjectState());
@@ -362,12 +327,6 @@ public class DieState : IPlayerState
     {
         player.SetState(new HitState());
     }
-
-    public void Die(Player player)
-    {
-        player.SetState(new DieState());
-    }
-
     public void GetObject(Player player)
     {
         player.SetState(new GetObjectState());
@@ -393,12 +352,6 @@ public class GetObjectState : IPlayerState
     {
         player.SetState(new HitState());
     }
-
-    public void Die(Player player)
-    {
-        player.SetState(new DieState());
-    }
-
     public void GetObject(Player player)
     {
         player.SetState(new GetObjectState());

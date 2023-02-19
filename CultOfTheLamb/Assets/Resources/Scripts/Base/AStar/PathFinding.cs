@@ -7,9 +7,6 @@ public class PathFinding : MonoBehaviour
 {
     AGrid grid;
 
-    public Transform startObject;
-    public Transform targetObject;
-
     private void Awake()
     {
         grid = GameObject.Find("AStarManager").GetComponent<AGrid>();
@@ -17,6 +14,7 @@ public class PathFinding : MonoBehaviour
 
     public void StartFindPath(Vector3 startPos, Vector3 targetPos)
     {
+        Debug.Log($"StartFindPath");
         StartCoroutine(FindPath(startPos, targetPos));
     }
 
@@ -27,7 +25,6 @@ public class PathFinding : MonoBehaviour
 
         AStarNode startNode = grid.GetNodeFromWorldPoint(startPos);
         AStarNode targetNode = grid.GetNodeFromWorldPoint(targetPos);
-
 
         if (startNode.isWalkAvailable && targetNode.isWalkAvailable)
         {

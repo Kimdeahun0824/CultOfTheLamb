@@ -135,7 +135,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Debug.Log($"State Pattern Debug : Current State : {m_PlayerState}");
         m_PlayerState.Action(this);
     }
 

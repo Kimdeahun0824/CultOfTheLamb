@@ -18,11 +18,18 @@ public class AStarPathRequestManager : SingletonBase<AStarPathRequestManager>
 
     public void RequestPath(Vector3 pathStart, Vector3 pathEnd, UnityAction<Vector3[], bool> callback)
     {
+        Debug.Log($"RequestPath");
         PathRequest newRequest = new PathRequest(pathStart, pathEnd, callback);
         pathRequestsQueue.Enqueue(newRequest);
-
+        TryProcessNext();
     }
 
+    public void FinishedProcessingPath(Vector3[] path, bool success)
+    {
+        currentPathRequest.callback(path, success);
+        isProcessingPath = false;
+        TryProcessNext();
+    }
     public void TryProcessNext()
     {
         if (!isProcessingPath && 0 < pathRequestsQueue.Count)
@@ -31,13 +38,6 @@ public class AStarPathRequestManager : SingletonBase<AStarPathRequestManager>
             isProcessingPath = true;
             pathFinding.StartFindPath(currentPathRequest.pathStart, currentPathRequest.pathEnd);
         }
-    }
-
-    public void FinishedProcessingPath(Vector3[] path, bool success)
-    {
-        currentPathRequest.callback(path, success);
-        isProcessingPath = false;
-        TryProcessNext();
     }
 
 

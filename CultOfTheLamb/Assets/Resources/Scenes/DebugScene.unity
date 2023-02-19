@@ -396,8 +396,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 9.000008, z: -9.999999}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalPosition: {x: 0, y: 20, z: -20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 522263837}
@@ -623,6 +623,8 @@ GameObject:
   m_Component:
   - component: {fileID: 428568313}
   - component: {fileID: 428568312}
+  - component: {fileID: 428568314}
+  - component: {fileID: 428568315}
   m_Layer: 0
   m_Name: AStarManager
   m_TagString: Untagged
@@ -662,6 +664,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &428568314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428568311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec0c4e4065fdb84cadf72287ce2b9f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &428568315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428568311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b759f9d1ed8174a8d64946beb5efe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &522263833
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,7 +853,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645112025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -20}
+  m_LocalPosition: {x: -36.77, y: 0, z: -2.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -848,13 +874,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171cd1d4336ef804ea14fd19eaae6eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  enemyType: 0
+  attackCollider: {fileID: 1929448209}
+  player: {fileID: 522263833}
   speed: 10
   damage: 10
   maxHp: 10
   currentHp: 0
   isDie: 0
-  attackCollider: {fileID: 1929448209}
+  isHit: 0
+  isAttack: 0
+  enemyAnimationController: {fileID: 0}
+  currentWayPoint: {x: 0, y: 0, z: 0}
+  currentPlayerPos: {x: 0, y: 0, z: 0}
+  attackDistance: 10
+  distance: 0
 --- !u!114 &645112030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -864,11 +898,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 645112025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49b759f9d1ed8174a8d64946beb5efe0, type: 3}
+  m_Script: {fileID: 11500000, guid: a7d50822cee01784986ba9178a588e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startObject: {fileID: 645112028}
-  targetObject: {fileID: 522263837}
+  skeletonAnimation: {fileID: 1450078188}
+  run: {fileID: 11400000, guid: 5a71476d2daefeb4fa767a237cb3076e, type: 2}
+  run_up: {fileID: 11400000, guid: e937f7b163d4268469648fd8f37937fc, type: 2}
+  attack_Charge: {fileID: 11400000, guid: 87d6dba35e7e7434da5c53007783e529, type: 2}
+  attack_impact: {fileID: 11400000, guid: 7e402729780521c408a054bd7126b7ca, type: 2}
+  archer_Attack_Charge: {fileID: 0}
+  archer_Attack_Impact: {fileID: 0}
+  knockback: {fileID: 0}
+  knockback_up: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

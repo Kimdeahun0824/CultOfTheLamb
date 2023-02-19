@@ -1,31 +1,21 @@
+
 using UnityEngine;
 public class Enemy_SwordMan : Enemy
 {
-    public GameObject attackCollider = default;
-    private void Start()
+    private new void Start()
     {
+        enemyType = EnemyType.SWORDMAN;
         player = GameObject.Find("Player");
-        enemyState = new EnemyDieState();
         currentHp = maxHp;
+
+        base.Start();
     }
 
-    private void Update()
+    private new void Update()
     {
+        base.Update();
+        //transform.position = Vector3.MoveTowards(transform.position, currentWayPoint, speed * Time.deltaTime);
 
-    }
-    protected override void Attack()
-    {
-        base.Attack();
-    }
-
-    protected override void Die()
-    {
-        base.Die();
-    }
-
-    protected override void Move()
-    {
-        base.Move();
     }
 
     public override void Hit(float damage)
