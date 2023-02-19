@@ -161,7 +161,7 @@ public class Player : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "EnemyWeapon")
+        if (other.tag == "EnemyWeapon" && !IsRolling && !IsHit)
         {
             Hit();
         }
