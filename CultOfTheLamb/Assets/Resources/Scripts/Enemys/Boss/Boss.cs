@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class Boss : Enemy
 {
+    public GameObject attackSpike;
 
 }

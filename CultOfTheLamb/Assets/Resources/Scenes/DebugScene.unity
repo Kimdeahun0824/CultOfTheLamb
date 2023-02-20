@@ -839,7 +839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &645112026
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1064,8 +1064,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 732955929}
-  - component: {fileID: 732955930}
+  - component: {fileID: 732955934}
   - component: {fileID: 732955931}
+  - component: {fileID: 732955932}
+  - component: {fileID: 732955933}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -1090,19 +1092,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &732955930
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732955928}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &732955931
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1119,6 +1108,68 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &732955932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732955928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe23ffb38bbc384e914e5799ac60210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 1
+  attackCollider: {fileID: 1831435008}
+  player: {fileID: 522263833}
+  speed: 10
+  damage: 10
+  maxHp: 500
+  currentHp: 0
+  isDie: 0
+  isHit: 0
+  isAttack: 0
+  enemyAnimationController: {fileID: 732955933}
+  currentWayPoint: {x: 0, y: 0, z: 0}
+  currentPlayerPos: {x: 0, y: 0, z: 0}
+  attackDistance: 0
+  distance: 0
+  attackSpike: {fileID: 0}
+--- !u!114 &732955933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732955928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7d50822cee01784986ba9178a588e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonAnimation: {fileID: 85959399}
+  run: {fileID: 0}
+  run_up: {fileID: 0}
+  attack_Charge: {fileID: 0}
+  attack_impact: {fileID: 0}
+  archer_Attack_Charge: {fileID: 0}
+  archer_Attack_Impact: {fileID: 0}
+  knockback: {fileID: 0}
+  knockback_up: {fileID: 0}
+--- !u!135 &732955934
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732955928}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &816873512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,7 +1215,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 5, y: 5, z: 5}
   m_Center: {x: 0, y: 0.5, z: 0.5}
 --- !u!4 &816873515
 Transform:
@@ -1460,7 +1511,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831435008}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 5
