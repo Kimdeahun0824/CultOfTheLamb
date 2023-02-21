@@ -5,10 +5,14 @@ using UnityEngine;
 public class SkeletonAnimationHandler : MonoBehaviour
 {
     public Spine.Animation TargetAnimation { get; private set; }
-
+    [Header("Spine")]
     public SkeletonAnimation skeletonAnimation;
     public List<StateNameToAnimationReference> statesAndAnimations = new List<StateNameToAnimationReference>();
     public List<AnimationTransition> transitions = new List<AnimationTransition>();
+    [Space(5)]
+
+    [SpineEvent]
+    public List<string> spineEvents;
 
     [System.Serializable]
     public class StateNameToAnimationReference
@@ -39,6 +43,7 @@ public class SkeletonAnimationHandler : MonoBehaviour
             entry.to.Initialize();
             entry.transition.Initialize();
         }
+
     }
 
     public void SetFlip(float horizontal)
@@ -176,5 +181,4 @@ public class SkeletonAnimationHandler : MonoBehaviour
     {
         return Animator.StringToHash(s);
     }
-
 }

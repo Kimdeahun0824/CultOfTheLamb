@@ -191,7 +191,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: intro
+  _animationName: idle
   loop: 1
   timeScale: 1
 --- !u!23 &85959400
@@ -340,7 +340,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &277086575
 GameObject:
@@ -9612,12 +9612,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 20, z: -20}
+  m_LocalPosition: {x: 0, y: 20, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 522263837}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -9695,7 +9695,7 @@ Transform:
   m_Children:
   - {fileID: 277086576}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &386077185
 GameObject:
@@ -9852,7 +9852,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
@@ -9923,7 +9923,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &428568314
 MonoBehaviour:
@@ -10025,9 +10025,8 @@ Transform:
   m_Children:
   - {fileID: 1910915269}
   - {fileID: 386077186}
-  - {fileID: 330585546}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &522263838
 MonoBehaviour:
@@ -10121,7 +10120,7 @@ Transform:
   - {fileID: 1450078187}
   - {fileID: 1929448210}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &645112029
 MonoBehaviour:
@@ -10304,8 +10303,8 @@ GameObject:
   - component: {fileID: 732955929}
   - component: {fileID: 732955934}
   - component: {fileID: 732955931}
-  - component: {fileID: 732955932}
   - component: {fileID: 732955935}
+  - component: {fileID: 732955936}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -10328,7 +10327,7 @@ Transform:
   - {fileID: 85959398}
   - {fileID: 1831435009}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &732955931
 Rigidbody:
@@ -10346,20 +10345,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &732955932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732955928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fe23ffb38bbc384e914e5799ac60210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyType: 0
-  attackSpike: {fileID: 0}
 --- !u!135 &732955934
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10382,6 +10367,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 732955928}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe23ffb38bbc384e914e5799ac60210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 0
+  skeletonAnimationHandler: {fileID: 0}
+  maxHp: 1000
+  currentHp: 1000
+  damage: 10
+  attackSpike: {fileID: 0}
+--- !u!114 &732955936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732955928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87cc7697ea1185b46ad0c9d859dc156b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -10389,9 +10392,28 @@ MonoBehaviour:
   statesAndAnimations:
   - stateName: Intro
     animation: {fileID: 11400000, guid: d395a30399482144fb680c0c7d805c29, type: 2}
-  - stateName: Intro
-    animation: {fileID: 11400000, guid: d395a30399482144fb680c0c7d805c29, type: 2}
+  - stateName: Idle
+    animation: {fileID: 11400000, guid: 062d354e6b0807141990a94af8fee628, type: 2}
+  - stateName: Hurt
+    animation: {fileID: 11400000, guid: 1d7c8555e44b9044b999cbab03d416a7, type: 2}
+  - stateName: Move_Out
+    animation: {fileID: 11400000, guid: 3c7b4301f95eb2146844054511d1e343, type: 2}
+  - stateName: Move_In
+    animation: {fileID: 11400000, guid: c510883a447294a43b37476a354c05a9, type: 2}
+  - stateName: Head_Smash
+    animation: {fileID: 11400000, guid: 0a3225a9874c5ee48bd55f1ff056bee4, type: 2}
+  - stateName: Trunk_Strike
+    animation: {fileID: 11400000, guid: b88701dc033faed49aed75bd47e0b97e, type: 2}
+  - stateName: DIe
+    animation: {fileID: 11400000, guid: 0765e5956464d9740922df685158c1f4, type: 2}
+  - stateName: Dead
+    animation: {fileID: 11400000, guid: 2788db6771715464bbf63cee4c383a74, type: 2}
   transitions: []
+  spineEvents:
+  - roar
+  - pushThroughGround
+  - spikeAttack
+  - diveDown
 --- !u!1 &816873512
 GameObject:
   m_ObjectHideFlags: 0
@@ -10403,13 +10425,14 @@ GameObject:
   - component: {fileID: 816873515}
   - component: {fileID: 816873514}
   - component: {fileID: 816873513}
+  - component: {fileID: 816873516}
   m_Layer: 0
   m_Name: Spike
   m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &816873513
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10447,14 +10470,30 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 816873512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 680450109}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &816873516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816873512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cc7697ea1185b46ad0c9d859dc156b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonAnimation: {fileID: 680450106}
+  statesAndAnimations: []
+  transitions: []
+  spineEvents: []
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -10502,7 +10541,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1379205667
 GameObject:
@@ -10570,7 +10609,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1450078186
 GameObject:
