@@ -15,7 +15,7 @@ public class tempEnemy : MonoBehaviour
         switch (enemyType)
         {
             case tempEnemyType.FORESTWORM:
-
+                enemyStateMachine.SetState(new ForestWormIntroState());
                 break;
         }
     }
