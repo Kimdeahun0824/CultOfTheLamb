@@ -20,7 +20,6 @@ public class Enemy : MonoBehaviour
     public bool isAttack = default;
     #endregion
 
-    public EnemyAnimationController enemyAnimationController = default;
     Vector3[] path;
     int targetIndex;
     public Vector3 currentWayPoint = default;
@@ -28,10 +27,13 @@ public class Enemy : MonoBehaviour
 
     public float attackDistance = default;
     public float distance = default;
+
+    [Header("Spine")]
+    public EnemyAnimationController enemyAnimationController = default;
+
     public void Start()
     {
         currentState = new EnemyPatrolState(this);
-        //attackCollider = transform.GetChild(1).GetComponent<GameObject>();
         attackCollider.SetActive(false);
         Debug.Log($"attackCollider Check : {attackCollider}");
         enemyAnimationController = GetComponent<EnemyAnimationController>();

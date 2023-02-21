@@ -6,10 +6,10 @@ public enum EnemyDirection
 {
     UP, DOWN
 }
-
+#region LegacyCode
 public enum EnemyType
 {
-    ARCHER, SWORDMAN
+    ARCHER, SWORDMAN, FORESTWORM_BOSS
 }
 
 public abstract class EnemyState
@@ -20,10 +20,12 @@ public abstract class EnemyState
     {
         this.enemy = enemy_;
     }
-    public abstract void UpdateState();      // 상태의 전환 조건을 체크
-    public abstract void Action();           // 각 상태에 따른 행동을 구현
-    public abstract void Hit();              // 타격되었을때 상태 전환
-    public abstract void UpdateAni();        // 각 상태에 따른 애니를 전환
+    public virtual void OnStateEnter() { }
+    public virtual void OnStateExit() { }
+    public virtual void Action() { }
+    public virtual void UpdateState() { }      // 상태의 전환 조건을 체크
+    public virtual void Hit() { }              // 타격되었을때 상태 전환
+    public virtual void UpdateAni() { }        // 각 상태에 따른 애니를 전환
 }
 
 public class EnemyPatrolState : EnemyState
@@ -172,5 +174,5 @@ public class EnemyHitState : EnemyState
         yield return new WaitForSeconds(1f);
         enemy.isHit = false;
     }
-
 }
+#endregion

@@ -306,8 +306,10 @@ public class HitState : IPlayerState
     IEnumerator playerHit(Player player)
     {
         player.IsHit = true;
+        player.Speed *= -0.5f;
         yield return new WaitForSeconds(0.5f);
         player.IsHit = false;
+        player.Speed *= -2f;
         player.SetState(new IdleState());
     }
     public void SetAnimation(PlayerAnimationController playerAnimationController, Direction direction)
