@@ -10301,7 +10301,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 732955929}
-  - component: {fileID: 732955934}
+  - component: {fileID: 732955937}
   - component: {fileID: 732955931}
   - component: {fileID: 732955935}
   - component: {fileID: 732955936}
@@ -10311,7 +10311,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &732955929
 Transform:
   m_ObjectHideFlags: 0
@@ -10345,19 +10345,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &732955934
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732955928}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &732955935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10372,8 +10359,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   skeletonAnimationHandler: {fileID: 0}
-  maxHp: 1000
-  currentHp: 1000
+  maxHp: 20
+  currentHp: 0
   damage: 10
   attackSpike: {fileID: 0}
 --- !u!114 &732955936
@@ -10404,7 +10391,7 @@ MonoBehaviour:
     animation: {fileID: 11400000, guid: 0a3225a9874c5ee48bd55f1ff056bee4, type: 2}
   - stateName: Trunk_Strike
     animation: {fileID: 11400000, guid: b88701dc033faed49aed75bd47e0b97e, type: 2}
-  - stateName: DIe
+  - stateName: Die
     animation: {fileID: 11400000, guid: 0765e5956464d9740922df685158c1f4, type: 2}
   - stateName: Dead
     animation: {fileID: 11400000, guid: 2788db6771715464bbf63cee4c383a74, type: 2}
@@ -10414,6 +10401,19 @@ MonoBehaviour:
   - pushThroughGround
   - spikeAttack
   - diveDown
+--- !u!65 &732955937
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732955928}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8, y: 5, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &816873512
 GameObject:
   m_ObjectHideFlags: 0

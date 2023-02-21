@@ -131,6 +131,7 @@ public class Player : MonoBehaviour
         m_AttackCollider = transform.GetChild(1).gameObject;
         m_AttackCollider.SetActive(false);
         m_Speed = 500.0f;
+        Damage = 10f;
     }
 
     void Update()

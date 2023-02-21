@@ -4,6 +4,7 @@ using UnityEngine;
 using Spine.Unity;
 using Spine.Collections;
 using Spine;
+using State;
 
 public class ForestWormBoss : tempEnemy
 {
@@ -22,11 +23,6 @@ public class ForestWormBoss : tempEnemy
         skeletonAnimationHandler.skeletonAnimation.AnimationState.Start += HandleAnimationStateStartEvent;
         skeletonAnimationHandler.skeletonAnimation.AnimationState.End += HandleAnimationStateEndEvent;
         skeletonAnimationHandler.skeletonAnimation.AnimationState.Complete += HandleAnimationStateCompleteEvent;
-    }
-
-    IEnumerator Trunk_Strike()
-    {
-        yield return new WaitForSeconds(1f);
     }
 
     protected override void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e)
@@ -49,9 +45,11 @@ public class ForestWormBoss : tempEnemy
         {
             IsEndIntro = true;
         }
+        if (trackEntry.ToString() == "die")
+        {
+            IsDie = true;
+        }
         Debug.Log($"Event Complete Test : {trackEntry.ToString()}");
     }
-
-
 
 }

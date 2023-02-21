@@ -54,6 +54,36 @@ public class SkeletonAnimationHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 애니메이션 재생 함수
+    /// </summary>
+    /// <param name="stateName">실행하고자 하는 애니메이션 이름</param>
+    /// <param name="layerIndex">트랙/레이어 번호</param>
+    /// <param name="loop">반복 여부</param>
+    /// <param name="speed">애니메이션 재생 속도</param>
+    public void PlayAnimation(string stateName, int layerIndex, bool loop, float speed)
+    {
+        PlayAnimation(StringToHash(stateName), layerIndex, loop, speed);
+    }
+
+    /// <summary>
+    /// 애니메이션 재생 함수
+    /// </summary>
+    /// <param name="shortNameHash">실행하고자 하는 애니메이션 번호</param>
+    /// <param name="layerIndex">트랙/레이어 번호</param>
+    /// <param name="loop">반복 여부</param>
+    /// <param name="speed">애니메이션 재생 속도</param>
+    public void PlayAnimation(int shortNameHash, int layerIndex, bool loop, float speed)
+    {
+        var foundAnimation = GetAnimationForState(shortNameHash);
+        if (foundAnimation == null) return;
+
+        skeletonAnimation.state.SetAnimation(layerIndex, foundAnimation, loop).TimeScale = speed;
+
+    }
+
+
+
     public void PlayAnimationForState(string stateShortName, int layerIndex, bool oneshot, float speed)
     {
         PlayAnimationForState(StringToHash(stateShortName), layerIndex, oneshot, speed);

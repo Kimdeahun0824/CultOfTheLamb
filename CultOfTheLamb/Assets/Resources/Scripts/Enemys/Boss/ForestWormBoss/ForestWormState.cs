@@ -12,8 +12,7 @@ namespace State
 
         public override void OnEnter()
         {
-            //forestWormBoss.skeletonAnimationHandler.PlayAnimationForState("Intro", 0, true, 1f);
-            forestWormBoss.skeletonAnimationHandler.skeletonAnimation.state.SetAnimation(0, "intro2", false);
+            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Intro", 0, false, 1f);
             Debug.Log($"{this} state Enter");
         }
 
@@ -44,7 +43,7 @@ namespace State
 
         public override void OnEnter()
         {
-            forestWormBoss.skeletonAnimationHandler.PlayAnimationForState("Idle", 0, false, 1f);
+            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Idle", 0, true, 1f);
             Debug.Log($"{this} state Enter");
         }
 
@@ -61,55 +60,97 @@ namespace State
 
     public class ForestWormMoveState : State
     {
+        private ForestWormBoss forestWormBoss;
         public override void OnEnter()
         {
-            throw new System.NotImplementedException();
         }
 
         public override void OnExit()
         {
-            throw new System.NotImplementedException();
         }
 
         public override void UpdateState()
         {
-            throw new System.NotImplementedException();
         }
     }
 
     public class ForestWormHeadSmashState : State
     {
+        private ForestWormBoss forestWormBoss;
         public override void OnEnter()
         {
-            throw new System.NotImplementedException();
         }
 
         public override void OnExit()
         {
-            throw new System.NotImplementedException();
         }
 
         public override void UpdateState()
         {
-            throw new System.NotImplementedException();
         }
     }
 
     public class ForestWormTrunkStrikeState : State
     {
+        private ForestWormBoss forestWormBoss;
         public override void OnEnter()
         {
-            throw new System.NotImplementedException();
         }
 
         public override void OnExit()
         {
-            throw new System.NotImplementedException();
         }
 
         public override void UpdateState()
         {
-            throw new System.NotImplementedException();
+        }
+    }
+
+    public class ForestWormDieState : State
+    {
+        private ForestWormBoss forestWormBoss;
+        public ForestWormDieState(ForestWormBoss forestWormBoss_)
+        {
+            this.forestWormBoss = forestWormBoss_;
+        }
+
+        public override void OnEnter()
+        {
+            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Die", 0, false, 1f);
+        }
+
+        public override void OnExit()
+        {
+        }
+
+        public override void UpdateState()
+        {
+            if (forestWormBoss.IsDie)
+            {
+                forestWormBoss.enemyStateMachine.SetState(new ForestWormBossDeadState(forestWormBoss));
+            }
+        }
+    }
+
+    public class ForestWormBossDeadState : State
+    {
+        private ForestWormBoss forestWormBoss;
+        public ForestWormBossDeadState(ForestWormBoss forestWormBoss_)
+        {
+            this.forestWormBoss = forestWormBoss_;
+        }
+
+        public override void OnEnter()
+        {
+            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Dead", 0, true, 1f);
+        }
+
+        public override void OnExit()
+        {
+        }
+
+        public override void UpdateState()
+        {
         }
     }
 
