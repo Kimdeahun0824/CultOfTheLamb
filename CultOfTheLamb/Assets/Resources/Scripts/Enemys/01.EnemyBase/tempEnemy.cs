@@ -4,6 +4,7 @@ using UnityEngine;
 using State;
 using Spine;
 
+
 namespace State
 {
     public abstract class tempEnemy : MonoBehaviour
@@ -95,6 +96,24 @@ namespace State
                 TakeDamage(damage);
             }
             Debug.Log($"OnTriggerEnter : {other}");
+        }
+
+        public void HandleAnimationStateEventAdd(Spine.AnimationState.TrackEntryEventDelegate func)
+        {
+            skeletonAnimationHandler.skeletonAnimation.AnimationState.Event += func;
+        }
+
+        public void HandleAnimationStateStartEventAdd(Spine.AnimationState.TrackEntryDelegate func)
+        {
+            skeletonAnimationHandler.skeletonAnimation.AnimationState.Start += func;
+        }
+        public void HandleAnimationStateEndEventAdd(Spine.AnimationState.TrackEntryDelegate func)
+        {
+            skeletonAnimationHandler.skeletonAnimation.AnimationState.End += func;
+        }
+        public void HandleAnimationStateCompleteEventAdd(Spine.AnimationState.TrackEntryDelegate func)
+        {
+            skeletonAnimationHandler.skeletonAnimation.AnimationState.Complete += func;
         }
     }
 }

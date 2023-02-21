@@ -20,10 +20,14 @@ public class ForestWormBoss : tempEnemy
     protected new void Start()
     {
         base.Start();
-        skeletonAnimationHandler.skeletonAnimation.AnimationState.Event += HandleAnimationStateEvent;
-        skeletonAnimationHandler.skeletonAnimation.AnimationState.Start += HandleAnimationStateStartEvent;
-        skeletonAnimationHandler.skeletonAnimation.AnimationState.End += HandleAnimationStateEndEvent;
-        skeletonAnimationHandler.skeletonAnimation.AnimationState.Complete += HandleAnimationStateCompleteEvent;
+        EventAdd();
+    }
+    protected void EventAdd()
+    {
+        HandleAnimationStateEventAdd(HandleAnimationStateEvent);
+        HandleAnimationStateStartEventAdd(HandleAnimationStateStartEvent);
+        HandleAnimationStateEndEventAdd(HandleAnimationStateEndEvent);
+        HandleAnimationStateCompleteEventAdd(HandleAnimationStateCompleteEvent);
     }
 
     public void Move()
