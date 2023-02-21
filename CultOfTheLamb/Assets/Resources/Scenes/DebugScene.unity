@@ -10311,7 +10311,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &732955929
 Transform:
   m_ObjectHideFlags: 0
@@ -10425,6 +10425,7 @@ GameObject:
   - component: {fileID: 816873515}
   - component: {fileID: 816873514}
   - component: {fileID: 816873513}
+  - component: {fileID: 816873517}
   - component: {fileID: 816873516}
   m_Layer: 0
   m_Name: Spike
@@ -10432,7 +10433,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &816873513
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10457,10 +10458,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 816873512}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 5, z: 5}
+  m_Size: {x: 6, y: 5, z: 2}
   m_Center: {x: 0, y: 0.5, z: 0.5}
 --- !u!4 &816873515
 Transform:
@@ -10491,9 +10492,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonAnimation: {fileID: 680450106}
-  statesAndAnimations: []
+  statesAndAnimations:
+  - stateName: Tunneling
+    animation: {fileID: 11400000, guid: 6abf66594d342494e9454240d8c65900, type: 2}
   transitions: []
-  spineEvents: []
+  spineEvents:
+  - shoot
+--- !u!114 &816873517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816873512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c8698cbd5f6a4189aed859c903830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
