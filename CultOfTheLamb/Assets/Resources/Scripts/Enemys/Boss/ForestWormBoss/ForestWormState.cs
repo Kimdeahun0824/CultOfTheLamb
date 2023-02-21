@@ -54,8 +54,10 @@ namespace State
 
         public override void UpdateState()
         {
+
             Debug.Log($"{this} state Update");
         }
+
     }
 
     public class ForestWormMoveState : State
@@ -63,22 +65,35 @@ namespace State
         private ForestWormBoss forestWormBoss;
         public override void OnEnter()
         {
+            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Move_Out", 0, false, 1f);
         }
 
         public override void OnExit()
         {
+            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Move_In", 0, false, 1f);
         }
 
+        /// <summary>
+        /// MoveState UpdateState 움직임을 구현 할 예정
+        /// </summary>
         public override void UpdateState()
         {
+
         }
     }
 
     public class ForestWormHeadSmashState : State
     {
         private ForestWormBoss forestWormBoss;
+
+        public ForestWormHeadSmashState(ForestWormBoss forestWormBoss_)
+        {
+            this.forestWormBoss = forestWormBoss_;
+        }
+
         public override void OnEnter()
         {
+            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Head_Smash", 0, false, 1f);
         }
 
         public override void OnExit()
@@ -93,8 +108,15 @@ namespace State
     public class ForestWormTrunkStrikeState : State
     {
         private ForestWormBoss forestWormBoss;
+
+        public ForestWormTrunkStrikeState(ForestWormBoss forestWormBoss_)
+        {
+            this.forestWormBoss = forestWormBoss_;
+        }
+
         public override void OnEnter()
         {
+            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Trunk_Strike", 0, false, 1f);
         }
 
         public override void OnExit()
@@ -127,15 +149,15 @@ namespace State
         {
             if (forestWormBoss.IsDie)
             {
-                forestWormBoss.enemyStateMachine.SetState(new ForestWormBossDeadState(forestWormBoss));
+                forestWormBoss.enemyStateMachine.SetState(new ForestWormDeadState(forestWormBoss));
             }
         }
     }
 
-    public class ForestWormBossDeadState : State
+    public class ForestWormDeadState : State
     {
         private ForestWormBoss forestWormBoss;
-        public ForestWormBossDeadState(ForestWormBoss forestWormBoss_)
+        public ForestWormDeadState(ForestWormBoss forestWormBoss_)
         {
             this.forestWormBoss = forestWormBoss_;
         }

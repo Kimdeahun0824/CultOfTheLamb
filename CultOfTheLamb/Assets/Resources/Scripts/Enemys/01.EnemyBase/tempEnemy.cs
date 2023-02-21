@@ -6,7 +6,7 @@ using Spine;
 
 namespace State
 {
-    public class tempEnemy : MonoBehaviour
+    public abstract class tempEnemy : MonoBehaviour
     {
         public tempEnemyType enemyType;
         public tempEnemyStateMachine enemyStateMachine;
@@ -77,25 +77,15 @@ namespace State
 
         }
 
-        protected virtual void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e)
-        {
+        protected abstract void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e);
 
-        }
+        protected abstract void HandleAnimationStateStartEvent(TrackEntry trackEntry);
 
-        protected virtual void HandleAnimationStateStartEvent(TrackEntry trackEntry)
-        {
+        protected abstract void HandleAnimationStateEndEvent(TrackEntry trackEntry);
 
-        }
 
-        protected virtual void HandleAnimationStateEndEvent(TrackEntry trackEntry)
-        {
+        protected abstract void HandleAnimationStateCompleteEvent(TrackEntry trackEntry);
 
-        }
-
-        protected virtual void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
-        {
-
-        }
 
         protected void OnTriggerEnter(Collider other)
         {

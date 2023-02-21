@@ -10,6 +10,7 @@ public class ForestWormBoss : tempEnemy
 {
     public GameObject attackSpike;
     private bool m_IsEndIntro = default;
+
     public bool IsEndIntro
     {
         get;
@@ -23,6 +24,11 @@ public class ForestWormBoss : tempEnemy
         skeletonAnimationHandler.skeletonAnimation.AnimationState.Start += HandleAnimationStateStartEvent;
         skeletonAnimationHandler.skeletonAnimation.AnimationState.End += HandleAnimationStateEndEvent;
         skeletonAnimationHandler.skeletonAnimation.AnimationState.Complete += HandleAnimationStateCompleteEvent;
+    }
+
+    public void Move()
+    {
+
     }
 
     protected override void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e)
@@ -48,6 +54,21 @@ public class ForestWormBoss : tempEnemy
         if (trackEntry.ToString() == "die")
         {
             IsDie = true;
+        }
+        if (trackEntry.ToString() == "move-in")
+        {
+            int randNum = Random.Range(0, 2);
+            switch (randNum)
+            {
+                case 0:
+                    enemyStateMachine.SetState(new ForestWormHeadSmashState(this));
+                    break;
+                case 1:
+                    enemyStateMachine.SetState(new ForestWormTrunkStrikeState(this));
+                    break;
+                default:
+                    break;
+            }
         }
         Debug.Log($"Event Complete Test : {trackEntry.ToString()}");
     }
