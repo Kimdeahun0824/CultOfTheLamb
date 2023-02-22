@@ -12,7 +12,7 @@ Material:
   m_ValidKeywords:
   - _STRAIGHT_ALPHA_INPUT
   m_InvalidKeywords:
-  - _ALPHABLEND_ON
+  - _ALPHAPREMULTIPLY_ON
   - _OLD_HARD_RAMP
   - _TEXTURE_BLEND
   - _USE8NEIGHBOURHOOD_ON

@@ -18,6 +18,7 @@ namespace State
         public float maxHp;
         public float currentHp;
         public float damage;
+        public float speed;
 
         protected bool m_IsDie;
         public bool IsDie
@@ -61,6 +62,11 @@ namespace State
             {
                 currentHp -= damage;
             }
+        }
+
+        public virtual void SetState(State state)
+        {
+            enemyStateMachine.SetState(state);
         }
 
         public virtual void Die()

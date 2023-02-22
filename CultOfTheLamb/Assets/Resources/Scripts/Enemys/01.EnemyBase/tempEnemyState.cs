@@ -26,6 +26,16 @@ namespace State
         {
             currentState.UpdateState();
         }
+
+        public void OnEnter()
+        {
+            currentState.OnEnter();
+        }
+
+        public void OnExit()
+        {
+            currentState.OnExit();
+        }
     }
 
     public abstract class State

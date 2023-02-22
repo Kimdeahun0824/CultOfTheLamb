@@ -79,9 +79,32 @@ public class SkeletonAnimationHandler : MonoBehaviour
         if (foundAnimation == null) return;
 
         skeletonAnimation.state.SetAnimation(layerIndex, foundAnimation, loop).TimeScale = speed;
-
     }
+    /// <summary>
+    /// 재생 애니메이션 추가 함수
+    /// </summary>
+    /// <param name="stateName">추가하고자 하는 애니메이션 이름</param>
+    /// <param name="layerIndex">트랙/레이어 번호</param>
+    /// <param name="loop">반복 여부</param>
+    /// <param name="speed">애니메이션 재생 속도</param>
+    public void AddPlayAnimation(string stateName, int layerIndex, bool loop, float speed, float delay)
+    {
+        AddPlayAnimation(StringToHash(stateName), layerIndex, loop, speed, delay);
+    }
+    /// <summary>
+    /// 재생 애니메이션 추가 함수
+    /// </summary>
+    /// <param name="shortNameHash">추가하고자 하는 애니메이션 번호</param>
+    /// <param name="layerIndex">트랙/레이어 번호</param>
+    /// <param name="loop">반복 여부</param>
+    /// <param name="speed">애니메이션 재생 속도</param>
+    public void AddPlayAnimation(int shortNameHash, int layerIndex, bool loop, float speed, float delay)
+    {
+        var foundAnimation = GetAnimationForState(shortNameHash);
+        if (foundAnimation == null) return;
 
+        skeletonAnimation.state.AddAnimation(layerIndex, foundAnimation, loop, delay).TimeScale = speed;
+    }
 
 
     public void PlayAnimationForState(string stateShortName, int layerIndex, bool oneshot, float speed)
