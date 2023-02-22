@@ -50,6 +50,11 @@ public class SkeletonAnimationHandler : MonoBehaviour
         }
     }
 
+    public void SetFlip(bool flip)
+    {
+        skeletonAnimation.skeleton.ScaleX = flip ? -1f : 1f;
+    }
+
     /// <summary>
     /// 애니메이션 재생 함수
     /// </summary>

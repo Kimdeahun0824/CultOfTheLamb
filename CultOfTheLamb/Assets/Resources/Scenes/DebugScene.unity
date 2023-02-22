@@ -358,7 +358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &226450264
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -15760,7 +15760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &386077186
 Transform:
   m_ObjectHideFlags: 0
@@ -16008,9 +16008,10 @@ GameObject:
   - component: {fileID: 522263834}
   - component: {fileID: 522263836}
   - component: {fileID: 522263838}
-  m_Layer: 0
+  - component: {fileID: 522263839}
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16056,7 +16057,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6ec52a2f435674eb497ddaa5320d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Default_Speed: 500
+  MaxHp: 5
+  CurrentHp: 0
+  Default_Speed: 500
+  Speed: 0
+  Damage: 1
+  IsAttack: 0
 --- !u!4 &522263837
 Transform:
   m_ObjectHideFlags: 0
@@ -16086,22 +16092,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c54657fc0e0924cbd70392b8f0907e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skeletonAnimationHandler: {fileID: 0}
+--- !u!114 &522263839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522263833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cc7697ea1185b46ad0c9d859dc156b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   skeletonAnimation: {fileID: 1910915266}
-  idle: {fileID: 11400000, guid: 1a07618ef770d3244a4050029c00cdb1, type: 2}
-  idle_up: {fileID: 11400000, guid: ab5c9814ab5fe5a478e48adaea3f8fd1, type: 2}
-  run: {fileID: 11400000, guid: a06312564e63c014393c2b2fa3d3bdd0, type: 2}
-  run_down: {fileID: 11400000, guid: acbcdb9a9ce90b2468c7a81e11113400, type: 2}
-  run_horizontal: {fileID: 11400000, guid: 742c529ce3121f2428661bd8d4a654fc, type: 2}
-  run_up: {fileID: 11400000, guid: 8c808803e47323c4f926733d9315614c, type: 2}
-  run_up_diagonal: {fileID: 11400000, guid: c37b2373ad67d8549957915d190bc65a, type: 2}
-  roll: {fileID: 11400000, guid: 2eec555c545e3304cb1507d695e9daca, type: 2}
-  roll_up: {fileID: 11400000, guid: ee23dc94bc477384b976d8be745174d0, type: 2}
-  roll_down: {fileID: 11400000, guid: 3cde1a74519041342b8b887fc21f0ac2, type: 2}
-  attack_combo_1: {fileID: 11400000, guid: a31b2546a7fad4c46b1dff3279623007, type: 2}
-  attack_combo_2: {fileID: 11400000, guid: a42a4cb83a3ffb546be78387da779578, type: 2}
-  attack_combo_3: {fileID: 11400000, guid: 2c7edeaf90fafef4eab102a039017f79, type: 2}
-  knockback: {fileID: 11400000, guid: 4cb41bc413dbce84fb335e8ae6b690cf, type: 2}
-  die: {fileID: 11400000, guid: b0b6071eb4a9c084c82f382818d351bc, type: 2}
+  statesAndAnimations:
+  - stateName: Idle
+    animation: {fileID: 11400000, guid: 1a07618ef770d3244a4050029c00cdb1, type: 2}
+  - stateName: Idle_Up
+    animation: {fileID: 11400000, guid: ab5c9814ab5fe5a478e48adaea3f8fd1, type: 2}
+  - stateName: Run
+    animation: {fileID: 11400000, guid: a06312564e63c014393c2b2fa3d3bdd0, type: 2}
+  - stateName: Run_Down
+    animation: {fileID: 11400000, guid: acbcdb9a9ce90b2468c7a81e11113400, type: 2}
+  - stateName: Run_Horizontal
+    animation: {fileID: 11400000, guid: 742c529ce3121f2428661bd8d4a654fc, type: 2}
+  - stateName: Run_Up
+    animation: {fileID: 11400000, guid: 8c808803e47323c4f926733d9315614c, type: 2}
+  - stateName: Run_Up_Diagonal
+    animation: {fileID: 11400000, guid: c37b2373ad67d8549957915d190bc65a, type: 2}
+  - stateName: Roll
+    animation: {fileID: 11400000, guid: 2eec555c545e3304cb1507d695e9daca, type: 2}
+  - stateName: Roll_Up
+    animation: {fileID: 11400000, guid: ee23dc94bc477384b976d8be745174d0, type: 2}
+  - stateName: Roll_Down
+    animation: {fileID: 11400000, guid: 3cde1a74519041342b8b887fc21f0ac2, type: 2}
+  - stateName: Attack_Combo_1
+    animation: {fileID: 11400000, guid: a31b2546a7fad4c46b1dff3279623007, type: 2}
+  - stateName: Attack_Combo_2
+    animation: {fileID: 11400000, guid: a42a4cb83a3ffb546be78387da779578, type: 2}
+  - stateName: Atack_Combo_3
+    animation: {fileID: 11400000, guid: 2c7edeaf90fafef4eab102a039017f79, type: 2}
+  - stateName: KnockBack
+    animation: {fileID: 11400000, guid: 4cb41bc413dbce84fb335e8ae6b690cf, type: 2}
+  - stateName: Die
+    animation: {fileID: 11400000, guid: b0b6071eb4a9c084c82f382818d351bc, type: 2}
+  transitions: []
 --- !u!1 &645112025
 GameObject:
   m_ObjectHideFlags: 0
@@ -16114,14 +16150,14 @@ GameObject:
   - component: {fileID: 645112027}
   - component: {fileID: 645112026}
   - component: {fileID: 645112029}
-  - component: {fileID: 645112030}
-  m_Layer: 0
+  - component: {fileID: 645112031}
+  m_Layer: 7
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &645112026
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16130,7 +16166,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645112025}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -16180,22 +16216,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171cd1d4336ef804ea14fd19eaae6eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
+  enemyType: 1
+  skeletonAnimationHandler: {fileID: 0}
   attackCollider: {fileID: 1929448209}
-  player: {fileID: 522263833}
-  speed: 10
-  damage: 10
+  currentWayPoint: {x: 0, y: 0, z: 0}
+  distance: 5
   maxHp: 10
   currentHp: 0
-  isDie: 0
-  isHit: 0
-  isAttack: 0
-  currentWayPoint: {x: 0, y: 0, z: 0}
-  currentPlayerPos: {x: 0, y: 0, z: 0}
-  attackDistance: 10
-  distance: 0
-  enemyAnimationController: {fileID: 0}
---- !u!114 &645112030
+  defaultSpeed: 10
+  currentSpeed: 0
+  player: {fileID: 522263833}
+  targetPos: {x: 0, y: 0, z: 0}
+--- !u!114 &645112031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -16204,19 +16236,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 645112025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7d50822cee01784986ba9178a588e09, type: 3}
+  m_Script: {fileID: 11500000, guid: 87cc7697ea1185b46ad0c9d859dc156b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonAnimation: {fileID: 1450078188}
-  run: {fileID: 11400000, guid: 5a71476d2daefeb4fa767a237cb3076e, type: 2}
-  run_up: {fileID: 11400000, guid: e937f7b163d4268469648fd8f37937fc, type: 2}
-  attack_Charge: {fileID: 11400000, guid: 87d6dba35e7e7434da5c53007783e529, type: 2}
-  attack_impact: {fileID: 11400000, guid: 7e402729780521c408a054bd7126b7ca, type: 2}
-  archer_Attack_Charge: {fileID: 0}
-  archer_Attack_Impact: {fileID: 0}
-  knockback: {fileID: 0}
-  knockback_up: {fileID: 0}
-  eventName: 
+  statesAndAnimations:
+  - stateName: Idle
+    animation: {fileID: 11400000, guid: e027fdc8ab5e4534cb9216b69e151384, type: 2}
+  - stateName: Run
+    animation: {fileID: 11400000, guid: 5a71476d2daefeb4fa767a237cb3076e, type: 2}
+  - stateName: Attack_Charge
+    animation: {fileID: 11400000, guid: 87d6dba35e7e7434da5c53007783e529, type: 2}
+  - stateName: Attack_Impact
+    animation: {fileID: 11400000, guid: 1305877bbce9b274f95d19f87701b394, type: 2}
+  - stateName: Hit
+    animation: {fileID: 11400000, guid: 40d60cc6e9dc08d4caa2710cd5f7a0c9, type: 2}
+  - stateName: Die
+    animation: {fileID: 11400000, guid: bf993f0aa95810845b719150545e2425, type: 2}
+  transitions: []
 --- !u!1 &732955928
 GameObject:
   m_ObjectHideFlags: 0
@@ -16236,7 +16273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &732955929
 Transform:
   m_ObjectHideFlags: 0
@@ -16286,14 +16323,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   skeletonAnimationHandler: {fileID: 0}
+  attackCollider: {fileID: 0}
+  currentWayPoint: {x: 0, y: 0, z: 0}
+  distance: 0
   maxHp: 20
   currentHp: 0
-  damage: 10
-  speed: 10
-  attackCollider:
-  - {fileID: 1831435008}
-  - {fileID: 1592817034}
-  - {fileID: 226450263}
+  defaultSpeed: 0
+  currentSpeed: 0
+  player: {fileID: 0}
+  targetPos: {x: 0, y: 0, z: 0}
+  attackColliders: []
   attackSpike: {fileID: 469137395389665299, guid: 0f1392a690e8a9d4a85f731d0ee03a02,
     type: 3}
   randomPos: {x: 0, y: 0, z: 0}
@@ -16694,7 +16733,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: grunt-attack-impact
+  _animationName: 
   loop: 1
   timeScale: 1
 --- !u!23 &1450078189
@@ -16763,7 +16802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1592817035
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -16808,7 +16847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1831435009
 Transform:
   m_ObjectHideFlags: 0
@@ -16975,7 +17014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1929448210
 Transform:
   m_ObjectHideFlags: 0

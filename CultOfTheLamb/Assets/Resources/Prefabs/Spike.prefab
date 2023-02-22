@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonDataAsset: {fileID: 11400000, guid: 6f0e41fc967ddea4fb22a6a4880c06f9, type: 2}
-  initialSkinName: BossSpikeBurrow1
+  initialSkinName: Burrow1
   initialFlipX: 0
   initialFlipY: 0
   updateWhenInvisible: 3

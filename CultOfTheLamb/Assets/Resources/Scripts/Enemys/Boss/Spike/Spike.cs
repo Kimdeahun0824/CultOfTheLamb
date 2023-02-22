@@ -30,24 +30,25 @@ public class Spike : MonoBehaviour
 
     private void Start()
     {
-
+        Skin skin = default;
         int randNum = Random.Range(0, 4);
         switch (randNum)
         {
             case 0:
-                skeletonAnimation.skeleton.SetSkin(Skin_1);
+                skin = skeletonAnimation.skeleton.Data.FindSkin(Skin_1);
                 break;
             case 1:
-                skeletonAnimation.skeleton.SetSkin(Skin_2);
+                skin = skeletonAnimation.skeleton.Data.FindSkin(Skin_2);
                 break;
             case 2:
-                skeletonAnimation.skeleton.SetSkin(Skin_3);
+                skin = skeletonAnimation.skeleton.Data.FindSkin(Skin_3);
                 break;
             case 3:
-                skeletonAnimation.skeleton.SetSkin(Skin_4);
+                skin = skeletonAnimation.skeleton.Data.FindSkin(Skin_4);
                 break;
-
         }
+        skeletonAnimation.skeleton.SetSkin(skin);
+        Debug.Log($"Spike Skin Name : {skeletonAnimation.skeleton.Skin}");
         skeletonAnimation.state.SetAnimation(0, "tunneling", false).TimeScale = 0.5f;
         skeletonAnimation.state.Complete += HandleAnimationStateCompleteEvent;
     }

@@ -135,7 +135,7 @@ namespace State
                 {
                     forestWormBoss.StartCoroutine(moveSpikeCreate());
                 }
-                forestWormBoss.transform.position = Vector3.MoveTowards(forestWormBoss.transform.position, forestWormBoss.randomPos, forestWormBoss.speed * Time.deltaTime);
+                forestWormBoss.transform.position = Vector3.MoveTowards(forestWormBoss.transform.position, forestWormBoss.randomPos, forestWormBoss.currentSpeed * Time.deltaTime);
                 if (forestWormBoss.transform.position == forestWormBoss.randomPos)
                 {
                     forestWormBoss.enemyStateMachine.SetState(new ForestWormIdleState(forestWormBoss));
@@ -164,7 +164,7 @@ namespace State
     public class ForestWormHeadSmashState : State
     {
         private ForestWormBoss forestWormBoss;
-
+        int index = default;
         public ForestWormHeadSmashState(ForestWormBoss forestWormBoss_)
         {
             this.forestWormBoss = forestWormBoss_;
@@ -173,10 +173,16 @@ namespace State
         public override void OnEnter()
         {
             forestWormBoss.skeletonAnimationHandler.PlayAnimation("Head_Smash", 0, false, 1f);
+            index = 0;
         }
 
         public override void OnExit()
         {
+            foreach (var entry in forestWormBoss.attackColliders)
+            {
+                entry.SetActive(false);
+            }
+            index = 0;
         }
 
         public override void UpdateState()
@@ -188,6 +194,12 @@ namespace State
         }
         public override void Action()
         {
+            if (0 < index)
+            {
+                forestWormBoss.attackColliders[index - 1].SetActive(false);
+            }
+            forestWormBoss.attackColliders[index].SetActive(true);
+            index++;
         }
     }
 
@@ -293,7 +305,7 @@ namespace State
         }
         public override void ChangeState()
         {
-            throw new System.NotImplementedException();
+
         }
         public override void Action()
         {

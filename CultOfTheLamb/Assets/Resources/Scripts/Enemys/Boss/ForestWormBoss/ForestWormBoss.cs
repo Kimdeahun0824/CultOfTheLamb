@@ -8,7 +8,7 @@ using State;
 
 public class ForestWormBoss : tempEnemy
 {
-    public List<GameObject> attackCollider = default;
+    public List<GameObject> attackColliders = default;
     public GameObject attackSpike;
     public Vector3 randomPos = default;
     private bool m_IsEndIntro = default;
@@ -46,9 +46,13 @@ public class ForestWormBoss : tempEnemy
     {
         base.Start();
         EventAdd();
+        EventFind();
+        Debug.Log($"headSmashEvent : {pushThroughGround}");
+    }
+    protected void EventFind()
+    {
         spikeAttackEvent = skeletonAnimationHandler.skeletonAnimation.skeleton.Data.FindEvent("spikeAttack");
         pushThroughGround = skeletonAnimationHandler.skeletonAnimation.skeleton.Data.FindEvent("pushThroughGround");
-        Debug.Log($"headSmashEvent : {pushThroughGround}");
     }
     protected void EventAdd()
     {

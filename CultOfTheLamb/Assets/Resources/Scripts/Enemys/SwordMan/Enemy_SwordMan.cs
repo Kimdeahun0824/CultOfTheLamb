@@ -1,25 +1,46 @@
-
 using UnityEngine;
-public class Enemy_SwordMan : Enemy
+using State;
+using Spine;
+
+public class Enemy_SwordMan : tempEnemy
 {
     private new void Start()
     {
-        enemyType = EnemyType.SWORDMAN;
-        player = GameObject.Find("Player");
-        currentHp = maxHp;
-
+        enemyType = tempEnemyType.SWORDMAN;
         base.Start();
+        EventAdd();
+        EventFind();
+    }
+    public void EventFind()
+    {
+
+    }
+    public void EventAdd()
+    {
+        HandleAnimationStateEventAdd(HandleAnimationStateEvent);
+        HandleAnimationStateStartEventAdd(HandleAnimationStateStartEvent);
+        HandleAnimationStateEndEventAdd(HandleAnimationStateEndEvent);
+        HandleAnimationStateCompleteEventAdd(HandleAnimationStateCompleteEvent);
+
+    }
+    protected override void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e)
+    {
     }
 
-    private new void Update()
+    protected override void HandleAnimationStateStartEvent(TrackEntry trackEntry)
     {
-        base.Update();
-        //transform.position = Vector3.MoveTowards(transform.position, currentWayPoint, speed * Time.deltaTime);
-
     }
 
-    public override void Hit(float damage)
+    protected override void HandleAnimationStateEndEvent(TrackEntry trackEntry)
     {
-        base.Hit(damage);
+    }
+
+    protected override void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
+    {
+        if (trackEntry.ToString() == "hurt-front" || trackEntry.ToString() == "grunt-attack-charge" || trackEntry.ToString() == "grunt-attack-impact")
+        {
+            enemyStateMachine.ChangeState();
+        }
+
     }
 }

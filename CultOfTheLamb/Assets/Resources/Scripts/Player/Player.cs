@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
+using State;
 
 public class Player : MonoBehaviour
 {
+    //public SkeletonAnimationHandler skeletonAnimationHandler;
     private GameObject m_AttackCollider = default;
     public GameObject AttackColloder
     {
-        get
-        {
-            return m_AttackCollider;
-        }
+        get { return m_AttackCollider; }
+        private set { m_AttackCollider = value; }
     }
     private IPlayerState m_PlayerState = default;
     public void SetState(IPlayerState state)
@@ -34,83 +34,66 @@ public class Player : MonoBehaviour
         return m_Position;
     }
 
-    private int m_MaxHp = default;
-    private int m_CurrentHp = default;
-    public int CurrentHp
-    {
-        get
-        {
-            return m_CurrentHp;
-        }
-    }
-    public float m_Default_Speed = 500f;
-    private float m_Speed = default;
-    public float Speed
-    {
-        get
-        {
-            return m_Speed;
-        }
-        set
-        {
-            m_Speed = value;
-        }
-    }
+    [Space(5)]
+    [Header("PlayerStat")]
 
-    private float m_Damage = default;
-    public float Damage
-    {
-        get
-        {
-            return m_Damage;
-        }
-        private set
-        {
-            m_Damage = value;
-        }
-    }
+    public float MaxHp = default;
+    // public float MaxHp
+    // {
+    //     get;
+    //     private set;
+    // }
+    public float CurrentHp = default;
+    // public float CurrentHp
+    // {
+    //     get;
+    //     private set;
+    // }
+    public float Default_Speed = 500f;
+    public float Speed = default;
+    // public float Speed
+    // {
+    //     get;
+    //     set;
+    // }
+
+    public float Damage = default;
+    // public float Damage
+    // {
+    //     get;
+    //     private set;
+    // }
 
     private float m_ActionDelay = default;
 
     private Rigidbody m_Rigidbody = default;
 
-    private bool m_IsAttack;
-    public bool IsAttack
-    {
-        get
-        {
-            return m_IsAttack;
-        }
-        set
-        {
-            m_IsAttack = value;
-        }
-    }
+    public bool IsAttack;
+    // public bool IsAttack
+    // {
+    //     get;
+    //     set;
+    // }
 
     private bool m_IsRolling;
     public bool IsRolling
     {
-        get
-        {
-            return m_IsRolling;
-        }
-        set
-        {
-            m_IsRolling = value;
-        }
+        get;
+        set;
     }
 
     private bool m_IsHit;
     public bool IsHit
     {
-        get
-        {
-            return m_IsHit;
-        }
-        set
-        {
-            m_IsHit = value;
-        }
+        get;
+        set;
+    }
+
+    private bool m_IsDie;
+    public bool IsDie
+    {
+        get;
+        private set;
     }
 
     private Direction m_direction;
@@ -126,12 +109,14 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        //skeletonAnimationHandler = GetComponent<SkeletonAnimationHandler>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_PlayerState = new IdleState();
         m_AttackCollider = transform.GetChild(1).gameObject;
         m_AttackCollider.SetActive(false);
-        m_Speed = 500.0f;
-        Damage = 10f;
+        Speed = Default_Speed;
+        CurrentHp = MaxHp;
+        Damage = 1f;
     }
 
     void Update()
@@ -155,6 +140,22 @@ public class Player : MonoBehaviour
         m_PlayerState.Hit(this);
     }
 
+    public void TakeDamage()
+    {
+        if (CurrentHp <= 0) return;
+        if (CurrentHp - 1 <= 0)
+        {
+            IsDie = true;
+            Speed = 0;
+            SetState(new DieState());
+        }
+        else
+        {
+            Hit();
+            CurrentHp -= 1;
+        }
+    }
+
     public void StateStartCoroutine(IEnumerator coroutineMethod)
     {
         StartCoroutine(coroutineMethod);
@@ -162,9 +163,9 @@ public class Player : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "EnemyWeapon" && !IsRolling && !IsHit)
+        if (other.tag == "EnemyWeapon" && !IsRolling && !IsHit && 0 < CurrentHp)
         {
-            Hit();
+            TakeDamage();
         }
     }
 }

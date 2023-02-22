@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using State;
+using Spine;
 
-public class Enemy_Archer : MonoBehaviour
+public class Enemy_Archer : tempEnemy
 {
-    // Start is called before the first frame update
-    void Start()
+    protected new void Start()
     {
-        
+        enemyType = tempEnemyType.ARCHER;
+        base.Start();
+    }
+    protected override void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
+    {
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void HandleAnimationStateEndEvent(TrackEntry trackEntry)
     {
-        
+    }
+
+    protected override void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e)
+    {
+    }
+
+    protected override void HandleAnimationStateStartEvent(TrackEntry trackEntry)
+    {
     }
 }

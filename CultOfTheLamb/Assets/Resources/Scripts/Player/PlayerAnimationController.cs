@@ -3,29 +3,20 @@ using Spine.Unity;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    #region Inspector
-    [Header("Components")]
-    public SkeletonAnimation skeletonAnimation;
-    public AnimationReferenceAsset idle, idle_up,
-    run, run_down, run_horizontal, run_up, run_up_diagonal,
-    roll, roll_up, roll_down,
-    attack_combo_1, attack_combo_2, attack_combo_3,
-    knockback, die;
-    #endregion
+    public SkeletonAnimationHandler skeletonAnimationHandler;
     Player player;
     IPlayerState previousPlayerState;
     Direction previousDirection;
-    public Spine.Animation nextAnimation;
 
     void Start()
     {
         //skeletonAnimation.AnimationState.SetAnimation(0, idle, true);
-        if (skeletonAnimation == null) return;
+        skeletonAnimationHandler = GetComponent<SkeletonAnimationHandler>();
+        if (skeletonAnimationHandler == null) return;
         player = GetComponent<Player>();
         if (player == null) return;
         previousPlayerState = player.GetState();
         previousDirection = player.GetDirection();
-        nextAnimation = idle;
         PlayNewStableAnimation();
     }
 
@@ -35,8 +26,10 @@ public class PlayerAnimationController : MonoBehaviour
         Direction currentDirection = player.GetDirection();
         if (previousPlayerState != currentPlayerState || previousDirection != currentDirection)
         {
-            currentPlayerState.SetAnimation(this, currentDirection);
-            PlayNewStableAnimation();
+            //currentPlayerState.SetAnimation(this, currentDirection);
+            //PlayNewStableAnimation();
+            //player.state
+            player.GetState().SetAnimation(skeletonAnimationHandler, currentDirection);
         }
         previousPlayerState = currentPlayerState;
         previousDirection = currentDirection;
@@ -44,18 +37,18 @@ public class PlayerAnimationController : MonoBehaviour
     }
     void PlayNewStableAnimation()
     {
-        skeletonAnimation.AnimationState.SetAnimation(0, nextAnimation, true);
+        player.GetState().SetAnimation(skeletonAnimationHandler, Direction.DOWN);
     }
 
     void Turn()
     {
         if (0 < player.GetPosition().x)
         {
-            skeletonAnimation.skeleton.ScaleX = -1;
+            skeletonAnimationHandler.skeletonAnimation.skeleton.ScaleX = -1;
         }
         else if (player.GetPosition().x < 0)
         {
-            skeletonAnimation.skeleton.ScaleX = 1;
+            skeletonAnimationHandler.skeletonAnimation.skeleton.ScaleX = 1;
         }
     }
 }
