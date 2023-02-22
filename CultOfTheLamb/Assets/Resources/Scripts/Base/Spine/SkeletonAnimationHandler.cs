@@ -9,10 +9,6 @@ public class SkeletonAnimationHandler : MonoBehaviour
     public SkeletonAnimation skeletonAnimation;
     public List<StateNameToAnimationReference> statesAndAnimations = new List<StateNameToAnimationReference>();
     public List<AnimationTransition> transitions = new List<AnimationTransition>();
-    [Space(5)]
-
-    [SpineEvent]
-    public List<string> spineEvents;
 
     [System.Serializable]
     public class StateNameToAnimationReference
@@ -148,7 +144,6 @@ public class SkeletonAnimationHandler : MonoBehaviour
         var foundState = statesAndAnimations.Find(entry => StringToHash(entry.stateName) == shortNameHash);
         return (foundState == null) ? null : foundState.animation;
     }
-
 
     /// <summary>
     /// 애니메이션 재생 메서드

@@ -20,5 +20,12 @@ namespace State
         public override void UpdateState()
         {
         }
+
+        public override void ChangeState()
+        {
+        }
+        public override void Action()
+        {
+        }
     }
 }

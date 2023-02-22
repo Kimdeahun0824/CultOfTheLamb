@@ -36,6 +36,16 @@ namespace State
         {
             currentState.OnExit();
         }
+
+        public void ChangeState()
+        {
+            currentState.ChangeState();
+        }
+
+        public void Action()
+        {
+            currentState.Action();
+        }
     }
 
     public abstract class State
@@ -43,6 +53,10 @@ namespace State
         public abstract void OnEnter();
         public abstract void UpdateState();
         public abstract void OnExit();
+
+        public abstract void ChangeState();
+
+        public abstract void Action();
     }
 
     public enum tempEnemyType

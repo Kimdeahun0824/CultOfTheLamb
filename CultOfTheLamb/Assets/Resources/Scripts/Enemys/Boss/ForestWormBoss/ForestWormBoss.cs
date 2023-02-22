@@ -8,6 +8,7 @@ using State;
 
 public class ForestWormBoss : tempEnemy
 {
+    public List<GameObject> attackCollider = default;
     public GameObject attackSpike;
     public Vector3 randomPos = default;
     private bool m_IsEndIntro = default;
@@ -37,10 +38,17 @@ public class ForestWormBoss : tempEnemy
         set;
     }
 
+    private EventData spikeAttackEvent = default;
+    private EventData pushThroughGround = default;
+
+
     protected new void Start()
     {
         base.Start();
         EventAdd();
+        spikeAttackEvent = skeletonAnimationHandler.skeletonAnimation.skeleton.Data.FindEvent("spikeAttack");
+        pushThroughGround = skeletonAnimationHandler.skeletonAnimation.skeleton.Data.FindEvent("pushThroughGround");
+        Debug.Log($"headSmashEvent : {pushThroughGround}");
     }
     protected void EventAdd()
     {
@@ -51,12 +59,25 @@ public class ForestWormBoss : tempEnemy
     }
     public void MoveSpikeCreate()
     {
-        Vector3 SpikePos = new Vector3(transform.position.x, 0f, transform.position.z);
-        Instantiate(attackSpike, SpikePos, Quaternion.identity);
+        Vector3 spikePos = new Vector3(transform.position.x, 0f, transform.position.z);
+        Instantiate(attackSpike, spikePos, Quaternion.identity);
+    }
+
+    public void TrunkStrikeSpikeCreate(Vector3 spikePos)
+    {
+        Instantiate(attackSpike, spikePos, Quaternion.identity);
     }
 
     protected override void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e)
     {
+        if (e.Data == spikeAttackEvent)
+        {
+            enemyStateMachine.Action();
+        }
+        else if (e.Data == pushThroughGround)
+        {
+            enemyStateMachine.Action();
+        }
         Debug.Log($"Event Trigger Test");
     }
 
@@ -82,18 +103,6 @@ public class ForestWormBoss : tempEnemy
         }
         if (trackEntry.ToString() == "move-in")
         {
-            // int randNum = Random.Range(0, 2);
-            // switch (randNum)
-            // {
-            //     case 0:
-            //         enemyStateMachine.SetState(new ForestWormHeadSmashState(this));
-            //         break;
-            //     case 1:
-            //         enemyStateMachine.SetState(new ForestWormTrunkStrikeState(this));
-            //         break;
-            //     default:
-            //         break;
-            // }
             IsMoveOut = false;
             IsMoveIn = true;
             enemyStateMachine.OnEnter();
@@ -103,6 +112,11 @@ public class ForestWormBoss : tempEnemy
             IsMoveOut = true;
             IsMoveIn = false;
         }
+        // if (trackEntry.ToString() == "" || trackEntry.ToString() == "")
+        // {
+
+        // }
+        enemyStateMachine.ChangeState();
         Debug.Log($"Event Complete Test : {trackEntry.ToString()}");
     }
 
