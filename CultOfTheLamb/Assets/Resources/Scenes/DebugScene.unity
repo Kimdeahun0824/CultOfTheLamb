@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 226450265}
   - component: {fileID: 226450264}
   m_Layer: 0
-  m_Name: AttackCollider (2)
+  m_Name: HeadSmashCollider_2
   m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -385,7 +385,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 732955929}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &277086575
 GameObject:
@@ -16157,7 +16157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &645112026
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16267,13 +16267,13 @@ GameObject:
   - component: {fileID: 732955931}
   - component: {fileID: 732955935}
   - component: {fileID: 732955936}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &732955929
 Transform:
   m_ObjectHideFlags: 0
@@ -16287,6 +16287,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 85959398}
+  - {fileID: 2109570111}
   - {fileID: 1831435009}
   - {fileID: 1592817036}
   - {fileID: 226450265}
@@ -16323,16 +16324,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   skeletonAnimationHandler: {fileID: 0}
-  attackCollider: {fileID: 0}
+  attackCollider: {fileID: 2109570110}
   currentWayPoint: {x: 0, y: 0, z: 0}
   distance: 0
   maxHp: 20
   currentHp: 0
-  defaultSpeed: 0
+  defaultSpeed: 10
   currentSpeed: 0
   player: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
-  attackColliders: []
+  attackColliders:
+  - {fileID: 1831435008}
+  - {fileID: 1592817034}
+  - {fileID: 226450263}
   attackSpike: {fileID: 469137395389665299, guid: 0f1392a690e8a9d4a85f731d0ee03a02,
     type: 3}
   randomPos: {x: 0, y: 0, z: 0}
@@ -16381,7 +16385,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 8, y: 5, z: 3}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!1 &754740563
 GameObject:
   m_ObjectHideFlags: 0
@@ -16797,7 +16801,7 @@ GameObject:
   - component: {fileID: 1592817036}
   - component: {fileID: 1592817035}
   m_Layer: 0
-  m_Name: AttackCollider (1)
+  m_Name: HeadSmashCollider_1
   m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16829,7 +16833,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 732955929}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1831435008
 GameObject:
@@ -16842,7 +16846,7 @@ GameObject:
   - component: {fileID: 1831435009}
   - component: {fileID: 1831435010}
   m_Layer: 0
-  m_Name: AttackCollider
+  m_Name: HeadSmashCollider_0
   m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16861,7 +16865,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 732955929}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1831435010
 SphereCollider:
@@ -17059,3 +17063,48 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3
   m_Center: {x: 0, y: 0.5, z: 0.5}
+--- !u!1 &2109570110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2109570111}
+  - component: {fileID: 2109570112}
+  m_Layer: 0
+  m_Name: AttackCollider
+  m_TagString: EnemyWeapon
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2109570111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109570110}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 732955929}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2109570112
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109570110}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 2.5}

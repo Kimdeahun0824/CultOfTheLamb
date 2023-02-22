@@ -97,7 +97,6 @@ namespace State
             }
         }
     }
-
     public class ForestWormMoveState : State
     {
         private ForestWormBoss forestWormBoss;
@@ -161,6 +160,69 @@ namespace State
         }
     }
 
+    public class ForestWormBossMoveOutState : State
+    {
+        public ForestWormBossMoveOutState()
+        {
+        }
+
+        public override void Action()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void ChangeState()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void OnEnter()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void OnExit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void UpdateState()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
+    public class ForestWormBossMoveInState : State
+    {
+        public ForestWormBossMoveInState()
+        {
+        }
+
+        public override void Action()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void ChangeState()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void OnEnter()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void OnExit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void UpdateState()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
     public class ForestWormHeadSmashState : State
     {
         private ForestWormBoss forestWormBoss;
