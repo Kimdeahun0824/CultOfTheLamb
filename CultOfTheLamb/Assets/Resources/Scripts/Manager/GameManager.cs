@@ -31,7 +31,7 @@ public class GameManager : SingletonBase<GameManager>
         switch (scene.name)
         {
             case "00. InitScene":
-                ConvenienceFunc.LoadScene("02. StageScene");
+                ConvenienceFunc.LoadScene("01. TitleScene");
                 break;
             default:
                 break;

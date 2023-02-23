@@ -7,6 +7,8 @@ TagManager:
   - Weapon
   - Enemy
   - EnemyWeapon
+  - TriggerZone
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Unwalkable
   - Enemy
   - Player
-  - 
+  - TriggerZone
   - 
   - 
   - 
