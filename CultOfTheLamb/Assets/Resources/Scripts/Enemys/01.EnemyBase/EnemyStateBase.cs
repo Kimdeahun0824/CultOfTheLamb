@@ -1,11 +1,11 @@
 namespace State
 {
     using UnityEngine;
-    public class tempEnemyStateMachine
+    public class EnemyStateMachine
     {
-        private State currentState;
+        private StateBase currentState;
 
-        public void SetState(State state)
+        public void SetState(StateBase state)
         {
             if (currentState != null)
             {
@@ -48,7 +48,7 @@ namespace State
         }
     }
 
-    public abstract class State
+    public abstract class StateBase
     {
         public abstract void OnEnter();
         public abstract void UpdateState();
@@ -59,7 +59,7 @@ namespace State
         public abstract void Action();
     }
 
-    public enum tempEnemyType
+    public enum EnemyType
     {
         FORESTWORM, SWORDMAN, ARCHER
     }

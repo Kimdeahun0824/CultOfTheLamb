@@ -19,29 +19,25 @@ public static partial class ConvenienceFunc
         return null;
     }
 
-    public static void SetImageSprite(this GameObject obj_, Sprite sprite)
+    public static float GetAngle(Vector3 from, Vector3 to)
     {
-        Image objImage = obj_.GetComponent<Image>();
-        if (objImage != null)
-        {
-            objImage.sprite = sprite;
-        }
-        else
-        {
-            return;
-        }
+        Vector3 v = to - from;
+        return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
     }
 
-    public static Sprite GetImageSprite(this GameObject obj_)
+    //! 특정 좌표를 바라보게 하는 함수
+    public static void LookAt2D(this Transform transform, Vector3 target, float rotationSpeed)
     {
-        Sprite sprite = obj_.GetComponent<Image>().sprite;
-        if (obj_.GetComponent<Image>().sprite != null)
-        {
-            return sprite;
-        }
-        else
-        {
-            return null;
-        }
-    }
+        Vector2 direction = new Vector2(
+            transform.localPosition.x - target.x,
+            transform.localPosition.y - target.y
+        );
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion angleAxis = Quaternion.AngleAxis(angle + 90.0f, Vector3.forward);
+        Quaternion rotation = Quaternion.Slerp(transform.rotation, angleAxis, rotationSpeed * Time.deltaTime);
+
+        transform.rotation = rotation;
+
+    }       // LookAt()
 }

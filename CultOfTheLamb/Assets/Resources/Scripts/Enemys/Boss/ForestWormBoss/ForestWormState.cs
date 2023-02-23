@@ -3,7 +3,7 @@ namespace State
     using UnityEngine;
     using System.Collections;
 
-    public class ForestWormIntroState : State
+    public class ForestWormIntroState : StateBase
     {
         private ForestWormBoss forestWormBoss;
 
@@ -38,7 +38,7 @@ namespace State
         }
     }
 
-    public class ForestWormIdleState : State
+    public class ForestWormIdleState : StateBase
     {
         private ForestWormBoss forestWormBoss;
 
@@ -80,7 +80,7 @@ namespace State
             //ChangeState();
             int randomNum = Random.Range(0, 3);
             // Move State Debug
-            //randomNum = 0;
+            randomNum = 0;
             switch (randomNum)
             {
                 case 0:
@@ -97,7 +97,7 @@ namespace State
             }
         }
     }
-    public class ForestWormMoveState : State
+    public class ForestWormMoveState : StateBase
     {
         private ForestWormBoss forestWormBoss;
         public ForestWormMoveState(ForestWormBoss forestWormBoss_)
@@ -108,9 +108,9 @@ namespace State
         {
             forestWormBoss.skeletonAnimationHandler.PlayAnimation("Move_Out", 0, false, 1f);
             Vector3 currentPos = forestWormBoss.transform.position;
-            float randomX = Random.Range(-10, 10);
-            float randomZ = Random.Range(-10, 10);
-            forestWormBoss.randomPos = new Vector3(currentPos.x + randomX, currentPos.y, currentPos.z + randomZ);
+            float randomX = Random.Range(GameManager.Instance.minX + 5, GameManager.Instance.maxX - 5);
+            float randomZ = Random.Range(GameManager.Instance.minY + 5, GameManager.Instance.maxY - 5);
+            forestWormBoss.randomPos = new Vector3(randomX, currentPos.y, randomZ);
 
             Debug.Log($"{this} state Enter");
         }
@@ -160,70 +160,63 @@ namespace State
         }
     }
 
-    public class ForestWormBossMoveOutState : State
+    public class ForestWormBossMoveOutState : StateBase
     {
-        public ForestWormBossMoveOutState()
+        ForestWormBoss forestWormBoss;
+        public ForestWormBossMoveOutState(ForestWormBoss forestWormBoss_)
+        {
+            this.forestWormBoss = forestWormBoss_;
+        }
+        public override void OnEnter()
+        {
+        }
+
+        public override void UpdateState()
+        {
+        }
+        public override void OnExit()
         {
         }
 
         public override void Action()
         {
-            throw new System.NotImplementedException();
         }
+
 
         public override void ChangeState()
         {
-            throw new System.NotImplementedException();
         }
 
+    }
+
+    public class ForestWormBossMoveInState : StateBase
+    {
+        ForestWormBoss forestWormBoss;
+        public ForestWormBossMoveInState(ForestWormBoss forestWormBoss_)
+        {
+            this.forestWormBoss = forestWormBoss_;
+        }
         public override void OnEnter()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override void OnExit()
-        {
-            throw new System.NotImplementedException();
         }
 
         public override void UpdateState()
         {
-            throw new System.NotImplementedException();
         }
-    }
-
-    public class ForestWormBossMoveInState : State
-    {
-        public ForestWormBossMoveInState()
+        public override void OnExit()
         {
         }
 
         public override void Action()
         {
-            throw new System.NotImplementedException();
         }
+
 
         public override void ChangeState()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override void OnEnter()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void OnExit()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void UpdateState()
-        {
-            throw new System.NotImplementedException();
         }
     }
-    public class ForestWormHeadSmashState : State
+    public class ForestWormHeadSmashState : StateBase
     {
         private ForestWormBoss forestWormBoss;
         int index = default;
@@ -265,7 +258,7 @@ namespace State
         }
     }
 
-    public class ForestWormTrunkStrikeState : State
+    public class ForestWormTrunkStrikeState : StateBase
     {
         private ForestWormBoss forestWormBoss;
 
@@ -312,24 +305,24 @@ namespace State
                 yield return new WaitForSeconds(0.1f);
                 if (currentPos_1 != targetPos_1)
                 {
-                    currentPos_1 = Vector3.MoveTowards(currentPos_1, targetPos_1, 50 * Time.deltaTime);
+                    currentPos_1 = Vector3.MoveTowards(currentPos_1, targetPos_1, 100 * Time.deltaTime);
                     forestWormBoss.TrunkStrikeSpikeCreate(currentPos_1);
                 }
                 if (currentPos_2 != targetPos_2)
                 {
-                    currentPos_2 = Vector3.MoveTowards(currentPos_2, targetPos_2, 50 * Time.deltaTime);
+                    currentPos_2 = Vector3.MoveTowards(currentPos_2, targetPos_2, 100 * Time.deltaTime);
                     forestWormBoss.TrunkStrikeSpikeCreate(currentPos_2);
                 }
                 if (currentPos_3 != targetPos_3)
                 {
-                    currentPos_3 = Vector3.MoveTowards(currentPos_3, targetPos_3, 50 * Time.deltaTime);
+                    currentPos_3 = Vector3.MoveTowards(currentPos_3, targetPos_3, 100 * Time.deltaTime);
                     forestWormBoss.TrunkStrikeSpikeCreate(currentPos_3);
 
 
                 }
                 if (currentPos_4 != targetPos_4)
                 {
-                    currentPos_4 = Vector3.MoveTowards(currentPos_4, targetPos_4, 50 * Time.deltaTime);
+                    currentPos_4 = Vector3.MoveTowards(currentPos_4, targetPos_4, 100 * Time.deltaTime);
                     forestWormBoss.TrunkStrikeSpikeCreate(currentPos_4);
 
                 }
@@ -341,7 +334,7 @@ namespace State
         }
     }
 
-    public class ForestWormDieState : State
+    public class ForestWormDieState : StateBase
     {
         private ForestWormBoss forestWormBoss;
         public ForestWormDieState(ForestWormBoss forestWormBoss_)
@@ -374,7 +367,7 @@ namespace State
         }
     }
 
-    public class ForestWormDeadState : State
+    public class ForestWormDeadState : StateBase
     {
         private ForestWormBoss forestWormBoss;
         public ForestWormDeadState(ForestWormBoss forestWormBoss_)

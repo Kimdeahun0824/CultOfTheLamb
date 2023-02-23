@@ -165,6 +165,7 @@ Material:
     - _RecolorFade: 1
     - _RectHeight: 100
     - _RectWidth: 100
+    - _RefractionStrength: 0.0027
     - _RenderQueue: 0
     - _RimPower: 2
     - _Saturation: 1

@@ -2,11 +2,11 @@ using UnityEngine;
 using State;
 using Spine;
 
-public class Enemy_SwordMan : tempEnemy
+public class Enemy_SwordMan : Enemy
 {
     private new void Start()
     {
-        enemyType = tempEnemyType.SWORDMAN;
+        enemyType = EnemyType.SWORDMAN;
         base.Start();
         EventAdd();
         EventFind();

@@ -84,7 +84,7 @@ public class PathFinding : MonoBehaviour
             waypoints = RetracePath(startNode, targetNode);
         }
 
-        AStarPathRequestManager.Instance.FinishedProcessingPath(waypoints, pathSuccess);
+        AStarManager.Instance.FinishedProcessingPath(waypoints, pathSuccess);
 
     }
 

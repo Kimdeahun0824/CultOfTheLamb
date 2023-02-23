@@ -6,7 +6,7 @@ using Spine.Collections;
 using Spine;
 using State;
 
-public class ForestWormBoss : tempEnemy
+public class ForestWormBoss : Enemy
 {
     public List<GameObject> attackColliders = default;
     public GameObject attackSpike;

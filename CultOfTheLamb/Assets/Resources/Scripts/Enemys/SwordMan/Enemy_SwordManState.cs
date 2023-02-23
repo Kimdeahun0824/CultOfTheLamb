@@ -1,11 +1,12 @@
+using UnityEngine;
+
 namespace State
 {
-    using UnityEngine;
 
-    public class PatrolState : State
+    public class PatrolState : StateBase
     {
-        tempEnemy enemy;
-        public PatrolState(tempEnemy enemy_)
+        Enemy enemy;
+        public PatrolState(Enemy enemy_)
         {
             this.enemy = enemy_;
         }
@@ -26,10 +27,10 @@ namespace State
         }
     }
 
-    public class ChasingState : State
+    public class ChasingState : StateBase
     {
-        tempEnemy enemy;
-        public ChasingState(tempEnemy enemy_)
+        Enemy enemy;
+        public ChasingState(Enemy enemy_)
         {
             this.enemy = enemy_;
         }
@@ -39,7 +40,8 @@ namespace State
         }
         public override void UpdateState()
         {
-            AStarPathRequestManager.Instance.RequestPath(enemy.transform.position, enemy.player.transform.position, enemy.OnPathFound);
+
+            AStarManager.Instance.RequestPath(enemy.transform.position, enemy.player.transform.position, enemy.OnPathFound);
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.currentWayPoint, enemy.currentSpeed * Time.deltaTime);
             bool flip = enemy.transform.position.x <= enemy.currentWayPoint.x;
             enemy.skeletonAnimationHandler.SetFlip(flip);
@@ -61,10 +63,10 @@ namespace State
         }
     }
 
-    public class Attack_ChargeState : State
+    public class Attack_ChargeState : StateBase
     {
-        tempEnemy enemy;
-        public Attack_ChargeState(tempEnemy enemy_)
+        Enemy enemy;
+        public Attack_ChargeState(Enemy enemy_)
         {
             this.enemy = enemy_;
         }
@@ -88,10 +90,10 @@ namespace State
         }
     }
 
-    public class Attack_ImpactState : State
+    public class Attack_ImpactState : StateBase
     {
-        tempEnemy enemy;
-        public Attack_ImpactState(tempEnemy enemy_)
+        Enemy enemy;
+        public Attack_ImpactState(Enemy enemy_)
         {
             this.enemy = enemy_;
         }

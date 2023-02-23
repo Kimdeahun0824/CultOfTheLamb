@@ -1,21 +1,35 @@
+using UnityEngine;
+
 namespace State
 {
-    public class IdleState : State
+    public class IdleState : StateBase
     {
-        tempEnemy enemy;
-        public IdleState(tempEnemy enemy_)
+        Enemy enemy;
+        public IdleState(Enemy enemy_)
         {
             this.enemy = enemy_;
         }
         public override void OnEnter()
         {
             enemy.skeletonAnimationHandler.PlayAnimation("Idle", 0, true, 1f);
+            if (enemy.player.GetComponent<Player>().IsDie) return;
             switch (enemy.enemyType)
             {
-                case tempEnemyType.SWORDMAN:
+                case EnemyType.SWORDMAN:
                     enemy.SetState(new ChasingState(enemy));
                     break;
-                case tempEnemyType.ARCHER:
+                case EnemyType.ARCHER:
+                    Enemy_Archer archer = enemy.GetComponent<Enemy_Archer>();
+                    if (archer == null) return;
+                    float distance = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
+                    if (distance <= enemy.distance)
+                    {
+                        enemy.SetState(new Attack_ChargeState(archer));
+                    }
+                    else
+                    {
+                        enemy.SetState(new Archer_Attack_ChargeState(archer));
+                    }
                     break;
                 default:
                     break;
@@ -35,10 +49,10 @@ namespace State
         }
     }
 
-    public class HitState : State
+    public class HitState : StateBase
     {
-        tempEnemy enemy;
-        public HitState(tempEnemy enemy_)
+        Enemy enemy;
+        public HitState(Enemy enemy_)
         {
             this.enemy = enemy_;
         }
@@ -62,10 +76,10 @@ namespace State
         }
     }
 
-    public class DieState : State
+    public class DieState : StateBase
     {
-        tempEnemy enemy;
-        public DieState(tempEnemy enemy_)
+        Enemy enemy;
+        public DieState(Enemy enemy_)
         {
             this.enemy = enemy_;
         }

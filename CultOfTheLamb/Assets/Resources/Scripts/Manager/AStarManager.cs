@@ -2,17 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AStarPathRequestManager : SingletonBase<AStarPathRequestManager>
+public class AStarManager : SingletonBase<AStarManager>
 {
     Queue<PathRequest> pathRequestsQueue = new Queue<PathRequest>();
     PathRequest currentPathRequest;
     PathFinding pathFinding;
+
+    public AGrid aGrid = default;
 
     bool isProcessingPath;
 
     public new void Awake()
     {
         base.Awake();
+        aGrid = GetComponent<AGrid>();
         pathFinding = GetComponent<PathFinding>();
     }
 
