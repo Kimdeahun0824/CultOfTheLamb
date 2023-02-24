@@ -12,6 +12,14 @@ public class GameManager : SingletonBase<GameManager>
     {
         base.Awake();
         ConvenienceFunc.SetOnSceneLoaded(OnSceneLoaded);
+
+
+
+        //Time.timeScale = 1f;
+    }
+
+    public void SetWorldSize()
+    {
         AGrid grid = AStarManager.Instance.GetComponent<AGrid>();
         minX = grid.gridWorldSize.x * 0.5f * -1;
         maxX = grid.gridWorldSize.x * 0.5f;
@@ -23,7 +31,6 @@ public class GameManager : SingletonBase<GameManager>
         Debug.Log($"maxX : {maxX}");
         Debug.Log($"maxY : {maxY}");
 
-        //Time.timeScale = 1f;
     }
 
     void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
@@ -32,6 +39,9 @@ public class GameManager : SingletonBase<GameManager>
         {
             case "00. InitScene":
                 ConvenienceFunc.LoadScene("01. TitleScene");
+                break;
+            case "01. TitleScene":
+                ConvenienceFunc.LoadScene("02. StageScene");
                 break;
             default:
                 break;

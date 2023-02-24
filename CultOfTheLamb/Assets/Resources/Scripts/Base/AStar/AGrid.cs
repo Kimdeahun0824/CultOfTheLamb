@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 public class AGrid : MonoBehaviour
 {
     public LayerMask unwalkableMask = default;
@@ -13,16 +14,20 @@ public class AGrid : MonoBehaviour
     public List<AStarNode> path;
     void Start()
     {
-        nodeDiameter = nodeRadius * 2;
-        gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
-        gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-        CreateGrid();
+        //gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
+        //gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+        //CreateGrid();
     }
 
     public void CreateGrid()
     {
+        nodeDiameter = nodeRadius * 2;
+        gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
+        gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         grid = new AStarNode[gridSizeX, gridSizeY];
-        Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
+        Debug.Log($"grid X : {grid.GetLength(0)} / grid Y : {grid.GetLength(1)}");
+        //Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
+        Vector3 worldBottomLeft = new Vector3(gridWorldSize.x * 0.5f * -1f, 0f, gridWorldSize.y * 0.5f * -1f);
         Vector3 worldPoint;
 
         for (int x = 0; x < gridSizeX; x++)
@@ -33,6 +38,7 @@ public class AGrid : MonoBehaviour
                 //bool walkable = !(Physics.CheckBox());
                 //Vector3 middlePoint = new Vector3()
                 bool walkable = !Physics.CheckBox(worldPoint, new Vector3(nodeRadius * 0.5f, nodeRadius * 0.5f, nodeRadius * 0.5f), Quaternion.identity, unwalkableMask);
+                //bool walkable = !Physics.CheckBox(worldPoint, Vector3.zero, Quaternion.identity, unwalkableMask);
                 grid[x, y] = new AStarNode(walkable, worldPoint, x, y);
             }
         }

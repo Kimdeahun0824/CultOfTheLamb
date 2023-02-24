@@ -80,7 +80,7 @@ namespace State
             //ChangeState();
             int randomNum = Random.Range(0, 3);
             // Move State Debug
-            randomNum = 0;
+            //randomNum = 0;
             switch (randomNum)
             {
                 case 0:

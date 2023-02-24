@@ -42,10 +42,6 @@ public class AStarManager : SingletonBase<AStarManager>
             pathFinding.StartFindPath(currentPathRequest.pathStart, currentPathRequest.pathEnd);
         }
     }
-
-
-
-
 }
 
 public class PathRequest

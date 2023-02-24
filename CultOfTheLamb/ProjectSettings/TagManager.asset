@@ -9,6 +9,7 @@ TagManager:
   - EnemyWeapon
   - TriggerZone
   - SpawnPoint
+  - Room
   layers:
   - Default
   - TransparentFX
