@@ -8,14 +8,18 @@ public enum RoomType
 public class RoomGenerator : MonoBehaviour
 {
     public RoomNode[,] rooms = default;
-    public GameObject mapPrefab;
+    public GameObject startRoomPrefab;
+    public GameObject normalRoomPrefab;
+    public GameObject bossRoomPreafab;
     public Transform parent;
+    public List<RoomNode> endRooms;
     int count;
     int tempCount;
     int cost;
 
     void Start()
     {
+        endRooms = new List<RoomNode>();
         rooms = new RoomNode[5, 5];
         count = 0;
         tempCount = 0;
@@ -31,17 +35,100 @@ public class RoomGenerator : MonoBehaviour
         {
             for (int j = 0; j < rooms.GetLength(1); j++)
             {
-                if (rooms[i, j].currentRoomType != RoomType.NONE)
+                if (rooms[i, j].currentRoomType == RoomType.NORMAL)
                 {
                     rooms[i, j].X = i;
                     rooms[i, j].Y = j;
-                    //Instantiate(mapPrefab, new Vector3(AStarManager.Instance.aGrid.gridWorldSize.x * i, 0.1f, AStarManager.Instance.aGrid.gridWorldSize.y * j), Quaternion.identity, parent);
-                    //roomsObj[i, j] = Instantiate(mapPrefab, new Vector3(AStarManager.Instance.aGrid.gridWorldSize.x * i, 0.1f, AStarManager.Instance.aGrid.gridWorldSize.y * j), Quaternion.identity, parent);     
-                    Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
-                    yield return null;
+                    Instantiate(normalRoomPrefab, new Vector3(56 * i, 0.1f, 36 * j), Quaternion.identity, parent);
                 }
+                else if (rooms[i, j].currentRoomType == RoomType.START)
+                {
+                    rooms[i, j].X = i;
+                    rooms[i, j].Y = j;
+                    Instantiate(startRoomPrefab, new Vector3(56 * i, 0.1f, 36 * j), Quaternion.identity, parent);
+                }
+                else if (rooms[i, j].currentRoomType == RoomType.ENDROOM)
+                {
+                    rooms[i, j].X = i;
+                    rooms[i, j].Y = j;
+                    endRooms.Add(rooms[i, j]);
+                }
+                yield return null;
                 Debug.Log($"room Status i : {i} / j : {j} / roomType : {rooms[i, j].currentRoomType} / roomCost : {rooms[i, j].Cost}");
             }
+        }
+        RoomNode[] endRoomArray;
+        int maxRoomCount = 0;
+        int maxRoomCost = 0;
+        //EndRoom이 1개밖에 없을 때
+        if (endRooms.Count < 2)
+        {
+            Instantiate(bossRoomPreafab, new Vector3(endRooms[0].X * 56, 0.1f, endRooms[0].Y * 36), Quaternion.identity, parent);
+        }
+        else    // EneRoom이 2개 이상 있을 때 그 중 가장 먼 곳에 있는 Room을 보스방으로 지정 , 같은 거리에 있는 방이 2개 이상 있을 시 그 중 1개를 랜덤으로 보스방으로 지정
+        {
+            foreach (var obj in endRooms)
+            {
+                if (maxRoomCost < obj.Cost)
+                {
+                    maxRoomCost = obj.Cost;
+                }
+            }
+            foreach (var obj in endRooms)
+            {
+                if (maxRoomCost == obj.Cost)
+                {
+                    maxRoomCount++;
+                }
+            }
+            Debug.Log($"Map Random Generator Debug : maxRoomCost : {maxRoomCost} / maxRoomCount : {maxRoomCount}");
+            // 같은 거리에 있는 방이 2개 이상 있을 시
+            if (1 < maxRoomCount)
+            {
+                int endRoomArrayIndex = 0;
+                endRoomArray = new RoomNode[maxRoomCount];
+                for (int i = 0; i < endRooms.Count; i++)
+                {
+                    if (maxRoomCost == endRooms[i].Cost)
+                    {
+                        endRoomArray[endRoomArrayIndex] = endRooms[i];
+                        endRoomArrayIndex++;
+                    }
+                    else
+                    {
+                        Instantiate(normalRoomPrefab, new Vector3(endRooms[i].X * 56, 0.1f, endRooms[i].Y * 36), Quaternion.identity, parent);
+                    }
+                }
+                int bossRoomIndex = Random.Range(0, endRoomArray.Length);
+                Debug.Log($"Map Random Generator Debug : bossRoomIndex {bossRoomIndex} / endRoomArray.Length : {endRoomArray.Length}");
+                for (int i = 0; i < endRoomArray.Length; i++)
+                {
+                    if (i == bossRoomIndex)
+                    {
+                        Instantiate(bossRoomPreafab, new Vector3(endRoomArray[i].X * 56, 0.1f, endRoomArray[i].Y * 36), Quaternion.identity, parent);
+                    }
+                    else
+                    {
+                        Instantiate(normalRoomPrefab, new Vector3(endRoomArray[i].X * 56, 0.1f, endRoomArray[i].Y * 36), Quaternion.identity, parent);
+                    }
+                }
+            }
+            else    // 같은 거리에 있는 방이 없을 시
+            {
+                foreach (var obj in endRooms)
+                {
+                    if (maxRoomCost == obj.Cost)
+                    {
+                        Instantiate(bossRoomPreafab, new Vector3(obj.X * 56, 0.1f, obj.Y * 36), Quaternion.identity, parent);
+                    }
+                    else
+                    {
+                        Instantiate(normalRoomPrefab, new Vector3(obj.X * 56, 0.1f, obj.Y * 36), Quaternion.identity, parent);
+                    }
+                }
+
+            }
+
         }
 
     }
