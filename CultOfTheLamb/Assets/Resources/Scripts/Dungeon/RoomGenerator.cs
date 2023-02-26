@@ -8,11 +8,27 @@ public enum RoomType
 public class RoomGenerator : MonoBehaviour
 {
     public RoomNode[,] rooms = default;
+
+    ///<summary> 0b0001 Left</summary>
+    byte option_0 = 1 << 0;
+    ///<summary> 0b0010 Top</summary>
+    byte option_1 = 1 << 1;
+    ///<summary> 0b0100 Right</summary>
+    byte option_2 = 1 << 2;
+    ///<summary> 0b1000 Bottom</summary>
+    byte option_3 = 1 << 3;
+
+
+    [Space(5)]
+    public Transform parent;
     public GameObject startRoomPrefab;
     public GameObject normalRoomPrefab;
-    public GameObject bossRoomPreafab;
-    public Transform parent;
+    public GameObject bossRoomPrefab;
+
+    public GameObject mapPrefab;
+
     public List<RoomNode> endRooms;
+
     int count;
     int tempCount;
     int cost;
@@ -26,10 +42,11 @@ public class RoomGenerator : MonoBehaviour
         cost = 0;
         RoomCreate();
 
-        StartCoroutine(RoomDeployment());
+        //StartCoroutine(RoomDeployment());
+        RoomDeployment();
     }
 
-    IEnumerator RoomDeployment()
+    void RoomDeployment()
     {
         for (int i = 0; i < rooms.GetLength(0); i++)
         {
@@ -39,13 +56,20 @@ public class RoomGenerator : MonoBehaviour
                 {
                     rooms[i, j].X = i;
                     rooms[i, j].Y = j;
-                    Instantiate(normalRoomPrefab, new Vector3(56 * i, 0.1f, 36 * j), Quaternion.identity, parent);
+                    byte flag = NodeNeighborByteCheck(i, j);
+                    // 상 하 좌 우 방 존재에 따라서 각기 다른 맵 생성
+                    GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
+                    tempRoom.GetComponent<Room>().RoomCreate(flag);
+                    tempRoom.SetActive(false);
                 }
                 else if (rooms[i, j].currentRoomType == RoomType.START)
                 {
                     rooms[i, j].X = i;
                     rooms[i, j].Y = j;
-                    Instantiate(startRoomPrefab, new Vector3(56 * i, 0.1f, 36 * j), Quaternion.identity, parent);
+                    byte flag = NodeNeighborByteCheck(i, j);
+                    GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
+                    tempRoom.GetComponent<Room>().RoomCreate(flag);
+                    tempRoom.SetActive(true);
                 }
                 else if (rooms[i, j].currentRoomType == RoomType.ENDROOM)
                 {
@@ -53,7 +77,7 @@ public class RoomGenerator : MonoBehaviour
                     rooms[i, j].Y = j;
                     endRooms.Add(rooms[i, j]);
                 }
-                yield return null;
+                //yield return null;
                 Debug.Log($"room Status i : {i} / j : {j} / roomType : {rooms[i, j].currentRoomType} / roomCost : {rooms[i, j].Cost}");
             }
         }
@@ -63,7 +87,10 @@ public class RoomGenerator : MonoBehaviour
         //EndRoom이 1개밖에 없을 때
         if (endRooms.Count < 2)
         {
-            Instantiate(bossRoomPreafab, new Vector3(endRooms[0].X * 56, 0.1f, endRooms[0].Y * 36), Quaternion.identity, parent);
+            byte flag = NodeNeighborByteCheck(endRooms[0].X, endRooms[0].Y);
+            GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
+            tempRoom.GetComponent<Room>().RoomCreate(flag);
+            tempRoom.SetActive(false);
         }
         else    // EneRoom이 2개 이상 있을 때 그 중 가장 먼 곳에 있는 Room을 보스방으로 지정 , 같은 거리에 있는 방이 2개 이상 있을 시 그 중 1개를 랜덤으로 보스방으로 지정
         {
@@ -96,7 +123,10 @@ public class RoomGenerator : MonoBehaviour
                     }
                     else
                     {
-                        Instantiate(normalRoomPrefab, new Vector3(endRooms[i].X * 56, 0.1f, endRooms[i].Y * 36), Quaternion.identity, parent);
+                        byte flag = NodeNeighborByteCheck(endRooms[i].X, endRooms[i].Y);
+                        GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
+                        tempRoom.GetComponent<Room>().RoomCreate(flag);
+                        tempRoom.SetActive(false);
                     }
                 }
                 int bossRoomIndex = Random.Range(0, endRoomArray.Length);
@@ -105,11 +135,17 @@ public class RoomGenerator : MonoBehaviour
                 {
                     if (i == bossRoomIndex)
                     {
-                        Instantiate(bossRoomPreafab, new Vector3(endRoomArray[i].X * 56, 0.1f, endRoomArray[i].Y * 36), Quaternion.identity, parent);
+                        byte flag = NodeNeighborByteCheck(endRoomArray[i].X, endRoomArray[i].Y);
+                        GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
+                        tempRoom.GetComponent<Room>().RoomCreate(flag);
+                        tempRoom.SetActive(false);
                     }
                     else
                     {
-                        Instantiate(normalRoomPrefab, new Vector3(endRoomArray[i].X * 56, 0.1f, endRoomArray[i].Y * 36), Quaternion.identity, parent);
+                        byte flag = NodeNeighborByteCheck(endRoomArray[i].X, endRoomArray[i].Y);
+                        GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
+                        tempRoom.GetComponent<Room>().RoomCreate(flag);
+                        tempRoom.SetActive(false);
                     }
                 }
             }
@@ -119,18 +155,21 @@ public class RoomGenerator : MonoBehaviour
                 {
                     if (maxRoomCost == obj.Cost)
                     {
-                        Instantiate(bossRoomPreafab, new Vector3(obj.X * 56, 0.1f, obj.Y * 36), Quaternion.identity, parent);
+                        byte flag = NodeNeighborByteCheck(obj.X, obj.Y);
+                        GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
+                        tempRoom.GetComponent<Room>().RoomCreate(flag);
+                        tempRoom.SetActive(false);
                     }
                     else
                     {
-                        Instantiate(normalRoomPrefab, new Vector3(obj.X * 56, 0.1f, obj.Y * 36), Quaternion.identity, parent);
+                        byte flag = NodeNeighborByteCheck(obj.X, obj.Y);
+                        GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
+                        tempRoom.GetComponent<Room>().RoomCreate(flag);
+                        tempRoom.SetActive(false);
                     }
                 }
-
             }
-
         }
-
     }
 
     public void RoomCreate()
@@ -170,7 +209,6 @@ public class RoomGenerator : MonoBehaviour
             RoomCreate();
         }
     }
-
     public void RandomRoomCreate(int x, int y)
     {
         if (8 <= count) return;
@@ -251,7 +289,6 @@ public class RoomGenerator : MonoBehaviour
             }
         }
     }
-
     public int NodeNeighborCheck(int x, int y)
     {
         int index = 0;
@@ -286,7 +323,44 @@ public class RoomGenerator : MonoBehaviour
 
         return index;
     }
+    public byte NodeNeighborByteCheck(int x, int y)
+    {
+        byte result = 0b0000;
+        // Left
+        if (0 <= x - 1)
+        {
+            if (rooms[x - 1, y].currentRoomType != RoomType.NONE)
+            {
+                result |= option_0;
+            }
+        }
+        // Top
+        if (y + 1 <= rooms.GetLength(1) - 1)
+        {
+            if (rooms[x, y + 1].currentRoomType != RoomType.NONE)
+            {
+                result |= option_1;
+            }
+        }
+        // Right
+        if (x + 1 <= rooms.GetLength(0) - 1)
+        {
+            if (rooms[x + 1, y].currentRoomType != RoomType.NONE)
+            {
+                result |= option_2;
+            }
+        }
+        // Bottom
+        if (0 <= y - 1)
+        {
+            if (rooms[x, y - 1].currentRoomType != RoomType.NONE)
+            {
+                result |= option_3;
+            }
+        }
 
+        return result;
+    }
     public void RoomDFSFind(int x, int y, int previousX, int previousY)
     {
         rooms[x, y].IsChecked = true;
@@ -336,6 +410,8 @@ public class RoomGenerator : MonoBehaviour
             rooms[x, y].currentRoomType = RoomType.ENDROOM;
         }
     }
+
+
 }
 
 public class RoomNode

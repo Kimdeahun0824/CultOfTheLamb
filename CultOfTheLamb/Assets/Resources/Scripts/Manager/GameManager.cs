@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : SingletonBase<GameManager>
 {
+    public Vector3 startPos = default;
     public float minX = default;
     public float minY = default;
     public float maxX = default;
@@ -30,7 +31,6 @@ public class GameManager : SingletonBase<GameManager>
         Debug.Log($"minY : {minY}");
         Debug.Log($"maxX : {maxX}");
         Debug.Log($"maxY : {maxY}");
-
     }
 
     void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)

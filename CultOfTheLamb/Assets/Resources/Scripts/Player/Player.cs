@@ -4,7 +4,7 @@ using UnityEngine;
 using Spine.Unity;
 using State;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ISubject
 {
     //public SkeletonAnimationHandler skeletonAnimationHandler;
     private GameObject m_AttackCollider = default;
@@ -106,7 +106,6 @@ public class Player : MonoBehaviour
         return m_direction;
     }
 
-
     void Start()
     {
         //skeletonAnimationHandler = GetComponent<SkeletonAnimationHandler>();
@@ -117,6 +116,8 @@ public class Player : MonoBehaviour
         Speed = Default_Speed;
         CurrentHp = MaxHp;
         Damage = 1f;
+
+        transform.position = GameManager.Instance.startPos;
     }
 
     void Update()
@@ -154,6 +155,7 @@ public class Player : MonoBehaviour
             Hit();
             CurrentHp -= 1;
         }
+        NotifyObservers();
     }
 
     public void StateStartCoroutine(IEnumerator coroutineMethod)
@@ -167,5 +169,30 @@ public class Player : MonoBehaviour
         {
             TakeDamage();
         }
+        else if (other.tag == "")
+        {
+
+        }
     }
+
+    #region ObserverPattern
+    private List<IObserver> List_Observers = new List<IObserver>();
+    public void ResisterObserver(IObserver observer)
+    {
+        List_Observers.Add(observer);
+    }
+
+    public void RemoveObserver(IObserver observer)
+    {
+        List_Observers.Remove(observer);
+    }
+
+    public void NotifyObservers()
+    {
+        foreach (var observer in List_Observers)
+        {
+            observer.UpdateDate(gameObject);
+        }
+    }
+    #endregion
 }
