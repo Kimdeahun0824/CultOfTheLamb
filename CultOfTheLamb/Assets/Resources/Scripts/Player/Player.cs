@@ -118,6 +118,8 @@ public class Player : MonoBehaviour, ISubject
         Damage = 1f;
 
         transform.position = GameManager.Instance.startPos;
+
+        NotifyObservers();
     }
 
     void Update()
@@ -148,6 +150,7 @@ public class Player : MonoBehaviour, ISubject
         {
             IsDie = true;
             Speed = 0;
+            CurrentHp = 0;
             SetState(new DieState());
         }
         else
@@ -177,9 +180,10 @@ public class Player : MonoBehaviour, ISubject
 
     #region ObserverPattern
     private List<IObserver> List_Observers = new List<IObserver>();
-    public void ResisterObserver(IObserver observer)
+    public void RegisterObserver(IObserver observer)
     {
         List_Observers.Add(observer);
+        Debug.Log($"ObserPattern Debug(observer : {observer})");
     }
 
     public void RemoveObserver(IObserver observer)
@@ -189,6 +193,7 @@ public class Player : MonoBehaviour, ISubject
 
     public void NotifyObservers()
     {
+        Debug.Log($"ObserPattern Debug(List_Observers Count : {List_Observers.Count})");
         foreach (var observer in List_Observers)
         {
             observer.UpdateDate(gameObject);
