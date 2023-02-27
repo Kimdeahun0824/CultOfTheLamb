@@ -117,7 +117,7 @@ namespace State
         }
         public override void ChangeState()
         {
-            enemy.SetState(new IdleState(enemy));
+            enemy.SetState(new EnemyIdleState(enemy));
         }
     }
 }

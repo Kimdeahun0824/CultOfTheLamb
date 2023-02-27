@@ -11,7 +11,7 @@ namespace State
     {
         [Header("EnemyOption")]
         public EnemyType enemyType;
-        public EnemyStateMachine enemyStateMachine;
+        public StateMachine enemyStateMachine;
         public SkeletonAnimationHandler skeletonAnimationHandler;
         public GameObject attackCollider;
 
@@ -48,7 +48,7 @@ namespace State
         protected void Start()
         {
             skeletonAnimationHandler = GetComponent<SkeletonAnimationHandler>();
-            enemyStateMachine = new EnemyStateMachine();
+            enemyStateMachine = new StateMachine();
             player = GameObject.Find("Player");
             switch (enemyType)
             {
@@ -59,7 +59,7 @@ namespace State
                     break;
                 case EnemyType.SWORDMAN:
                 case EnemyType.ARCHER:
-                    enemyStateMachine.SetState(new IdleState(this));
+                    enemyStateMachine.SetState(new EnemyIdleState(this));
                     break;
             }
             Debug.Log($"currentState : {enemyStateMachine}");
@@ -98,7 +98,7 @@ namespace State
                         // {
                         //     enemyStateMachine.SetState(new HitState(archer));
                         // }
-                        enemyStateMachine.SetState(new HitState(this));
+                        enemyStateMachine.SetState(new EnemyHitState(this));
                         break;
                 }
                 currentHp -= damage;
@@ -121,7 +121,7 @@ namespace State
                 case EnemyType.SWORDMAN:
                 case EnemyType.ARCHER:
                 default:
-                    enemyStateMachine.SetState(new DieState(this));
+                    enemyStateMachine.SetState(new EnemyDieState(this));
                     break;
             }
         }

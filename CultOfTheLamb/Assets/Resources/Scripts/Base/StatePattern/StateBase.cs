@@ -1,7 +1,7 @@
 namespace State
 {
     using UnityEngine;
-    public class EnemyStateMachine
+    public class StateMachine
     {
         private StateBase currentState;
 
@@ -58,10 +58,4 @@ namespace State
 
         public abstract void Action();
     }
-
-    public enum EnemyType
-    {
-        FORESTWORM, SWORDMAN, ARCHER
-    }
-
 }

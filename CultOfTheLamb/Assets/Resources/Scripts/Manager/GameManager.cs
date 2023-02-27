@@ -58,6 +58,7 @@ public class GameManager : SingletonBase<GameManager>
         }
     }
 
+
     public Vector3 RoomChangeLeft(int x, int y)
     {
         Vector3 result = default;
@@ -75,12 +76,14 @@ public class GameManager : SingletonBase<GameManager>
                 temp.gameObject.SetActive(true);
             }
         }
-        result = nextRoom.worldSpwanZone[2].transform.position;
+        result = nextRoom.worldSpawnZone[2].transform.position;
         return result;
     }
 
-    public void RoomChangeTop(int x, int y)
+    public Vector3 RoomChangeTop(int x, int y)
     {
+        Vector3 result = default;
+        Room nextRoom = default;
         foreach (var room in List_CreateRooms)
         {
             Room temp = room.GetComponent<Room>();
@@ -90,12 +93,17 @@ public class GameManager : SingletonBase<GameManager>
             }
             if (temp.x == x && temp.y == y + 1)
             {
+                nextRoom = temp;
                 temp.gameObject.SetActive(true);
             }
         }
+        result = nextRoom.worldSpawnZone[3].transform.position;
+        return result;
     }
-    public void RoomChangeRight(int x, int y)
+    public Vector3 RoomChangeRight(int x, int y)
     {
+        Vector3 result = default;
+        Room nextRoom = default;
         foreach (var room in List_CreateRooms)
         {
             Room temp = room.GetComponent<Room>();
@@ -105,12 +113,17 @@ public class GameManager : SingletonBase<GameManager>
             }
             if (temp.x == x + 1 && temp.y == y)
             {
+                nextRoom = temp;
                 temp.gameObject.SetActive(true);
             }
         }
+        result = nextRoom.worldSpawnZone[0].transform.position;
+        return result;
     }
-    public void RoomChangeBottom(int x, int y)
+    public Vector3 RoomChangeBottom(int x, int y)
     {
+        Vector3 result = default;
+        Room nextRoom = default;
         foreach (var room in List_CreateRooms)
         {
             Room temp = room.GetComponent<Room>();
@@ -120,9 +133,12 @@ public class GameManager : SingletonBase<GameManager>
             }
             if (temp.x == x && temp.y == y - 1)
             {
+                nextRoom = temp;
                 temp.gameObject.SetActive(true);
             }
         }
+        result = nextRoom.worldSpawnZone[1].transform.position;
+        return result;
     }
 
 }

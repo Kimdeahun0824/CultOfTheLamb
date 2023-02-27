@@ -2,10 +2,15 @@ using UnityEngine;
 
 namespace State
 {
-    public class IdleState : StateBase
+    public enum EnemyType
+    {
+        FORESTWORM, SWORDMAN, ARCHER
+    }
+
+    public class EnemyIdleState : StateBase
     {
         Enemy enemy;
-        public IdleState(Enemy enemy_)
+        public EnemyIdleState(Enemy enemy_)
         {
             this.enemy = enemy_;
         }
@@ -49,10 +54,10 @@ namespace State
         }
     }
 
-    public class HitState : StateBase
+    public class EnemyHitState : StateBase
     {
         Enemy enemy;
-        public HitState(Enemy enemy_)
+        public EnemyHitState(Enemy enemy_)
         {
             this.enemy = enemy_;
         }
@@ -72,14 +77,14 @@ namespace State
         }
         public override void ChangeState()
         {
-            enemy.SetState(new IdleState(enemy));
+            enemy.SetState(new EnemyIdleState(enemy));
         }
     }
 
-    public class DieState : StateBase
+    public class EnemyDieState : StateBase
     {
         Enemy enemy;
-        public DieState(Enemy enemy_)
+        public EnemyDieState(Enemy enemy_)
         {
             this.enemy = enemy_;
         }

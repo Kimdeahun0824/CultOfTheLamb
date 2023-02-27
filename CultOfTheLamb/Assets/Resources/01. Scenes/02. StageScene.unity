@@ -29849,11 +29849,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5146762549945070415, guid: e4679e963a6d6b845a8ea4a765a098b3,
-        type: 3}
-      propertyPath: MaxHp
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 5146762550301765271, guid: e4679e963a6d6b845a8ea4a765a098b3,
         type: 3}
       propertyPath: m_Mesh
@@ -30518,9 +30513,7 @@ MonoBehaviour:
   worldTriggerZone:
   - {fileID: 388544793}
   - {fileID: 2065200230}
-  worldSpwanZone:
-  - {fileID: 684840837}
-  - {fileID: 150017652}
+  worldSpawnZone: []
   walls: []
   floors: []
   worldSizeCheck:
@@ -31786,11 +31779,7 @@ MonoBehaviour:
   - {fileID: 436967281}
   - {fileID: 1609658601}
   - {fileID: 1768977555}
-  worldSpwanZone:
-  - {fileID: 1994812197}
-  - {fileID: 356806250}
-  - {fileID: 1434695785}
-  - {fileID: 816639152}
+  worldSpawnZone: []
   walls:
   - {fileID: 509873188}
   - {fileID: 1343229620}
@@ -31865,11 +31854,7 @@ MonoBehaviour:
   - {fileID: 989387699}
   - {fileID: 252219047}
   - {fileID: 1369657100}
-  worldSpwanZone:
-  - {fileID: 640445108}
-  - {fileID: 2089281076}
-  - {fileID: 90954057}
-  - {fileID: 1351660316}
+  worldSpawnZone: []
   walls: []
   floors: []
   worldSizeCheck:
@@ -88196,7 +88181,7 @@ MonoBehaviour:
   - {fileID: 128235935}
   - {fileID: 525231448}
   - {fileID: 831448521}
-  worldSpwanZone:
+  worldSpawnZone:
   - {fileID: 1230648579}
   - {fileID: 401130772}
   - {fileID: 210662414}
@@ -88275,11 +88260,7 @@ MonoBehaviour:
   - {fileID: 1320874784}
   - {fileID: 1354725998}
   - {fileID: 1872396245}
-  worldSpwanZone:
-  - {fileID: 1444483137}
-  - {fileID: 1494012618}
-  - {fileID: 1626948822}
-  - {fileID: 1690233707}
+  worldSpawnZone: []
   walls:
   - {fileID: 115701511}
   - {fileID: 1296980202}
@@ -93230,9 +93211,7 @@ MonoBehaviour:
   worldTriggerZone:
   - {fileID: 47568521}
   - {fileID: 803055396}
-  worldSpwanZone:
-  - {fileID: 631363134}
-  - {fileID: 1033139400}
+  worldSpawnZone: []
   walls: []
   floors: []
   worldSizeCheck:

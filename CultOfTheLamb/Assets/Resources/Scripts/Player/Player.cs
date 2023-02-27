@@ -1,27 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine;
 using Spine.Unity;
 using State;
 
 public class Player : MonoBehaviour, ISubject
 {
-    //public SkeletonAnimationHandler skeletonAnimationHandler;
+    public SkeletonAnimationHandler skeletonAnimationHandler;
     private GameObject m_AttackCollider = default;
     public GameObject AttackColloder
     {
         get { return m_AttackCollider; }
         private set { m_AttackCollider = value; }
     }
-    private IPlayerState m_PlayerState = default;
-    public void SetState(IPlayerState state)
+    private StateMachine stateMachine = default;
+    public void SetState(StateBase state)
     {
-        m_PlayerState = state;
+        stateMachine.SetState(state);
     }
 
-    public IPlayerState GetState()
+    public StateMachine GetState()
     {
-        return m_PlayerState;
+        return stateMachine;
     }
 
     private Vector3 m_Position = default;
@@ -93,8 +94,10 @@ public class Player : MonoBehaviour, ISubject
     public bool IsDie
     {
         get;
-        private set;
+        set;
     }
+
+    public bool IsFlip = false;
 
     private Direction m_direction;
     public void SetDirection(Direction direction)
@@ -108,9 +111,10 @@ public class Player : MonoBehaviour, ISubject
 
     void Start()
     {
-        //skeletonAnimationHandler = GetComponent<SkeletonAnimationHandler>();
+        skeletonAnimationHandler = GetComponent<SkeletonAnimationHandler>();
+        SpineAnimationEventAdd();
+
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_PlayerState = new IdleState();
         m_AttackCollider = transform.GetChild(1).gameObject;
         m_AttackCollider.SetActive(false);
         Speed = Default_Speed;
@@ -119,12 +123,15 @@ public class Player : MonoBehaviour, ISubject
 
         transform.position = GameManager.Instance.startPos;
 
+        stateMachine = new StateMachine();
+        SetState(new Player_Idle_State(this));
         NotifyObservers();
     }
 
     void Update()
     {
-        m_PlayerState.Action(this);
+        stateMachine.Update();
+        skeletonAnimationHandler.SetFlip(IsFlip);
     }
 
     private void FixedUpdate()
@@ -140,7 +147,7 @@ public class Player : MonoBehaviour, ISubject
 
     public void Hit()
     {
-        m_PlayerState.Hit(this);
+        stateMachine.SetState(new Player_Hit_State(this));
     }
 
     public void TakeDamage()
@@ -151,7 +158,7 @@ public class Player : MonoBehaviour, ISubject
             IsDie = true;
             Speed = 0;
             CurrentHp = 0;
-            SetState(new DieState());
+            SetState(new Player_Die_State(this));
         }
         else
         {
@@ -161,10 +168,40 @@ public class Player : MonoBehaviour, ISubject
         NotifyObservers();
     }
 
-    public void StateStartCoroutine(IEnumerator coroutineMethod)
+    #region Spine Func
+    public void SetAnimation(string aniName, int layerIndex, bool loop, float speed)
     {
-        StartCoroutine(coroutineMethod);
+        skeletonAnimationHandler.PlayAnimation(aniName, layerIndex, loop, speed);
     }
+
+    public void SpineAnimationEventAdd()
+    {
+        skeletonAnimationHandler.skeletonAnimation.state.Event += HandleAnimationStateEvent;
+        skeletonAnimationHandler.skeletonAnimation.state.Start += HandleAnimationStateStartEvent;
+        skeletonAnimationHandler.skeletonAnimation.state.End += HandleAnimationStateEndEvent;
+        skeletonAnimationHandler.skeletonAnimation.state.Complete += HandleAnimationStateCompleteEvent;
+    }
+
+    public void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e)
+    {
+
+    }
+    public void HandleAnimationStateStartEvent(TrackEntry trackEntry)
+    {
+
+    }
+    public void HandleAnimationStateEndEvent(TrackEntry trackEntry)
+    {
+
+    }
+    public void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
+    {
+        Debug.Log($"HandleAnimationStateCompleteEvent Debug(TrackEntry : {trackEntry})");
+        Debug.Log($"HandleAnimationStateCompleteEvent Debug(TrackEntry : {trackEntry.ToString()})");
+        stateMachine.ChangeState();
+
+    }
+    #endregion
 
     public void OnTriggerEnter(Collider other)
     {
@@ -177,23 +214,35 @@ public class Player : MonoBehaviour, ISubject
             Debug.Log($"Player TriggerTest(other : {other.name} / {other.GetComponentInParent<Room>().name})");
             int x = other.GetComponentInParent<Room>().x;
             int y = other.GetComponentInParent<Room>().y;
-            switch (other.name)
-            {
-                case "TriggerZone_Left":
-                    transform.position = GameManager.Instance.RoomChangeLeft(x, y);
-                    break;
-                case "TriggerZone_Top":
-                    GameManager.Instance.RoomChangeTop(x, y);
-                    break;
-                case "TriggerZone_Right":
-                    GameManager.Instance.RoomChangeRight(x, y);
-                    break;
-                case "TriggerZone_Bottom":
-                    GameManager.Instance.RoomChangeBottom(x, y);
-                    break;
-            }
+            other.GetComponentInParent<Room>().RoomClear();
+            RoomMove(other.name, x, y);
         }
     }
+
+    public void RoomMove(string roomDirection, int x, int y)
+    {
+        SetState(new Player_DungeonMove_State(this));
+        switch (roomDirection)
+        {
+            case "TriggerZone_Left":
+                transform.position = GameManager.Instance.RoomChangeLeft(x, y);
+                SetDirection(Direction.LEFT);
+                break;
+            case "TriggerZone_Top":
+                transform.position = GameManager.Instance.RoomChangeTop(x, y);
+                SetDirection(Direction.UP);
+                break;
+            case "TriggerZone_Right":
+                transform.position = GameManager.Instance.RoomChangeRight(x, y);
+                SetDirection(Direction.DOWN);
+                break;
+            case "TriggerZone_Bottom":
+                transform.position = GameManager.Instance.RoomChangeBottom(x, y);
+                SetDirection(Direction.RIGHT);
+                break;
+        }
+    }
+
 
     #region ObserverPattern
     private List<IObserver> List_Observers = new List<IObserver>();

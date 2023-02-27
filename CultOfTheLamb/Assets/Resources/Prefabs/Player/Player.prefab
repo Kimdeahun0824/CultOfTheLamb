@@ -74,7 +74,6 @@ GameObject:
   - component: {fileID: 5146762549945070408}
   - component: {fileID: 5146762549945070409}
   - component: {fileID: 5146762549945070415}
-  - component: {fileID: 5146762549945070413}
   - component: {fileID: 5146762549945070412}
   m_Layer: 0
   m_Name: Player
@@ -90,7 +89,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5146762549945070410}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -141,25 +140,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6ec52a2f435674eb497ddaa5320d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 5
+  skeletonAnimationHandler: {fileID: 0}
+  MaxHp: 10
   CurrentHp: 0
   Default_Speed: 500
   Speed: 0
   Damage: 1
   IsAttack: 0
---- !u!114 &5146762549945070413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5146762549945070410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c54657fc0e0924cbd70392b8f0907e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skeletonAnimationHandler: {fileID: 0}
+  IsFlip: 0
 --- !u!114 &5146762549945070412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +192,10 @@ MonoBehaviour:
     animation: {fileID: 11400000, guid: 4cb41bc413dbce84fb335e8ae6b690cf, type: 2}
   - stateName: Die
     animation: {fileID: 11400000, guid: b0b6071eb4a9c084c82f382818d351bc, type: 2}
+  - stateName: CastDown
+    animation: {fileID: 11400000, guid: b5071eb33f099dc47b8b732117fabf20, type: 2}
+  - stateName: CastUp
+    animation: {fileID: 11400000, guid: 3cee677345256554db02bbcc301070a2, type: 2}
   transitions: []
 --- !u!1 &5146762550301765266
 GameObject:

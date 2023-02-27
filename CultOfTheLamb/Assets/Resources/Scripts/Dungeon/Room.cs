@@ -23,7 +23,7 @@ public class Room : MonoBehaviour
     public List<GameObject> worldTriggerZone = default;
 
     [Space(5)]
-    public List<GameObject> worldSpwanZone = default;
+    public List<GameObject> worldSpawnZone = default;
 
     [Space(5)]
     public List<GameObject> walls = default;
@@ -67,7 +67,7 @@ public class Room : MonoBehaviour
         {
             iterator.SetActive(false);
         }
-        foreach (var iterator in worldSpwanZone)
+        foreach (var iterator in worldSpawnZone)
         {
             iterator.SetActive(false);
         }
@@ -83,43 +83,38 @@ public class Room : MonoBehaviour
         // 왼쪽에 방이 있다면
         if ((flag & option_0) != 0b0000)
         {
-            worldTriggerZone[0].SetActive(true);
-            worldSpwanZone[0].SetActive(true);
-            floors[0].SetActive(true);
-            walls[0].SetActive(true);
+            RoomInit(0);
         }
         Debug.Log($"flag & Option_0 : {flag & option_0}");
 
         // 위쪽에 방이 있다면
         if ((flag & option_1) != 0b0000)
         {
-            worldTriggerZone[1].SetActive(true);
-            worldSpwanZone[1].SetActive(true);
-            floors[1].SetActive(true);
-            walls[1].SetActive(true);
+            RoomInit(1);
         }
         Debug.Log($"flag & Option_1 : {flag & option_1}");
         // 오른쪽에 방이 있다면
         if ((flag & option_2) != 0b0000)
         {
-            worldTriggerZone[2].SetActive(true);
-            worldSpwanZone[2].SetActive(true);
-            floors[2].SetActive(true);
-            walls[2].SetActive(true);
+            RoomInit(2);
         }
         Debug.Log($"flag & Option_2 : {flag & option_2}");
 
         // 아래쪽에 방이 있다면
         if ((flag & option_3) != 0b0000)
         {
-            worldTriggerZone[3].SetActive(true);
-            worldSpwanZone[3].SetActive(true);
-            floors[3].SetActive(true);
-            walls[3].SetActive(true);
+            RoomInit(3);
         }
         Debug.Log($"flag & Option_3 : {flag & option_3}");
 
         my_flag |= flag;
+    }
+    public void RoomInit(int num)
+    {
+        worldTriggerZone[num].SetActive(true);
+        worldSpawnZone[num].SetActive(true);
+        floors[num].SetActive(true);
+        walls[num].SetActive(true);
     }
 
     public void RoomClear()
