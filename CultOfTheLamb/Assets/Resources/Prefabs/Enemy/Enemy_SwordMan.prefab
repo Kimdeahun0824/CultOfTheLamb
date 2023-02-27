@@ -180,7 +180,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: grunt-attack-impact
+  _animationName: 
   loop: 1
   timeScale: 1
 --- !u!1 &382174566784646713

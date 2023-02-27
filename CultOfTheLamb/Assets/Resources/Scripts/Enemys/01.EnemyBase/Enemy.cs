@@ -7,7 +7,7 @@ using Spine;
 
 namespace State
 {
-    public abstract class Enemy : MonoBehaviour
+    public abstract class Enemy : MonoBehaviour, ISubject
     {
         [Header("EnemyOption")]
         public EnemyType enemyType;
@@ -189,5 +189,27 @@ namespace State
             }
             Debug.Log($"OnTriggerEnter : {other}");
         }
+
+
+        #region ObserverPattern
+        private List<IObserver> List_Observers = new List<IObserver>();
+        public void RegisterObserver(IObserver observer)
+        {
+            List_Observers.Add(observer);
+        }
+
+        public void RemoveObserver(IObserver observer)
+        {
+            List_Observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in List_Observers)
+            {
+                observer.UpdateDate(gameObject);
+            }
+        }
+        #endregion
     }
 }

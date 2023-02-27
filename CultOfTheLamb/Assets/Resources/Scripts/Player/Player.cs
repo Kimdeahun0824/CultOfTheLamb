@@ -172,9 +172,26 @@ public class Player : MonoBehaviour, ISubject
         {
             TakeDamage();
         }
-        else if (other.tag == "")
+        else if (other.tag == "TriggerZone")
         {
-
+            Debug.Log($"Player TriggerTest(other : {other.name} / {other.GetComponentInParent<Room>().name})");
+            int x = other.GetComponentInParent<Room>().x;
+            int y = other.GetComponentInParent<Room>().y;
+            switch (other.name)
+            {
+                case "TriggerZone_Left":
+                    transform.position = GameManager.Instance.RoomChangeLeft(x, y);
+                    break;
+                case "TriggerZone_Top":
+                    GameManager.Instance.RoomChangeTop(x, y);
+                    break;
+                case "TriggerZone_Right":
+                    GameManager.Instance.RoomChangeRight(x, y);
+                    break;
+                case "TriggerZone_Bottom":
+                    GameManager.Instance.RoomChangeBottom(x, y);
+                    break;
+            }
         }
     }
 

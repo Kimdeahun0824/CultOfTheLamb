@@ -14,6 +14,9 @@ public class Room : MonoBehaviour
     ///<summary> 0b1000 Bottom</summary>
     private byte option_3 = 1 << 3;
 
+    public int x = default;
+    public int y = default;
+
     #region Inspector
     public bool IsRoomClear = default;
     [Space(5)]
@@ -138,5 +141,10 @@ public class Room : MonoBehaviour
         {
             walls[3].SetActive(false);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log($"Room OnTriggerEnter Debug(other.name : {other.name})");
     }
 }
