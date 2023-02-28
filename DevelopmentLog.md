@@ -43,6 +43,13 @@
 ###         - 3. RigidBody에 MovePosition함수로는 정확한 충돌 처리가 어렵다고 판단, velocity에 값을 주는 방식으로 변경하여서 이슈 해결
 
 
+## 오후 12:49 2023-02-28
+## Issue : Enemy가 여러마리일 때 제대로 플레이어를 추적하지 않는 이슈
+## Detail :
+###         - 1. AStar Request를 여러 Enemy가 공유를 함
+###         - 2. 원인 분석 및 수정 Fix예정
+
+
 
 
 

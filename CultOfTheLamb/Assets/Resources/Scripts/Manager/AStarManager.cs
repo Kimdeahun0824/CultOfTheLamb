@@ -29,6 +29,7 @@ public class AStarManager : SingletonBase<AStarManager>
 
     public void FinishedProcessingPath(Vector3[] path, bool success)
     {
+        Debug.Log($"AstarDebug FinishedProcessingPath(Length : {path.Length})");
         currentPathRequest.callback(path, success);
         isProcessingPath = false;
         TryProcessNext();

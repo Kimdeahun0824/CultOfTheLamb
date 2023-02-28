@@ -7,7 +7,7 @@ using Spine;
 
 namespace State
 {
-    public abstract class Enemy : MonoBehaviour, ISubject
+    public abstract class Enemy : MonoBehaviour, IObserver
     {
         [Header("EnemyOption")]
         public EnemyType enemyType;
@@ -27,11 +27,6 @@ namespace State
         public float defaultSpeed;
         public float currentSpeed;
 
-        [Space(5)]
-        [Header("Target")]
-        public GameObject player;
-        public Vector3 targetPos = default;
-
         protected bool m_IsHit;
         public bool IsHit
         {
@@ -45,11 +40,13 @@ namespace State
             protected set;
         }
 
+        public bool playerIsDieCheck = default;
+        public Vector3 targetPos = default;
+
         protected void Start()
         {
             skeletonAnimationHandler = GetComponent<SkeletonAnimationHandler>();
             enemyStateMachine = new StateMachine();
-            player = GameObject.Find("Player");
             switch (enemyType)
             {
                 case EnemyType.FORESTWORM:
@@ -59,13 +56,15 @@ namespace State
                     break;
                 case EnemyType.SWORDMAN:
                 case EnemyType.ARCHER:
-                    enemyStateMachine.SetState(new EnemyIdleState(this));
+                    enemyStateMachine.SetState(new Enemy_Spawn_State(this));
                     break;
             }
             Debug.Log($"currentState : {enemyStateMachine}");
 
             currentHp = maxHp;
             currentSpeed = defaultSpeed;
+
+            GameManager.Instance.PlayerRegisterObserver(this);
         }
 
         protected void Update()
@@ -86,18 +85,7 @@ namespace State
                 switch (enemyType)
                 {
                     case EnemyType.SWORDMAN:
-                    // var swordMan = GetComponent<Enemy_SwordMan>();
-                    // if (swordMan != null)
-                    // {
-                    //     enemyStateMachine.SetState(new HitState(swordMan));
-                    // }
-                    //break;
                     case EnemyType.ARCHER:
-                        // var archer = GetComponent<Enemy_Archer>();
-                        // if (archer != null)
-                        // {
-                        //     enemyStateMachine.SetState(new HitState(archer));
-                        // }
                         enemyStateMachine.SetState(new EnemyHitState(this));
                         break;
                 }
@@ -121,26 +109,41 @@ namespace State
                 case EnemyType.SWORDMAN:
                 case EnemyType.ARCHER:
                 default:
+                    StopAllCoroutines();
                     enemyStateMachine.SetState(new EnemyDieState(this));
                     break;
             }
         }
 
+        public virtual void Destroy()
+        {
+            StopAllCoroutines();
+            Destroy(gameObject);
+        }
         #region AStarAlgorithm
         Vector3[] path = default;
+        Vector3[] previousPath = default;
         int targetIndex = default;
-        Vector3 currentPlayerPos = default;
         public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
         {
+            //Debug.Log($"Instance ID : {this.GetInstanceID()}");
             if (pathSuccessful)
             {
                 path = newPath;
+                int index = 0;
+                foreach (var n in path)
+                {
+                    Debug.Log($"Astar Debug Path : {n} / index : {index}");
+                    index++;
+                }
+                Debug.Log($"Astar Debug PathLength : {path.Length}");
                 StopCoroutine(FollowPath());
                 StartCoroutine(FollowPath());
             }
         }
         IEnumerator FollowPath()
         {
+            targetIndex = 0;
             if (path.Length <= 0) yield break;
             currentWayPoint = path[0];
             while (true)
@@ -158,6 +161,62 @@ namespace State
             }
         }
         #endregion
+
+
+        #region ObserverPattern
+        private Vector3 previousPos = default;
+        public Vector3 PlayerPos
+        {
+            get
+            {
+                return previousPos;
+            }
+        }
+        public void UpdateDate(GameObject data)
+        {
+            Debug.Log($"Observer Pattern Debug(Player Data Update)");
+            Vector3 currentPos = data.transform.position;
+            if (previousPos != currentPos)
+            {
+                previousPos = currentPos;
+                switch (enemyStateMachine.GetState())
+                {
+                    case EnemyDieState:
+                        break;
+                    default:
+                        AStarManager.Instance.RequestPath(transform.position, currentPos, OnPathFound);
+                        break;
+                }
+            }
+
+            bool playerIsDie = data.GetComponent<Player>().IsDie;
+            if (playerIsDieCheck != playerIsDie)
+            {
+                playerIsDieCheck = playerIsDie;
+            }
+        }
+        #endregion
+
+
+        #region SpineAnimation
+        public void PlayAnimation(string aniName, int layerIndex, bool loop, float speed)
+        {
+            skeletonAnimationHandler.PlayAnimation(aniName, layerIndex, loop, speed);
+        }
+        public void AddPlayAnimation(string aniName, int layerIndex, bool loop, float speed, float delay)
+        {
+            skeletonAnimationHandler.AddPlayAnimation(aniName, layerIndex, loop, speed, delay);
+        }
+
+        public void SetFlip(bool flip)
+        {
+            skeletonAnimationHandler.SetFlip(flip);
+        }
+
+        public void SetFlip(float horizontal)
+        {
+            skeletonAnimationHandler.SetFlip(horizontal);
+        }
 
         protected abstract void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e);
         protected abstract void HandleAnimationStateStartEvent(TrackEntry trackEntry);
@@ -179,6 +238,10 @@ namespace State
         {
             skeletonAnimationHandler.skeletonAnimation.AnimationState.Complete += func;
         }
+        #endregion
+
+
+        #region Collision
         protected void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Weapon")
@@ -188,27 +251,6 @@ namespace State
                 TakeDamage(damage);
             }
             Debug.Log($"OnTriggerEnter : {other}");
-        }
-
-
-        #region ObserverPattern
-        private List<IObserver> List_Observers = new List<IObserver>();
-        public void RegisterObserver(IObserver observer)
-        {
-            List_Observers.Add(observer);
-        }
-
-        public void RemoveObserver(IObserver observer)
-        {
-            List_Observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in List_Observers)
-            {
-                observer.UpdateDate(gameObject);
-            }
         }
         #endregion
     }

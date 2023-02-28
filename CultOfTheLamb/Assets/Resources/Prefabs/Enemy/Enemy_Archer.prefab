@@ -166,6 +166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeletonAnimation: {fileID: 8030534187993364808}
   statesAndAnimations:
+  - stateName: Spawn
+    animation: {fileID: 11400000, guid: 65c63f96bd7387848a91138859e02e46, type: 2}
   - stateName: Idle
     animation: {fileID: 11400000, guid: e027fdc8ab5e4534cb9216b69e151384, type: 2}
   - stateName: Run

@@ -39,7 +39,6 @@ public class SkeletonAnimationHandler : MonoBehaviour
             entry.to.Initialize();
             entry.transition.Initialize();
         }
-
     }
 
     public void SetFlip(float horizontal)

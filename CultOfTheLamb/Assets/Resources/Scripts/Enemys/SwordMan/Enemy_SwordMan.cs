@@ -21,7 +21,6 @@ public class Enemy_SwordMan : Enemy
         HandleAnimationStateStartEventAdd(HandleAnimationStateStartEvent);
         HandleAnimationStateEndEventAdd(HandleAnimationStateEndEvent);
         HandleAnimationStateCompleteEventAdd(HandleAnimationStateCompleteEvent);
-
     }
     protected override void HandleAnimationStateEvent(TrackEntry trackEntry, Spine.Event e)
     {
@@ -37,10 +36,11 @@ public class Enemy_SwordMan : Enemy
 
     protected override void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
     {
-        if (trackEntry.ToString() == "hurt-front" || trackEntry.ToString() == "grunt-attack-charge" || trackEntry.ToString() == "grunt-attack-impact")
-        {
-            enemyStateMachine.ChangeState();
-        }
+        enemyStateMachine.ChangeState();
+        // if (trackEntry.ToString() == "hurt-front" || trackEntry.ToString() == "grunt-attack-charge" || trackEntry.ToString() == "grunt-attack-impact")
+        // {
+        //     enemyStateMachine.ChangeState();
+        // }
 
     }
 }

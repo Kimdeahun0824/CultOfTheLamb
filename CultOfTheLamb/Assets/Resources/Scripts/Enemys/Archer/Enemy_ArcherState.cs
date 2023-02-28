@@ -12,7 +12,15 @@ namespace State
         }
         public override void OnEnter()
         {
-            enemy.skeletonAnimationHandler.PlayAnimation("Archer_Attack_Charge", 0, false, 1f);
+            enemy.PlayAnimation("Archer_Attack_Charge", 0, false, 1f);
+            if (enemy.transform.position.x <= enemy.PlayerPos.x)
+            {
+                enemy.SetFlip(true);
+            }
+            else
+            {
+                enemy.SetFlip(false);
+            }
         }
 
         public override void UpdateState()
@@ -20,7 +28,7 @@ namespace State
         }
         public override void OnExit()
         {
-            enemy.targetPos = enemy.player.transform.position;
+            enemy.targetPos = enemy.PlayerPos;
         }
 
         public override void Action()
@@ -42,7 +50,7 @@ namespace State
         }
         public override void OnEnter()
         {
-            enemy.skeletonAnimationHandler.PlayAnimation("Archer_Attack_Impact", 0, false, 1f);
+            enemy.PlayAnimation("Archer_Attack_Impact", 0, false, 1f);
             enemy.ShootArrow();
         }
 

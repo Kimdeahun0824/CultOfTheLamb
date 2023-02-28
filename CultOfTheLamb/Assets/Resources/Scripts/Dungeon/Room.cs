@@ -14,6 +14,7 @@ public class Room : MonoBehaviour
     ///<summary> 0b1000 Bottom</summary>
     private byte option_3 = 1 << 3;
 
+    public RoomType roomType;
     public int x = default;
     public int y = default;
 
@@ -58,6 +59,7 @@ public class Room : MonoBehaviour
 
         AStarManager.Instance.aGrid.gridWorldSize = worldSize;
         GameManager.Instance.SetWorldSize();
+        GameManager.Instance.SetCurrentRoom(this);
         AStarManager.Instance.aGrid.CreateGrid();
     }
 
@@ -137,6 +139,50 @@ public class Room : MonoBehaviour
             walls[3].SetActive(false);
         }
     }
+
+    public void RoomWallOn()
+    {
+        Debug.Log($"RoomClear my_flag : {my_flag}");
+        if ((my_flag & option_0) != 0b0000)
+        {
+            walls[0].SetActive(true);
+        }
+        if ((my_flag & option_1) != 0b0000)
+        {
+            walls[1].SetActive(true);
+        }
+        if ((my_flag & option_2) != 0b0000)
+        {
+            walls[2].SetActive(true);
+        }
+        if ((my_flag & option_3) != 0b0000)
+        {
+            walls[3].SetActive(true);
+        }
+    }
+
+    public void RoomWallOff()
+    {
+        Debug.Log($"RoomClear my_flag : {my_flag}");
+        if ((my_flag & option_0) != 0b0000)
+        {
+            walls[0].SetActive(false);
+        }
+        if ((my_flag & option_1) != 0b0000)
+        {
+            walls[1].SetActive(false);
+        }
+        if ((my_flag & option_2) != 0b0000)
+        {
+            walls[2].SetActive(false);
+        }
+        if ((my_flag & option_3) != 0b0000)
+        {
+            walls[3].SetActive(false);
+        }
+    }
+
+
 
     private void OnTriggerEnter(Collider other)
     {

@@ -1,21 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using State;
 
 public class GameManager : SingletonBase<GameManager>
 {
-
+    [Space(5)]
+    public List<GameObject> List_Enemy;
+    [Space(5)]
+    public List<GameObject> List_Boss;
+    [Space(5)]
+    public List<Enemy> currentRoomEnemy;
+    [Space(5)]
     public Vector3 startPos = default;
     public float minX = default;
     public float minY = default;
     public float maxX = default;
     public float maxY = default;
 
+    public Room previousRoom = default;
+    public Room currentRoom = default;
+
+    private Player player;
 
     private new void Awake()
     {
         base.Awake();
         ConvenienceFunc.SetOnSceneLoaded(OnSceneLoaded);
+        currentRoomEnemy = new List<Enemy>();
     }
 
     public void SetWorldSize()
@@ -42,6 +54,9 @@ public class GameManager : SingletonBase<GameManager>
             case "01. TitleScene":
                 ConvenienceFunc.LoadScene("02. StageScene");
                 break;
+            case "02. StageScene":
+                player = GameObject.Find("Player").GetComponent<Player>();
+                break;
             default:
                 break;
         }
@@ -55,9 +70,13 @@ public class GameManager : SingletonBase<GameManager>
         foreach (var room in this.List_CreateRooms)
         {
             Debug.Log($"SetRoom Debug(room : {room} / {room.GetComponent<Room>()} / x : {room.GetComponent<Room>().x} / y : {room.GetComponent<Room>().y})");
+            Debug.Log($"SetRoom Debug(roomType : {room.GetComponent<Room>().roomType}");
         }
     }
-
+    public void SetCurrentRoom(Room room)
+    {
+        currentRoom = room;
+    }
 
     public Vector3 RoomChangeLeft(int x, int y)
     {
@@ -69,13 +88,16 @@ public class GameManager : SingletonBase<GameManager>
             if (temp.x == x && temp.y == y)
             {
                 temp.gameObject.SetActive(false);
+                previousRoom = temp;
             }
             if (temp.x == x - 1 && temp.y == y)
             {
                 nextRoom = temp;
+                currentRoom = nextRoom;
                 temp.gameObject.SetActive(true);
             }
         }
+        nextRoom.RoomWallOff();
         result = nextRoom.worldSpawnZone[2].transform.position;
         return result;
     }
@@ -90,13 +112,16 @@ public class GameManager : SingletonBase<GameManager>
             if (temp.x == x && temp.y == y)
             {
                 temp.gameObject.SetActive(false);
+                previousRoom = temp;
             }
             if (temp.x == x && temp.y == y + 1)
             {
                 nextRoom = temp;
                 temp.gameObject.SetActive(true);
+                currentRoom = nextRoom;
             }
         }
+        nextRoom.RoomWallOff();
         result = nextRoom.worldSpawnZone[3].transform.position;
         return result;
     }
@@ -110,13 +135,16 @@ public class GameManager : SingletonBase<GameManager>
             if (temp.x == x && temp.y == y)
             {
                 temp.gameObject.SetActive(false);
+                previousRoom = temp;
             }
             if (temp.x == x + 1 && temp.y == y)
             {
-                nextRoom = temp;
                 temp.gameObject.SetActive(true);
+                nextRoom = temp;
+                currentRoom = nextRoom;
             }
         }
+        nextRoom.RoomWallOff();
         result = nextRoom.worldSpawnZone[0].transform.position;
         return result;
     }
@@ -130,15 +158,96 @@ public class GameManager : SingletonBase<GameManager>
             if (temp.x == x && temp.y == y)
             {
                 temp.gameObject.SetActive(false);
+                previousRoom = temp;
             }
             if (temp.x == x && temp.y == y - 1)
             {
-                nextRoom = temp;
                 temp.gameObject.SetActive(true);
+                nextRoom = temp;
+                currentRoom = nextRoom;
             }
         }
+        nextRoom.RoomWallOff();
         result = nextRoom.worldSpawnZone[1].transform.position;
         return result;
     }
 
+    public void RoomWallOn()
+    {
+        currentRoom.RoomWallOn();
+    }
+
+    public void RoomWallOff()
+    {
+        currentRoom.RoomWallOff();
+    }
+
+    public void RoomClear()
+    {
+        currentRoom.RoomWallOff();
+        currentRoom.IsRoomClear = true;
+        currentRoomEnemy.Clear();
+    }
+
+    public void RoomMoveComplete()
+    {
+        Debug.Log($"RoomMoveComplete Debug(currentRoom : {currentRoom.roomType})");
+        if (currentRoom.IsRoomClear)
+        {
+            RoomWallOff();
+        }
+        else
+        {
+            RoomWallOn();
+            if (currentRoom.roomType == RoomType.BOSS)
+            {
+                BossSpawn();
+            }
+            else
+            {
+                EnemySpawn();
+            }
+        }
+    }
+
+    public void EnemySpawn()
+    {
+        int count = Random.Range(1, 2);
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 randomPos = default;
+            float x = Random.Range(minX, maxX);
+            float z = Random.Range(minY, maxY);
+            randomPos = new Vector3(x, 0f, z);
+
+            int randomIndex = Random.Range(0, List_Enemy.Count);
+            Enemy tempEnemy = Instantiate(List_Enemy[randomIndex], randomPos, Quaternion.identity).GetComponent<Enemy>();
+            currentRoomEnemy.Add(tempEnemy);
+        }
+    }
+
+    public void BossSpawn()
+    {
+        Enemy tempEnemy = Instantiate(List_Boss[0], Vector3.zero, Quaternion.identity).GetComponent<Enemy>();
+        currentRoomEnemy.Add(tempEnemy);
+    }
+
+    public void EnemyDie(Enemy enemy)
+    {
+        currentRoomEnemy.Remove(enemy);
+        if (currentRoomEnemy.Count <= 0)
+        {
+            RoomClear();
+        }
+    }
+
+    public void PlayerRegisterObserver(IObserver observer)
+    {
+        player.RegisterObserver(observer);
+    }
+
+    public void PlayerRemoveObserver(IObserver observer)
+    {
+        player.RemoveObserver(observer);
+    }
 }

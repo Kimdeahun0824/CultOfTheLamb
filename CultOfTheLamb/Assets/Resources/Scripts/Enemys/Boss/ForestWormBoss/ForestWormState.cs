@@ -14,7 +14,7 @@ namespace State
 
         public override void OnEnter()
         {
-            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Intro", 0, false, 1f);
+            forestWormBoss.PlayAnimation("Intro", 0, false, 1f);
             Debug.Log($"{this} state Enter");
         }
 
@@ -49,7 +49,7 @@ namespace State
 
         public override void OnEnter()
         {
-            forestWormBoss.skeletonAnimationHandler.AddPlayAnimation("Idle", 0, true, 1f, 0f);
+            forestWormBoss.AddPlayAnimation("Idle", 0, true, 1f, 0f);
             if (forestWormBoss.IsMoveIn)
             {
                 forestWormBoss.StartCoroutine(randomStateSelect());
@@ -106,7 +106,7 @@ namespace State
         }
         public override void OnEnter()
         {
-            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Move_Out", 0, false, 1f);
+            forestWormBoss.PlayAnimation("Move_Out", 0, false, 1f);
             Vector3 currentPos = forestWormBoss.transform.position;
             float randomX = Random.Range(GameManager.Instance.minX + 5, GameManager.Instance.maxX - 5);
             float randomZ = Random.Range(GameManager.Instance.minY + 5, GameManager.Instance.maxY - 5);
@@ -117,7 +117,7 @@ namespace State
 
         public override void OnExit()
         {
-            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Move_In", 0, false, 1f);
+            forestWormBoss.PlayAnimation("Move_In", 0, false, 1f);
             forestWormBoss.IsCreateSpike = false;
             forestWormBoss.StopCoroutine(moveSpikeCreate());
             Debug.Log($"{this} state Exit");
@@ -227,7 +227,7 @@ namespace State
 
         public override void OnEnter()
         {
-            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Head_Smash", 0, false, 1f);
+            forestWormBoss.PlayAnimation("Head_Smash", 0, false, 1f);
             index = 0;
         }
 
@@ -269,7 +269,7 @@ namespace State
 
         public override void OnEnter()
         {
-            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Trunk_Strike", 0, false, 1f);
+            forestWormBoss.PlayAnimation("Trunk_Strike", 0, false, 1f);
         }
 
         public override void OnExit()
@@ -281,7 +281,7 @@ namespace State
         }
         public override void ChangeState()
         {
-            forestWormBoss.enemyStateMachine.SetState(new ForestWormIdleState(forestWormBoss));
+            forestWormBoss.SetState(new ForestWormIdleState(forestWormBoss));
         }
         public override void Action()
         {
@@ -344,7 +344,7 @@ namespace State
 
         public override void OnEnter()
         {
-            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Die", 0, false, 1f);
+            forestWormBoss.PlayAnimation("Die", 0, false, 1f);
         }
 
         public override void OnExit()
@@ -377,7 +377,7 @@ namespace State
 
         public override void OnEnter()
         {
-            forestWormBoss.skeletonAnimationHandler.PlayAnimation("Dead", 0, true, 1f);
+            forestWormBoss.PlayAnimation("Dead", 0, true, 1f);
         }
 
         public override void OnExit()
@@ -389,7 +389,6 @@ namespace State
         }
         public override void ChangeState()
         {
-            throw new System.NotImplementedException();
         }
         public override void Action()
         {

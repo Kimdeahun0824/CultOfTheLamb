@@ -30507,6 +30507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   my_flag: 0
+  roomType: 0
   x: 0
   y: 0
   IsRoomClear: 0
@@ -31771,6 +31772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   my_flag: 0
+  roomType: 0
   x: 0
   y: 0
   IsRoomClear: 0
@@ -31846,6 +31848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   my_flag: 0
+  roomType: 0
   x: 0
   y: 0
   IsRoomClear: 0
@@ -88173,6 +88176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   my_flag: 0
+  roomType: 0
   x: 0
   y: 0
   IsRoomClear: 0
@@ -88252,6 +88256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   my_flag: 0
+  roomType: 0
   x: 0
   y: 0
   IsRoomClear: 0
@@ -93205,6 +93210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   my_flag: 0
+  roomType: 0
   x: 0
   y: 0
   IsRoomClear: 0

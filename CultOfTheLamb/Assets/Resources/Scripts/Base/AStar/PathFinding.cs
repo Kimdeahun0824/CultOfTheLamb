@@ -25,7 +25,7 @@ public class PathFinding : MonoBehaviour
 
         AStarNode startNode = grid.GetNodeFromWorldPoint(startPos);
         AStarNode targetNode = grid.GetNodeFromWorldPoint(targetPos);
-
+        AStarNode endNode = default;
         if (startNode.isWalkAvailable && targetNode.isWalkAvailable)
         {
             List<AStarNode> openList = new List<AStarNode>();
@@ -38,7 +38,11 @@ public class PathFinding : MonoBehaviour
 
                 for (int i = 1; i < openList.Count; i++)
                 {
-                    if (openList[i].fCost < currentNode.fCost || openList[i].fCost == currentNode.fCost && openList[i].hCost < currentNode.hCost)
+                    // if (openList[i].fCost < currentNode.fCost || openList[i].fCost == currentNode.fCost && openList[i].hCost < currentNode.hCost)
+                    // {
+                    //     currentNode = openList[i];
+                    // }
+                    if (openList[i].fCost <= currentNode.fCost && openList[i].hCost < currentNode.hCost)
                     {
                         currentNode = openList[i];
                     }
@@ -51,6 +55,7 @@ public class PathFinding : MonoBehaviour
                 {
                     //RetracePath(startNode, targetNode);
                     pathSuccess = true;
+                    endNode = currentNode;
                     //return;
                     break;
                 }
@@ -81,7 +86,7 @@ public class PathFinding : MonoBehaviour
 
         if (pathSuccess)
         {
-            waypoints = RetracePath(startNode, targetNode);
+            waypoints = RetracePath(startNode, endNode);
         }
 
         AStarManager.Instance.FinishedProcessingPath(waypoints, pathSuccess);
@@ -97,6 +102,7 @@ public class PathFinding : MonoBehaviour
         {
             path.Add(currentNode);
             currentNode = currentNode.parentNode;
+            Debug.Log($"AstarDebug Node(parentNode : {currentNode} / x : {currentNode.gridX} / y : {currentNode.gridY})");
         }
         Vector3[] waypoints = SimplifyPath(path);
         Array.Reverse(waypoints);
@@ -106,7 +112,7 @@ public class PathFinding : MonoBehaviour
     Vector3[] SimplifyPath(List<AStarNode> path)
     {
         List<Vector3> waypoints = new List<Vector3>();
-        Vector2 directionOld = Vector2.zero;
+        Vector2 directionOld = default;
 
         for (int i = 1; i < path.Count; i++)
         {

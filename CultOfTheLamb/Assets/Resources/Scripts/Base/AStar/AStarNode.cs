@@ -23,7 +23,4 @@ public class AStarNode
         this.gridX = gridX_;
         this.gridY = gridY_;
     }
-
-
-
 }

@@ -228,10 +228,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e07eaab4fc2d2e94cad1544cd52fbd8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  List_Enemy:
+  - {fileID: 382174566784646713, guid: 94112f247f7330846a6d214e01635be6, type: 3}
+  - {fileID: 8030534186809788545, guid: c1d781639c389fb469106191eb19539e, type: 3}
+  List_Boss:
+  - {fileID: 634123662514892686, guid: 4d7a58a0d5753054e8fd45774108a0b5, type: 3}
+  startPos: {x: 0, y: 0, z: 0}
   minX: 0
   minY: 0
   maxX: 0
   maxY: 0
+  previousRoom: {fileID: 0}
+  currentRoom: {fileID: 0}
+  List_CreateRooms: []
 --- !u!4 &1287985364
 Transform:
   m_ObjectHideFlags: 0

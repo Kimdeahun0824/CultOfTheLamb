@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace State
 {
@@ -37,18 +38,19 @@ namespace State
         public override void OnEnter()
         {
             enemy.skeletonAnimationHandler.PlayAnimation("Run", 0, true, 1f);
+            enemy.StartCoroutine(Follow());
         }
         public override void UpdateState()
         {
-
-            AStarManager.Instance.RequestPath(enemy.transform.position, enemy.player.transform.position, enemy.OnPathFound);
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.currentWayPoint, enemy.currentSpeed * Time.deltaTime);
+            Debug.Log($"AStar Debug : {enemy.currentWayPoint}");
             bool flip = enemy.transform.position.x <= enemy.currentWayPoint.x;
-            enemy.skeletonAnimationHandler.SetFlip(flip);
-            float distance = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
+            enemy.SetFlip(flip);
+
+            float distance = Vector3.Distance(enemy.transform.position, enemy.PlayerPos);
             if (distance <= enemy.distance)
             {
-                ChangeState();
+                enemy.SetState(new Attack_ChargeState(enemy));
             }
         }
         public override void OnExit()
@@ -59,7 +61,16 @@ namespace State
         }
         public override void ChangeState()
         {
-            enemy.SetState(new Attack_ChargeState(enemy));
+        }
+
+        IEnumerator Follow()
+        {
+            while (true)
+            {
+                //yield return new WaitForSeconds(Random.Range(1f, 5f));
+                yield return null;
+                //AStarManager.Instance.RequestPath(enemy.transform.position, enemy.player.transform.position, enemy.OnPathFound);
+            }
         }
     }
 
@@ -73,7 +84,7 @@ namespace State
         public override void OnEnter()
         {
             enemy.skeletonAnimationHandler.PlayAnimation("Attack_Charge", 0, false, 1f);
-            enemy.targetPos = enemy.player.transform.position;
+            enemy.targetPos = enemy.PlayerPos;
         }
         public override void UpdateState()
         {

@@ -97,6 +97,8 @@ public class Player : MonoBehaviour, ISubject
         set;
     }
 
+    private Vector3 previousPos = default;
+
     public bool IsFlip = false;
 
     private Direction m_direction;
@@ -125,12 +127,14 @@ public class Player : MonoBehaviour, ISubject
 
         stateMachine = new StateMachine();
         SetState(new Player_Idle_State(this));
+        previousPos = transform.position;
         NotifyObservers();
     }
 
     void Update()
     {
         stateMachine.Update();
+        //Debug.Log($"StatePattern Debug(CurrentState :{stateMachine.GetState().ToString()})");
         skeletonAnimationHandler.SetFlip(IsFlip);
     }
 
@@ -143,6 +147,11 @@ public class Player : MonoBehaviour, ISubject
     {
         //m_Rigidbody.MovePosition(transform.localPosition + m_Position * Speed * Time.deltaTime);
         m_Rigidbody.velocity = m_Position * Speed * Time.deltaTime;
+        if (previousPos != transform.position)
+        {
+            previousPos = transform.position;
+            NotifyObservers();
+        }
     }
 
     public void Hit()
@@ -221,7 +230,6 @@ public class Player : MonoBehaviour, ISubject
 
     public void RoomMove(string roomDirection, int x, int y)
     {
-        SetState(new Player_DungeonMove_State(this));
         switch (roomDirection)
         {
             case "TriggerZone_Left":
@@ -234,13 +242,14 @@ public class Player : MonoBehaviour, ISubject
                 break;
             case "TriggerZone_Right":
                 transform.position = GameManager.Instance.RoomChangeRight(x, y);
-                SetDirection(Direction.DOWN);
+                SetDirection(Direction.RIGHT);
                 break;
             case "TriggerZone_Bottom":
                 transform.position = GameManager.Instance.RoomChangeBottom(x, y);
-                SetDirection(Direction.RIGHT);
+                SetDirection(Direction.DOWN);
                 break;
         }
+        SetState(new Player_DungeonMove_State(this));
     }
 
 

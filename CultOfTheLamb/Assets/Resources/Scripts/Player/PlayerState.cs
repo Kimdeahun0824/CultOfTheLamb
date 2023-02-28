@@ -389,6 +389,7 @@ public class Player_Idle_State : StateBase
             case Direction.HORIZONTAL:
             case Direction.DOWN:
             case Direction.DOWN_DIAGONAL:
+            default:
                 player.SetAnimation("Idle", 0, true, 1f);
                 break;
         }
@@ -559,6 +560,8 @@ public class Player_Move_State : StateBase
 public class Player_DungeonMove_State : StateBase
 {
     private Player player;
+    Vector3 startPos = default;
+    float distance = default;
     public Player_DungeonMove_State(Player player_)
     {
         this.player = player_;
@@ -566,28 +569,49 @@ public class Player_DungeonMove_State : StateBase
     public override void OnEnter()
     {
         Direction direction = player.GetDirection();
+        startPos = player.transform.position;
+        Debug.Log($"DungeonMove State Debug(startPos : {startPos})");
+        Vector3 pos = default;
         switch (direction)
         {
             case Direction.LEFT:
-                player.IsFlip = true;
+                player.IsFlip = false;
+                player.SetAnimation("Run_Horizontal", 0, true, 1f);
+                pos = new Vector3(-1f, 0f, 0f);
                 break;
             case Direction.RIGHT:
-                player.IsFlip = false;
+                player.IsFlip = true;
+                player.SetAnimation("Run_Horizontal", 0, true, 1f);
+                pos = new Vector3(1f, 0f, 0f);
                 break;
             case Direction.UP:
+                player.SetAnimation("Run_Up", 0, true, 1f);
+                pos = new Vector3(0f, 0f, 1f);
                 break;
             case Direction.DOWN:
+                player.SetAnimation("Run_Down", 0, true, 1f);
+                pos = new Vector3(0f, 0f, -1f);
                 break;
             default:
                 break;
         }
-
+        player.SetPosition(pos);
+        player.Speed = player.Default_Speed;
+        GameManager.Instance.RoomWallOff();
     }
     public override void UpdateState()
     {
+        distance = (startPos - player.transform.position).magnitude;
+        Debug.Log($"DungeonMove State Debug(distance : {distance})");
+        if (5 <= distance)
+        {
+            player.SetState(new Player_Idle_State(player));
+        }
     }
     public override void OnExit()
     {
+        GameManager.Instance.RoomMoveComplete();
+        player.SetPosition(Vector3.zero);
     }
     public override void Action()
     {
@@ -613,6 +637,7 @@ public class Player_Rolling_State : StateBase
         switch (direction)
         {
             case Direction.HORIZONTAL:
+            default:
                 player.SetAnimation("Roll", 0, false, 1f);
                 if (player.IsFlip)
                 {
@@ -640,7 +665,7 @@ public class Player_Rolling_State : StateBase
                 break;
             case Direction.DOWN:
                 player.SetAnimation("Roll_Down", 0, false, 1f);
-                pos = new Vector3(1f, 0f, -1f).normalized;
+                pos = new Vector3(0f, 0f, -1f).normalized;
                 break;
             case Direction.DOWN_DIAGONAL:
                 player.SetAnimation("Roll_Down", 0, false, 1f);
@@ -652,8 +677,6 @@ public class Player_Rolling_State : StateBase
                 {
                     pos = new Vector3(-1f, 0f, -1f).normalized;
                 }
-                break;
-            default:
                 break;
         }
         player.SetPosition(pos);
@@ -702,14 +725,13 @@ public class Player_Attack_Combo_1State : StateBase
             case Direction.DOWN:
             case Direction.DOWN_DIAGONAL:
             case Direction.HORIZONTAL:
-                player.SetAnimation("Attack_Combo_1", 0, false, 1f);
-                break;
             default:
+                player.SetAnimation("Attack_Combo_1", 0, false, 1f);
                 break;
         }
         player.AttackColloder.SetActive(true);
         player.IsAttack = true;
-        player.Speed = 0;
+        player.SetPosition(Vector3.zero);
     }
     public override void UpdateState()
     {
@@ -722,7 +744,7 @@ public class Player_Attack_Combo_1State : StateBase
     {
         player.AttackColloder.SetActive(false);
         player.IsAttack = false;
-        player.Speed = player.Default_Speed;
+        player.SetPosition(Vector3.zero);
     }
     public override void Action()
     {
@@ -750,9 +772,8 @@ public class Player_RollingAttack_State : StateBase
             case Direction.DOWN:
             case Direction.DOWN_DIAGONAL:
             case Direction.HORIZONTAL:
-                player.SetAnimation("Attack_Combo_1", 0, false, 1f);
-                break;
             default:
+                player.SetAnimation("Attack_Combo_1", 0, false, 1f);
                 break;
         }
         player.AttackColloder.SetActive(true);
@@ -767,6 +788,7 @@ public class Player_RollingAttack_State : StateBase
         player.AttackColloder.SetActive(false);
         player.IsAttack = false;
         player.Speed = player.Default_Speed;
+        player.SetPosition(Vector3.zero);
     }
     public override void Action()
     {
@@ -866,7 +888,7 @@ public class Player_Hit_State : StateBase
     public override void OnExit()
     {
         player.IsHit = false;
-        player.Speed = default;
+        player.Speed = player.Default_Speed;
         player.SetPosition(Vector3.zero);
     }
     public override void Action()
@@ -890,6 +912,7 @@ public class Player_Die_State : StateBase
     {
         player.IsDie = true;
         player.Speed = 0;
+        player.SetPosition(Vector3.zero);
         player.SetAnimation("Die", 0, false, 1f);
     }
     public override void UpdateState()

@@ -55,14 +55,15 @@ public class Enemy_Archer : Enemy
 
     protected override void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
     {
-        if (trackEntry.ToString() == "grunt-attack-charge2"
-        || trackEntry.ToString() == "grunt-attack-impact2"
-        || trackEntry.ToString() == "archer-attack-charge"
-        || trackEntry.ToString() == "archer-attack-impact"
-        || trackEntry.ToString() == "hurt-front")
-        {
-            enemyStateMachine.ChangeState();
-        }
+        enemyStateMachine.ChangeState();
+        // if (trackEntry.ToString() == "grunt-attack-charge2"
+        // || trackEntry.ToString() == "grunt-attack-impact2"
+        // || trackEntry.ToString() == "archer-attack-charge"
+        // || trackEntry.ToString() == "archer-attack-impact"
+        // || trackEntry.ToString() == "hurt-front")
+        // {
+        //     enemyStateMachine.ChangeState();
+        // }
 
     }
 }

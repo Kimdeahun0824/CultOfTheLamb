@@ -82,26 +82,26 @@ public class AGrid : MonoBehaviour
         return grid[x, y];
     }
 
-    // private void OnDrawGizmos()
-    // {
-    //     Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
-    //     if (grid != null)
-    //     {
-    //         foreach (var node in grid)
-    //         {
-    //             Gizmos.color = (node.isWalkAvailable) ? Color.white : Color.red;
-    //             if (path != null)
-    //             {
-    //                 if (path.Contains(node))
-    //                 {
-    //                     if (path.Contains(node))
-    //                     {
-    //                         Gizmos.color = Color.black;
-    //                     }
-    //                 }
-    //             }
-    //             Gizmos.DrawCube(node.pos, Vector3.one * (nodeDiameter - .1f));
-    //         }
-    //     }
-    // }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
+        if (grid != null)
+        {
+            foreach (var node in grid)
+            {
+                Gizmos.color = (node.isWalkAvailable) ? Color.white : Color.red;
+                if (path != null)
+                {
+                    if (path.Contains(node))
+                    {
+                        if (path.Contains(node))
+                        {
+                            Gizmos.color = Color.black;
+                        }
+                    }
+                }
+                Gizmos.DrawCube(node.pos, Vector3.one * (nodeDiameter - .1f));
+            }
+        }
+    }
 }

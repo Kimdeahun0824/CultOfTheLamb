@@ -46,6 +46,11 @@ namespace State
         {
             currentState.Action();
         }
+
+        public StateBase GetState()
+        {
+            return currentState;
+        }
     }
 
     public abstract class StateBase
