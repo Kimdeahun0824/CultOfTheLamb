@@ -87,27 +87,23 @@ public class Room : MonoBehaviour
         {
             RoomInit(0);
         }
-        Debug.Log($"flag & Option_0 : {flag & option_0}");
 
         // 위쪽에 방이 있다면
         if ((flag & option_1) != 0b0000)
         {
             RoomInit(1);
         }
-        Debug.Log($"flag & Option_1 : {flag & option_1}");
         // 오른쪽에 방이 있다면
         if ((flag & option_2) != 0b0000)
         {
             RoomInit(2);
         }
-        Debug.Log($"flag & Option_2 : {flag & option_2}");
 
         // 아래쪽에 방이 있다면
         if ((flag & option_3) != 0b0000)
         {
             RoomInit(3);
         }
-        Debug.Log($"flag & Option_3 : {flag & option_3}");
 
         my_flag |= flag;
     }
@@ -121,7 +117,6 @@ public class Room : MonoBehaviour
 
     public void RoomClear()
     {
-        Debug.Log($"RoomClear my_flag : {my_flag}");
         if ((my_flag & option_0) != 0b0000)
         {
             walls[0].SetActive(false);
@@ -142,7 +137,6 @@ public class Room : MonoBehaviour
 
     public void RoomWallOn()
     {
-        Debug.Log($"RoomClear my_flag : {my_flag}");
         if ((my_flag & option_0) != 0b0000)
         {
             walls[0].SetActive(true);
@@ -163,7 +157,6 @@ public class Room : MonoBehaviour
 
     public void RoomWallOff()
     {
-        Debug.Log($"RoomClear my_flag : {my_flag}");
         if ((my_flag & option_0) != 0b0000)
         {
             walls[0].SetActive(false);
@@ -180,12 +173,5 @@ public class Room : MonoBehaviour
         {
             walls[3].SetActive(false);
         }
-    }
-
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log($"Room OnTriggerEnter Debug(other.name : {other.name})");
     }
 }

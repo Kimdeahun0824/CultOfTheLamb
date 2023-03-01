@@ -12,20 +12,10 @@ public class Spike : MonoBehaviour
     [SpineSkin] public string Skin_2;
     [SpineSkin] public string Skin_3;
     [SpineSkin] public string Skin_4;
-    private void Awake()
-    {
-        //skeletonAnimationHandler = GetComponent<SkeletonAnimationHandler>();
-        //skeletonAnimation.state.SetAnimation(0, "tunneling", false).TimeScale = 0.5f;
-
-
-    }
 
     private void OnEnable()
     {
-        // Debug.Log($"skeletonAnimaton State Test : {skeletonAnimation.state}");
-        // skeletonAnimation.Initialize(false, false);
-        // skeletonAnimation.state.SetAnimation(0, "tunneling", false).TimeScale = 0.5f;
-        // skeletonAnimation.state.Complete += HandleAnimationStateCompleteEvent;
+
     }
 
     private void Start()
@@ -48,7 +38,6 @@ public class Spike : MonoBehaviour
                 break;
         }
         skeletonAnimation.skeleton.SetSkin(skin);
-        Debug.Log($"Spike Skin Name : {skeletonAnimation.skeleton.Skin}");
         skeletonAnimation.state.SetAnimation(0, "tunneling", false).TimeScale = 0.5f;
         skeletonAnimation.state.Complete += HandleAnimationStateCompleteEvent;
     }

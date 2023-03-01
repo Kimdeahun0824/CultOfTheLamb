@@ -21,7 +21,6 @@ public class AStarManager : SingletonBase<AStarManager>
 
     public void RequestPath(Vector3 pathStart, Vector3 pathEnd, UnityAction<Vector3[], bool> callback)
     {
-        Debug.Log($"RequestPath");
         PathRequest newRequest = new PathRequest(pathStart, pathEnd, callback);
         pathRequestsQueue.Enqueue(newRequest);
         TryProcessNext();
@@ -29,7 +28,6 @@ public class AStarManager : SingletonBase<AStarManager>
 
     public void FinishedProcessingPath(Vector3[] path, bool success)
     {
-        Debug.Log($"AstarDebug FinishedProcessingPath(Length : {path.Length})");
         currentPathRequest.callback(path, success);
         isProcessingPath = false;
         TryProcessNext();

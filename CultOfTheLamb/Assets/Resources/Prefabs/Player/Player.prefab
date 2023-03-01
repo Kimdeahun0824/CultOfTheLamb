@@ -141,12 +141,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonAnimationHandler: {fileID: 0}
-  MaxHp: 100
+  MaxHp: 10
   CurrentHp: 0
   Default_Speed: 500
   Speed: 0
   Damage: 10
   IsAttack: 0
+  IsEventComplete: 0
   IsFlip: 0
 --- !u!114 &5146762549945070412
 MonoBehaviour:

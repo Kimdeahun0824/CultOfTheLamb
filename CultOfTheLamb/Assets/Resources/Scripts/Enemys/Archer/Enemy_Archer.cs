@@ -19,11 +19,7 @@ public class Enemy_Archer : Enemy
 
     public void ShootArrow()
     {
-        //transform.rotation = new Quaternion()
-        //Quaternion direction = Quaternion.LookRotation(transform.position, targetPos);
-        //float rotationY = ConvenienceFunc.GetAngle(transform.position, player.transform.position);
-        //direction = Quaternion.Euler(new Vector3(0, rotationY, 0));
-        //direction = Quaternion.Euler(transform.position - player.transform.position);
+
         Vector3 position = new Vector3(transform.position.x, 1f, transform.position.z);
         Vector3 target = new Vector3(targetPos.x, 1f, targetPos.z);
         Instantiate(arrow, position, Quaternion.identity).transform.LookAt(target);
@@ -56,14 +52,5 @@ public class Enemy_Archer : Enemy
     protected override void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
     {
         enemyStateMachine.ChangeState();
-        // if (trackEntry.ToString() == "grunt-attack-charge2"
-        // || trackEntry.ToString() == "grunt-attack-impact2"
-        // || trackEntry.ToString() == "archer-attack-charge"
-        // || trackEntry.ToString() == "archer-attack-impact"
-        // || trackEntry.ToString() == "hurt-front")
-        // {
-        //     enemyStateMachine.ChangeState();
-        // }
-
     }
 }

@@ -38,12 +38,10 @@ namespace State
         public override void OnEnter()
         {
             enemy.skeletonAnimationHandler.PlayAnimation("Run", 0, true, 1f);
-            enemy.StartCoroutine(Follow());
         }
         public override void UpdateState()
         {
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.currentWayPoint, enemy.currentSpeed * Time.deltaTime);
-            Debug.Log($"AStar Debug : {enemy.currentWayPoint}");
             bool flip = enemy.transform.position.x <= enemy.currentWayPoint.x;
             enemy.SetFlip(flip);
 
@@ -61,16 +59,6 @@ namespace State
         }
         public override void ChangeState()
         {
-        }
-
-        IEnumerator Follow()
-        {
-            while (true)
-            {
-                //yield return new WaitForSeconds(Random.Range(1f, 5f));
-                yield return null;
-                //AStarManager.Instance.RequestPath(enemy.transform.position, enemy.player.transform.position, enemy.OnPathFound);
-            }
         }
     }
 

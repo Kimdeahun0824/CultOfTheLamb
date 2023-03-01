@@ -50,16 +50,14 @@ namespace State
             switch (enemyType)
             {
                 case EnemyType.FORESTWORM:
-                    var forestWormBoss = GetComponent<ForestWormBoss>();
-                    Debug.Log($"forestWormBoss : {forestWormBoss}");
-                    enemyStateMachine.SetState(new ForestWormIntroState(forestWormBoss));
+                    var forestWorm = GetComponent<ForestWorm>();
+                    enemyStateMachine.SetState(new ForestWormIntroState(forestWorm));
                     break;
                 case EnemyType.SWORDMAN:
                 case EnemyType.ARCHER:
                     enemyStateMachine.SetState(new Enemy_Spawn_State(this));
                     break;
             }
-            Debug.Log($"currentState : {enemyStateMachine}");
 
             currentHp = maxHp;
             currentSpeed = defaultSpeed;
@@ -103,8 +101,8 @@ namespace State
             switch (enemyType)
             {
                 case EnemyType.FORESTWORM:
-                    var forestWormBoss = GetComponent<ForestWormBoss>();
-                    enemyStateMachine.SetState(new ForestWormDieState(forestWormBoss));
+                    var forestWorm = GetComponent<ForestWorm>();
+                    enemyStateMachine.SetState(new ForestWormDieState(forestWorm));
                     break;
                 case EnemyType.SWORDMAN:
                 case EnemyType.ARCHER:
@@ -133,10 +131,8 @@ namespace State
                 int index = 0;
                 foreach (var n in path)
                 {
-                    Debug.Log($"Astar Debug Path : {n} / index : {index}");
                     index++;
                 }
-                Debug.Log($"Astar Debug PathLength : {path.Length}");
                 StopCoroutine(FollowPath());
                 StartCoroutine(FollowPath());
             }
@@ -174,7 +170,6 @@ namespace State
         }
         public void UpdateDate(GameObject data)
         {
-            Debug.Log($"Observer Pattern Debug(Player Data Update)");
             Vector3 currentPos = data.transform.position;
             if (previousPos != currentPos)
             {
@@ -247,10 +242,8 @@ namespace State
             if (other.tag == "Weapon")
             {
                 float damage = other.GetComponentInParent<Player>().Damage;
-                Debug.Log($"damage : {damage}");
                 TakeDamage(damage);
             }
-            Debug.Log($"OnTriggerEnter : {other}");
         }
         #endregion
     }

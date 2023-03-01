@@ -9,14 +9,12 @@ namespace State
         {
             if (currentState != null)
             {
-                Debug.Log($"currentState Is Not Null");
                 currentState.OnExit();
                 currentState = state;
                 currentState.OnEnter();
             }
             else
             {
-                Debug.Log($"currentState Is Null");
                 currentState = state;
                 currentState.OnEnter();
             }

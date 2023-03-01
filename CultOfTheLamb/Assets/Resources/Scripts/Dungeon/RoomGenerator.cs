@@ -18,7 +18,6 @@ public class RoomGenerator : MonoBehaviour
     ///<summary> 0b1000 Bottom</summary>
     byte option_3 = 1 << 3;
 
-
     [Space(5)]
     public Transform parent;
     public GameObject startRoomPrefab;
@@ -45,9 +44,7 @@ public class RoomGenerator : MonoBehaviour
         cost = 0;
         RoomCreate();
 
-        //StartCoroutine(RoomDeployment());
         RoomDeployment();
-
         GameManager.Instance.SetRoom(List_CreateRooms);
     }
 
@@ -98,59 +95,47 @@ public class RoomGenerator : MonoBehaviour
     public void RandomRoomCreate(int x, int y)
     {
         if (8 <= count) return;
-
-        int index = NodeNeighborCheck(x, y);
-        if (2 < index)
+        byte flag = NodeNeighborByteCheck(x, y);
+        if (bool_NodeNeighborCheck(flag))
         {
             return;
         }
-        byte flag = NodeNeighborByteCheck(x, y);
-        if ((flag & option_0) == 0 && count < 8 && 0 <= x - 1 && NodeNeighborCheck(x, y) < 2)
+
+        if (0 <= x - 1)
         {
-            int randNum = Random.Range(0, 2);
-            if (randNum == 1)
-            {
-                rooms[x - 1, y].currentRoomType = RoomType.NORMAL;
-                count++;
-                Debug.Log($"RoomCreate LEFT : i : {x - 1} / j : {y} / Count : {count}");
-                RandomRoomCreate(x - 1, y);
-            }
+            flag = NodeNeighborByteCheck(x - 1, y);
+            RandomRoomCreate(x - 1, y, flag, option_0);
         }
-        flag = NodeNeighborByteCheck(x, y);
-        if ((flag & option_1) == 0 && count < 8 && y + 1 <= rooms.GetLength(1) - 1 && NodeNeighborCheck(x, y) < 2)
+
+        if (y + 1 <= rooms.GetLength(1) - 1)
         {
-            int randNum = Random.Range(0, 2);
-            if (randNum == 1)
-            {
-                rooms[x, y + 1].currentRoomType = RoomType.NORMAL;
-                count++;
-                Debug.Log($"RoomCreate UP : i : {x} / j : {y + 1} / Count : {count}");
-                RandomRoomCreate(x, y + 1);
-            }
+            flag = NodeNeighborByteCheck(x, y + 1);
+            RandomRoomCreate(x, y + 1, flag, option_1);
         }
-        flag = NodeNeighborByteCheck(x, y);
-        if ((flag & option_2) == 0 && count < 8 && x + 1 <= rooms.GetLength(0) - 1 && NodeNeighborCheck(x, y) < 2)
+
+        if (x + 1 <= rooms.GetLength(0) - 1)
         {
-            int randNum = Random.Range(0, 2);
-            if (randNum == 1)
-            {
-                rooms[x + 1, y].currentRoomType = RoomType.NORMAL;
-                count++;
-                Debug.Log($"RoomCreate RIGHT : i : {x + 1} / j : {y} / Count : {count}");
-                RandomRoomCreate(x + 1, y);
-            }
+            flag = NodeNeighborByteCheck(x + 1, y);
+            RandomRoomCreate(x + 1, y, flag, option_2);
         }
-        flag = NodeNeighborByteCheck(x, y);
-        if ((flag & option_3) == 0 && count < 8 && 0 <= y - 1 && NodeNeighborCheck(x, y) < 2)
+
+        if (0 <= y - 1)
         {
-            int randNum = Random.Range(0, 2);
-            if (randNum == 1)
-            {
-                rooms[x, y - 1].currentRoomType = RoomType.NORMAL;
-                count++;
-                Debug.Log($"RoomCreate DOWN : i : {x} / j : {y - 1} / Count : {count}");
-                RandomRoomCreate(x, y - 1);
-            }
+            flag = NodeNeighborByteCheck(x, y - 1);
+            RandomRoomCreate(x, y - 1, flag, option_3);
+        }
+    }
+
+    public void RandomRoomCreate(int x, int y, byte flag, byte option)
+    {
+        int randNum = Random.Range(0, 2);
+        if (randNum == 0) return;
+
+        if ((flag & option) == 0 && count < 8 && !bool_NodeNeighborCheck(flag))
+        {
+            rooms[x, y].currentRoomType = RoomType.NORMAL;
+            count++;
+            RandomRoomCreate(x, y);
         }
     }
 
@@ -169,14 +154,6 @@ public class RoomGenerator : MonoBehaviour
                     int x = i;
                     int y = j;
                     RoomDeployment(tempRoomNode, x, y);
-                    // byte flag = NodeNeighborByteCheck(i, j);
-                    // // 상 하 좌 우 방 존재에 따라서 각기 다른 맵 생성
-                    // GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
-                    // tempRoom.GetComponent<Room>().RoomCreate(flag);
-                    // tempRoom.GetComponent<Room>().x = i;
-                    // tempRoom.GetComponent<Room>().y = j;
-                    // tempRoom.SetActive(false);
-                    // List_CreateRooms.Add(tempRoom);
                 }
                 else if (rooms[i, j].currentRoomType == RoomType.START)
                 {
@@ -187,16 +164,6 @@ public class RoomGenerator : MonoBehaviour
                     StartRoom.SetActive(true);
                     StartRoom.GetComponent<Room>().IsRoomClear = true;
                     StartRoom.GetComponent<Room>().RoomClear();
-
-                    // byte flag = NodeNeighborByteCheck(i, j);
-                    // GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
-                    // tempRoom.GetComponent<Room>().RoomCreate(flag);
-                    // tempRoom.GetComponent<Room>().RoomClear();
-                    // tempRoom.GetComponent<Room>().IsRoomClear = true;
-                    // tempRoom.GetComponent<Room>().x = i;
-                    // tempRoom.GetComponent<Room>().y = j;
-                    // tempRoom.SetActive(true);
-                    // List_CreateRooms.Add(tempRoom);
                 }
                 else if (rooms[i, j].currentRoomType == RoomType.ENDROOM)
                 {
@@ -204,13 +171,12 @@ public class RoomGenerator : MonoBehaviour
                     rooms[i, j].Y = j;
                     endRooms.Add(rooms[i, j]);
                 }
-                //yield return null;
-                Debug.Log($"room Status i : {i} / j : {j} / roomType : {rooms[i, j].currentRoomType} / roomCost : {rooms[i, j].Cost}");
             }
         }
         RoomNode[] endRoomArray;
         int maxRoomCount = 0;
         int maxRoomCost = 0;
+
         //EndRoom이 1개밖에 없을 때
         if (endRooms.Count < 2)
         {
@@ -219,13 +185,6 @@ public class RoomGenerator : MonoBehaviour
             int y = endRooms[0].Y;
             tempRoomNode.currentRoomType = RoomType.BOSS;
             RoomDeployment(tempRoomNode, x, y);
-            // byte flag = NodeNeighborByteCheck(endRooms[0].X, endRooms[0].Y);
-            // GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
-            // tempRoom.GetComponent<Room>().RoomCreate(flag);
-            // tempRoom.GetComponent<Room>().x = endRooms[0].X;
-            // tempRoom.GetComponent<Room>().y = endRooms[0].Y;
-            // tempRoom.SetActive(false);
-            // List_CreateRooms.Add(tempRoom);
         }
         else    // EneRoom이 2개 이상 있을 때 그 중 가장 먼 곳에 있는 Room을 보스방으로 지정 , 같은 거리에 있는 방이 2개 이상 있을 시 그 중 1개를 랜덤으로 보스방으로 지정
         {
@@ -243,7 +202,7 @@ public class RoomGenerator : MonoBehaviour
                     maxRoomCount++;
                 }
             }
-            Debug.Log($"Map Random Generator Debug : maxRoomCost : {maxRoomCost} / maxRoomCount : {maxRoomCount}");
+
             // 같은 거리에 있는 방이 2개 이상 있을 시
             if (1 < maxRoomCount)
             {
@@ -262,17 +221,9 @@ public class RoomGenerator : MonoBehaviour
                         int x = endRooms[i].X;
                         int y = endRooms[i].Y;
                         RoomDeployment(tempRoomNode, x, y);
-                        // byte flag = NodeNeighborByteCheck(endRooms[i].X, endRooms[i].Y);
-                        // GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
-                        // tempRoom.GetComponent<Room>().RoomCreate(flag);
-                        // tempRoom.GetComponent<Room>().x = endRooms[i].X;
-                        // tempRoom.GetComponent<Room>().y = endRooms[i].Y;
-                        // tempRoom.SetActive(false);
-                        // List_CreateRooms.Add(tempRoom);
                     }
                 }
                 int bossRoomIndex = Random.Range(0, endRoomArray.Length);
-                Debug.Log($"Map Random Generator Debug : bossRoomIndex {bossRoomIndex} / endRoomArray.Length : {endRoomArray.Length}");
                 for (int i = 0; i < endRoomArray.Length; i++)
                 {
                     if (i == bossRoomIndex)
@@ -282,13 +233,6 @@ public class RoomGenerator : MonoBehaviour
                         int y = endRoomArray[i].Y;
                         tempRoomNode.currentRoomType = RoomType.BOSS;
                         RoomDeployment(tempRoomNode, x, y);
-                        // byte flag = NodeNeighborByteCheck(endRoomArray[i].X, endRoomArray[i].Y);
-                        // GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
-                        // tempRoom.GetComponent<Room>().RoomCreate(flag);
-                        // tempRoom.GetComponent<Room>().x = endRoomArray[i].X;
-                        // tempRoom.GetComponent<Room>().y = endRoomArray[i].Y;
-                        // tempRoom.SetActive(false);
-                        // List_CreateRooms.Add(tempRoom);
                     }
                     else
                     {
@@ -296,13 +240,6 @@ public class RoomGenerator : MonoBehaviour
                         int x = endRoomArray[i].X;
                         int y = endRoomArray[i].Y;
                         RoomDeployment(tempRoomNode, x, y);
-                        // byte flag = NodeNeighborByteCheck(endRoomArray[i].X, endRoomArray[i].Y);
-                        // GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
-                        // tempRoom.GetComponent<Room>().RoomCreate(flag);
-                        // tempRoom.GetComponent<Room>().x = endRoomArray[i].X;
-                        // tempRoom.GetComponent<Room>().y = endRoomArray[i].Y;
-                        // tempRoom.SetActive(false);
-                        // List_CreateRooms.Add(tempRoom);
                     }
                 }
             }
@@ -314,35 +251,23 @@ public class RoomGenerator : MonoBehaviour
                     {
                         obj.currentRoomType = RoomType.BOSS;
                         RoomDeployment(obj, obj.X, obj.Y);
-                        // byte flag = NodeNeighborByteCheck(obj.X, obj.Y);
-                        // GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
-                        // tempRoom.GetComponent<Room>().RoomCreate(flag);
-                        // tempRoom.GetComponent<Room>().x = obj.X;
-                        // tempRoom.GetComponent<Room>().y = obj.Y;
-                        // tempRoom.SetActive(false);
-                        // List_CreateRooms.Add(tempRoom);
                     }
                     else
                     {
                         RoomDeployment(obj, obj.X, obj.Y);
-                        // byte flag = NodeNeighborByteCheck(obj.X, obj.Y);
-                        // GameObject tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
-                        // tempRoom.GetComponent<Room>().RoomCreate(flag);
-                        // tempRoom.GetComponent<Room>().x = obj.X;
-                        // tempRoom.GetComponent<Room>().y = obj.Y;
-                        // tempRoom.SetActive(false);
-                        // List_CreateRooms.Add(tempRoom);
                     }
                 }
             }
         }
     }
+
+    // 상 하 좌 우 방 존재에 따라서 각기 다른 맵 생성
     public GameObject RoomDeployment(RoomNode roomNode, int x, int y)
     {
         roomNode.X = x;
         roomNode.Y = y;
         byte flag = NodeNeighborByteCheck(x, y);
-        // 상 하 좌 우 방 존재에 따라서 각기 다른 맵 생성
+
         GameObject tempRoom = default;
         GameObject tempPrefab = default;
         switch (roomNode.currentRoomType)
@@ -350,15 +275,12 @@ public class RoomGenerator : MonoBehaviour
             case RoomType.NONE:
                 break;
             case RoomType.NORMAL:
-                //tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
                 tempPrefab = mapPrefab;
                 break;
             case RoomType.ENDROOM:
-                //tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
                 tempPrefab = mapPrefab;
                 break;
             case RoomType.BOSS:
-                //tempRoom = Instantiate(mapPrefab, new Vector3(0, 0.1f, 0), Quaternion.identity, parent);
                 tempPrefab = mapPrefab;
                 break;
             case RoomType.TAROT:
@@ -366,7 +288,7 @@ public class RoomGenerator : MonoBehaviour
             default:
                 break;
         }
-        tempRoom = Instantiate(mapPrefab, new Vector3(x * 50, 0.1f, y * 50), Quaternion.identity, parent);
+        tempRoom = Instantiate(mapPrefab, new Vector3(0f, 0.1f, 0f), Quaternion.identity, parent);
         tempRoom.GetComponent<Room>().RoomCreate(flag);
         tempRoom.GetComponent<Room>().x = x;
         tempRoom.GetComponent<Room>().y = y;
@@ -374,41 +296,6 @@ public class RoomGenerator : MonoBehaviour
         tempRoom.SetActive(false);
         List_CreateRooms.Add(tempRoom);
         return tempRoom;
-    }
-
-    public int NodeNeighborCheck(int x, int y)
-    {
-        int index = 0;
-        if (y + 1 <= rooms.GetLength(1) - 1)
-        {
-            if (rooms[x, y + 1].currentRoomType != RoomType.NONE)
-            {
-                index++;
-            }
-        }
-        if (x + 1 <= rooms.GetLength(0) - 1)
-        {
-            if (rooms[x + 1, y].currentRoomType != RoomType.NONE)
-            {
-                index++;
-            }
-        }
-        if (0 <= x - 1)
-        {
-            if (rooms[x - 1, y].currentRoomType != RoomType.NONE)
-            {
-                index++;
-            }
-        }
-        if (0 <= y - 1)
-        {
-            if (rooms[x, y - 1].currentRoomType != RoomType.NONE)
-            {
-                index++;
-            }
-        }
-
-        return index;
     }
 
     ///<summary>입력 한 방의 인접 방이 있는지 체크해주는 함수</summary>
@@ -449,9 +336,45 @@ public class RoomGenerator : MonoBehaviour
                 result |= option_3;
             }
         }
-
         return result;
     }
+
+    public bool bool_NodeNeighborCheck(byte flag)
+    {
+        int count = 0;
+
+        while (0 < flag)
+        {
+            if ((flag & 1) == 1)
+            {
+                count++;
+            }
+            flag >>= 1;
+            if (1 < count)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public int int_NodeNeighborCheck(byte flag)
+    {
+        int count = 0;
+
+        while (flag > 0)
+        {
+            if ((flag & 1) == 1)
+            {
+                count++;
+            }
+            flag >>= 1;
+        }
+
+        return count;
+    }
+
     public void RoomDFSFind(int x, int y, int previousX, int previousY)
     {
         rooms[x, y].IsChecked = true;
@@ -501,8 +424,6 @@ public class RoomGenerator : MonoBehaviour
             rooms[x, y].currentRoomType = RoomType.ENDROOM;
         }
     }
-
-
 }
 
 public class RoomNode
@@ -512,5 +433,3 @@ public class RoomNode
     public int Cost = 0;
     public bool IsChecked = default;
 }
-
-

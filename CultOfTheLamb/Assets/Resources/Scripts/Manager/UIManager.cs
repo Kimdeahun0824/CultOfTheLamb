@@ -15,26 +15,29 @@ public class UIManager : MonoBehaviour, IObserver
     #endregion
     private void Awake()
     {
-        player.RegisterObserver(this);
-        list_Ui_Hp_Obj = new List<GameObject>();
-        float hpNumber = player.MaxHp * 0.5f;
-        Debug.Log($"UIManager Debug(hpNumber : {hpNumber})");
-        for (int i = 0; i < hpNumber; i++)
-        {
-            GameObject tempObj = Instantiate(ui_Hp);
-            tempObj.transform.SetParent(ui_Hp_Parent);
-            list_Ui_Hp_Obj.Add(tempObj);
-            Debug.Log($"UIManager Debug(HpUiCreate Count : {i})");
-        }
+        HpUiInit();
     }
-    void Start()
-    {
 
-    }
     public void UpdateDate(GameObject data)
     {
-        Debug.Log($"UIManager Debug(UpdateDate data : {data.name})");
         SetHpUi(data);
+    }
+
+    public void HpUiInit()
+    {
+        player = GameObject.Find("Player").GetComponent<Player>();
+
+        player.RegisterObserver(this);
+
+        list_Ui_Hp_Obj = new List<GameObject>();
+
+        float hpNumber = player.MaxHp * 0.5f;
+
+        for (int i = 0; i < hpNumber; i++)
+        {
+            GameObject tempObj = Instantiate(ui_Hp, Vector3.zero, Quaternion.identity, ui_Hp_Parent);
+            list_Ui_Hp_Obj.Add(tempObj);
+        }
     }
 
     private void SetHpUi(GameObject data)
@@ -46,19 +49,16 @@ public class UIManager : MonoBehaviour, IObserver
             list_Ui_Hp_Obj[i].transform.GetChild(0).gameObject.SetImageSprite(ui_hp_sprites[0]);
         }
 
-
         for (int i = 0; i < playerCurrentHp; i++)
         {
             list_Ui_Hp_Obj[i].transform.GetChild(0).gameObject.SetImageSprite(ui_hp_sprites[2]);
             if (playerCurrentHp % 1 != 0)
             {
-                Debug.Log($"UIManager Debug(UpdateDate playerCurrentHp : {playerCurrentHp} / i : {i})");
                 if (playerCurrentHp - 1 <= i)
                 {
                     list_Ui_Hp_Obj[i].transform.GetChild(0).gameObject.SetImageSprite(ui_hp_sprites[1]);
                 }
             }
         }
-
     }
 }

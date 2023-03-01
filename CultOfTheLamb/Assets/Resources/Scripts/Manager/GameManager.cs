@@ -22,12 +22,15 @@ public class GameManager : SingletonBase<GameManager>
     public Room currentRoom = default;
 
     private Player player;
-
     private new void Awake()
     {
         base.Awake();
         ConvenienceFunc.SetOnSceneLoaded(OnSceneLoaded);
         currentRoomEnemy = new List<Enemy>();
+    }
+    private void Start()
+    {
+
     }
 
     public void SetWorldSize()
@@ -37,11 +40,6 @@ public class GameManager : SingletonBase<GameManager>
         maxX = grid.gridWorldSize.x * 0.5f;
         minY = grid.gridWorldSize.y * 0.5f * -1;
         maxY = grid.gridWorldSize.y * 0.5f;
-
-        Debug.Log($"minX : {minX}");
-        Debug.Log($"minY : {minY}");
-        Debug.Log($"maxX : {maxX}");
-        Debug.Log($"maxY : {maxY}");
     }
 
     void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
@@ -66,12 +64,6 @@ public class GameManager : SingletonBase<GameManager>
     public void SetRoom(List<GameObject> rooms)
     {
         this.List_CreateRooms = rooms;
-
-        foreach (var room in this.List_CreateRooms)
-        {
-            Debug.Log($"SetRoom Debug(room : {room} / {room.GetComponent<Room>()} / x : {room.GetComponent<Room>().x} / y : {room.GetComponent<Room>().y})");
-            Debug.Log($"SetRoom Debug(roomType : {room.GetComponent<Room>().roomType}");
-        }
     }
     public void SetCurrentRoom(Room room)
     {
@@ -191,7 +183,6 @@ public class GameManager : SingletonBase<GameManager>
 
     public void RoomMoveComplete()
     {
-        Debug.Log($"RoomMoveComplete Debug(currentRoom : {currentRoom.roomType})");
         if (currentRoom.IsRoomClear)
         {
             RoomWallOff();
@@ -216,8 +207,8 @@ public class GameManager : SingletonBase<GameManager>
         for (int i = 0; i < count; i++)
         {
             Vector3 randomPos = default;
-            float x = Random.Range(minX, maxX);
-            float z = Random.Range(minY, maxY);
+            float x = Random.Range(minX + 5, maxX - 5);
+            float z = Random.Range(minY + 5, maxY - 5);
             randomPos = new Vector3(x, 0f, z);
 
             int randomIndex = Random.Range(0, List_Enemy.Count);

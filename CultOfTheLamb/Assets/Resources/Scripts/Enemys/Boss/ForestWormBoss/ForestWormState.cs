@@ -5,32 +5,29 @@ namespace State
 
     public class ForestWormIntroState : StateBase
     {
-        private ForestWormBoss forestWormBoss;
+        private ForestWorm forestWorm;
 
-        public ForestWormIntroState(ForestWormBoss forestWormBoss_)
+        public ForestWormIntroState(ForestWorm forestWorm_)
         {
-            this.forestWormBoss = forestWormBoss_;
+            this.forestWorm = forestWorm_;
         }
 
         public override void OnEnter()
         {
-            forestWormBoss.PlayAnimation("Intro", 0, false, 1f);
-            Debug.Log($"{this} state Enter");
+            forestWorm.PlayAnimation("Intro", 0, false, 1f);
         }
 
         public override void OnExit()
         {
-            Debug.Log($"{this} state Exit");
         }
 
         public override void UpdateState()
         {
-            //Debug.Log($"{this} state Update");
         }
 
         public override void ChangeState()
         {
-            forestWormBoss.enemyStateMachine.SetState(new ForestWormIdleState(forestWormBoss));
+            forestWorm.enemyStateMachine.SetState(new ForestWormIdleState(forestWorm));
         }
 
         public override void Action()
@@ -40,36 +37,32 @@ namespace State
 
     public class ForestWormIdleState : StateBase
     {
-        private ForestWormBoss forestWormBoss;
+        private ForestWorm forestWorm;
 
-        public ForestWormIdleState(ForestWormBoss forestWormBoss_)
+        public ForestWormIdleState(ForestWorm forestWorm_)
         {
-            this.forestWormBoss = forestWormBoss_;
+            this.forestWorm = forestWorm_;
         }
 
         public override void OnEnter()
         {
-            forestWormBoss.AddPlayAnimation("Idle", 0, true, 1f, 0f);
-            if (forestWormBoss.IsMoveIn)
+            forestWorm.AddPlayAnimation("Idle", 0, true, 1f, 0f);
+            if (forestWorm.IsMoveIn)
             {
-                forestWormBoss.StartCoroutine(randomStateSelect());
+                forestWorm.StartCoroutine(randomStateSelect());
             }
-            Debug.Log($"{this} state Enter");
         }
 
         public override void OnExit()
         {
-            Debug.Log($"{this} state Exit");
         }
 
         public override void UpdateState()
         {
-
-            Debug.Log($"{this} state Update");
         }
         public override void ChangeState()
         {
-            forestWormBoss.StartCoroutine(randomStateSelect());
+            forestWorm.StartCoroutine(randomStateSelect());
         }
         public override void Action()
         {
@@ -77,20 +70,17 @@ namespace State
         IEnumerator randomStateSelect()
         {
             yield return new WaitForSeconds(1f);
-            //ChangeState();
             int randomNum = Random.Range(0, 3);
-            // Move State Debug
-            //randomNum = 0;
             switch (randomNum)
             {
                 case 0:
-                    forestWormBoss.SetState(new ForestWormMoveState(forestWormBoss));
+                    forestWorm.SetState(new ForestWormMoveState(forestWorm));
                     break;
                 case 1:
-                    forestWormBoss.SetState(new ForestWormHeadSmashState(forestWormBoss));
+                    forestWorm.SetState(new ForestWormHeadSmashState(forestWorm));
                     break;
                 case 2:
-                    forestWormBoss.SetState(new ForestWormTrunkStrikeState(forestWormBoss));
+                    forestWorm.SetState(new ForestWormTrunkStrikeState(forestWorm));
                     break;
                 default:
                     break;
@@ -99,28 +89,26 @@ namespace State
     }
     public class ForestWormMoveState : StateBase
     {
-        private ForestWormBoss forestWormBoss;
-        public ForestWormMoveState(ForestWormBoss forestWormBoss_)
+        private ForestWorm forestWorm;
+        public ForestWormMoveState(ForestWorm forestWorm_)
         {
-            this.forestWormBoss = forestWormBoss_;
+            this.forestWorm = forestWorm_;
         }
         public override void OnEnter()
         {
-            forestWormBoss.PlayAnimation("Move_Out", 0, false, 1f);
-            Vector3 currentPos = forestWormBoss.transform.position;
+            forestWorm.PlayAnimation("Move_Out", 0, false, 1f);
+            Vector3 currentPos = forestWorm.transform.position;
             float randomX = Random.Range(GameManager.Instance.minX + 5, GameManager.Instance.maxX - 5);
             float randomZ = Random.Range(GameManager.Instance.minY + 5, GameManager.Instance.maxY - 5);
-            forestWormBoss.randomPos = new Vector3(randomX, currentPos.y, randomZ);
+            forestWorm.randomPos = new Vector3(randomX, currentPos.y, randomZ);
 
-            Debug.Log($"{this} state Enter");
         }
 
         public override void OnExit()
         {
-            forestWormBoss.PlayAnimation("Move_In", 0, false, 1f);
-            forestWormBoss.IsCreateSpike = false;
-            forestWormBoss.StopCoroutine(moveSpikeCreate());
-            Debug.Log($"{this} state Exit");
+            forestWorm.PlayAnimation("Move_In", 0, false, 1f);
+            forestWorm.IsCreateSpike = false;
+            forestWorm.StopCoroutine(moveSpikeCreate());
         }
 
         /// <summary>
@@ -128,44 +116,42 @@ namespace State
         /// </summary>
         public override void UpdateState()
         {
-            if (forestWormBoss.IsMoveOut)
+            if (forestWorm.IsMoveOut)
             {
-                if (!forestWormBoss.IsCreateSpike)
+                if (!forestWorm.IsCreateSpike)
                 {
-                    forestWormBoss.StartCoroutine(moveSpikeCreate());
+                    forestWorm.StartCoroutine(moveSpikeCreate());
                 }
-                forestWormBoss.transform.position = Vector3.MoveTowards(forestWormBoss.transform.position, forestWormBoss.randomPos, forestWormBoss.currentSpeed * Time.deltaTime);
-                if (forestWormBoss.transform.position == forestWormBoss.randomPos)
+                forestWorm.transform.position = Vector3.MoveTowards(forestWorm.transform.position, forestWorm.randomPos, forestWorm.currentSpeed * Time.deltaTime);
+                if (forestWorm.transform.position == forestWorm.randomPos)
                 {
-                    forestWormBoss.enemyStateMachine.SetState(new ForestWormIdleState(forestWormBoss));
+                    forestWorm.enemyStateMachine.SetState(new ForestWormIdleState(forestWorm));
                 }
             }
-            Debug.Log($"{this} state Update + currentPos : {forestWormBoss.transform.position} / RandomPos : {forestWormBoss.randomPos}");
         }
         public override void ChangeState()
         {
-            //forestWormBoss.enemyStateMachine.SetState(new ForestWormIdleState(forestWormBoss));
         }
         public override void Action()
         {
         }
         IEnumerator moveSpikeCreate()
         {
-            forestWormBoss.IsCreateSpike = true;
-            while (forestWormBoss.IsCreateSpike)
+            forestWorm.IsCreateSpike = true;
+            while (forestWorm.IsCreateSpike)
             {
                 yield return new WaitForSeconds(0.1f);
-                forestWormBoss.MoveSpikeCreate();
+                forestWorm.MoveSpikeCreate();
             }
         }
     }
 
     public class ForestWormBossMoveOutState : StateBase
     {
-        ForestWormBoss forestWormBoss;
-        public ForestWormBossMoveOutState(ForestWormBoss forestWormBoss_)
+        ForestWorm forestWorm;
+        public ForestWormBossMoveOutState(ForestWorm forestWorm_)
         {
-            this.forestWormBoss = forestWormBoss_;
+            this.forestWorm = forestWorm_;
         }
         public override void OnEnter()
         {
@@ -191,10 +177,10 @@ namespace State
 
     public class ForestWormBossMoveInState : StateBase
     {
-        ForestWormBoss forestWormBoss;
-        public ForestWormBossMoveInState(ForestWormBoss forestWormBoss_)
+        ForestWorm forestWorm;
+        public ForestWormBossMoveInState(ForestWorm forestWorm_)
         {
-            this.forestWormBoss = forestWormBoss_;
+            this.forestWorm = forestWorm_;
         }
         public override void OnEnter()
         {
@@ -218,22 +204,22 @@ namespace State
     }
     public class ForestWormHeadSmashState : StateBase
     {
-        private ForestWormBoss forestWormBoss;
+        private ForestWorm forestWorm;
         int index = default;
-        public ForestWormHeadSmashState(ForestWormBoss forestWormBoss_)
+        public ForestWormHeadSmashState(ForestWorm forestWorm_)
         {
-            this.forestWormBoss = forestWormBoss_;
+            this.forestWorm = forestWorm_;
         }
 
         public override void OnEnter()
         {
-            forestWormBoss.PlayAnimation("Head_Smash", 0, false, 1f);
+            forestWorm.PlayAnimation("Head_Smash", 0, false, 1f);
             index = 0;
         }
 
         public override void OnExit()
         {
-            foreach (var entry in forestWormBoss.attackColliders)
+            foreach (var entry in forestWorm.attackColliders)
             {
                 entry.SetActive(false);
             }
@@ -245,31 +231,31 @@ namespace State
         }
         public override void ChangeState()
         {
-            forestWormBoss.enemyStateMachine.SetState(new ForestWormIdleState(forestWormBoss));
+            forestWorm.enemyStateMachine.SetState(new ForestWormIdleState(forestWorm));
         }
         public override void Action()
         {
             if (0 < index)
             {
-                forestWormBoss.attackColliders[index - 1].SetActive(false);
+                forestWorm.attackColliders[index - 1].SetActive(false);
             }
-            forestWormBoss.attackColliders[index].SetActive(true);
+            forestWorm.attackColliders[index].SetActive(true);
             index++;
         }
     }
 
     public class ForestWormTrunkStrikeState : StateBase
     {
-        private ForestWormBoss forestWormBoss;
+        private ForestWorm forestWorm;
 
-        public ForestWormTrunkStrikeState(ForestWormBoss forestWormBoss_)
+        public ForestWormTrunkStrikeState(ForestWorm forestWorm_)
         {
-            this.forestWormBoss = forestWormBoss_;
+            this.forestWorm = forestWorm_;
         }
 
         public override void OnEnter()
         {
-            forestWormBoss.PlayAnimation("Trunk_Strike", 0, false, 1f);
+            forestWorm.PlayAnimation("Trunk_Strike", 0, false, 1f);
         }
 
         public override void OnExit()
@@ -281,24 +267,23 @@ namespace State
         }
         public override void ChangeState()
         {
-            forestWormBoss.SetState(new ForestWormIdleState(forestWormBoss));
+            forestWorm.SetState(new ForestWormIdleState(forestWorm));
         }
         public override void Action()
         {
-            forestWormBoss.StartCoroutine(TrunkStrike());
-            Debug.Log($"Action TrunkStrike");
+            forestWorm.StartCoroutine(TrunkStrike());
         }
 
         IEnumerator TrunkStrike()
         {
-            Vector3 targetPos_1 = new Vector3(forestWormBoss.transform.position.x - 10, 0f, forestWormBoss.transform.position.z + 10);
-            Vector3 targetPos_2 = new Vector3(forestWormBoss.transform.position.x + 10, 0f, forestWormBoss.transform.position.z + 10);
-            Vector3 targetPos_3 = new Vector3(forestWormBoss.transform.position.x - 10, 0f, forestWormBoss.transform.position.z - 10);
-            Vector3 targetPos_4 = new Vector3(forestWormBoss.transform.position.x + 10, 0f, forestWormBoss.transform.position.z - 10);
-            Vector3 currentPos_1 = forestWormBoss.transform.position;
-            Vector3 currentPos_2 = forestWormBoss.transform.position;
-            Vector3 currentPos_3 = forestWormBoss.transform.position;
-            Vector3 currentPos_4 = forestWormBoss.transform.position;
+            Vector3 targetPos_1 = new Vector3(forestWorm.transform.position.x - 10, 0f, forestWorm.transform.position.z + 10);
+            Vector3 targetPos_2 = new Vector3(forestWorm.transform.position.x + 10, 0f, forestWorm.transform.position.z + 10);
+            Vector3 targetPos_3 = new Vector3(forestWorm.transform.position.x - 10, 0f, forestWorm.transform.position.z - 10);
+            Vector3 targetPos_4 = new Vector3(forestWorm.transform.position.x + 10, 0f, forestWorm.transform.position.z - 10);
+            Vector3 currentPos_1 = forestWorm.transform.position;
+            Vector3 currentPos_2 = forestWorm.transform.position;
+            Vector3 currentPos_3 = forestWorm.transform.position;
+            Vector3 currentPos_4 = forestWorm.transform.position;
             bool endTrunkStrike = false;
             while (!endTrunkStrike)
             {
@@ -306,24 +291,24 @@ namespace State
                 if (currentPos_1 != targetPos_1)
                 {
                     currentPos_1 = Vector3.MoveTowards(currentPos_1, targetPos_1, 100 * Time.deltaTime);
-                    forestWormBoss.TrunkStrikeSpikeCreate(currentPos_1);
+                    forestWorm.TrunkStrikeSpikeCreate(currentPos_1);
                 }
                 if (currentPos_2 != targetPos_2)
                 {
                     currentPos_2 = Vector3.MoveTowards(currentPos_2, targetPos_2, 100 * Time.deltaTime);
-                    forestWormBoss.TrunkStrikeSpikeCreate(currentPos_2);
+                    forestWorm.TrunkStrikeSpikeCreate(currentPos_2);
                 }
                 if (currentPos_3 != targetPos_3)
                 {
                     currentPos_3 = Vector3.MoveTowards(currentPos_3, targetPos_3, 100 * Time.deltaTime);
-                    forestWormBoss.TrunkStrikeSpikeCreate(currentPos_3);
+                    forestWorm.TrunkStrikeSpikeCreate(currentPos_3);
 
 
                 }
                 if (currentPos_4 != targetPos_4)
                 {
                     currentPos_4 = Vector3.MoveTowards(currentPos_4, targetPos_4, 100 * Time.deltaTime);
-                    forestWormBoss.TrunkStrikeSpikeCreate(currentPos_4);
+                    forestWorm.TrunkStrikeSpikeCreate(currentPos_4);
 
                 }
                 else
@@ -336,15 +321,15 @@ namespace State
 
     public class ForestWormDieState : StateBase
     {
-        private ForestWormBoss forestWormBoss;
-        public ForestWormDieState(ForestWormBoss forestWormBoss_)
+        private ForestWorm forestWorm;
+        public ForestWormDieState(ForestWorm forestWorm_)
         {
-            this.forestWormBoss = forestWormBoss_;
+            this.forestWorm = forestWorm_;
         }
 
         public override void OnEnter()
         {
-            forestWormBoss.PlayAnimation("Die", 0, false, 1f);
+            forestWorm.PlayAnimation("Die", 0, false, 1f);
         }
 
         public override void OnExit()
@@ -353,9 +338,9 @@ namespace State
 
         public override void UpdateState()
         {
-            if (forestWormBoss.IsDie)
+            if (forestWorm.IsDie)
             {
-                forestWormBoss.enemyStateMachine.SetState(new ForestWormDeadState(forestWormBoss));
+                forestWorm.enemyStateMachine.SetState(new ForestWormDeadState(forestWorm));
             }
         }
         public override void ChangeState()
@@ -369,15 +354,15 @@ namespace State
 
     public class ForestWormDeadState : StateBase
     {
-        private ForestWormBoss forestWormBoss;
-        public ForestWormDeadState(ForestWormBoss forestWormBoss_)
+        private ForestWorm forestWorm;
+        public ForestWormDeadState(ForestWorm forestWorm_)
         {
-            this.forestWormBoss = forestWormBoss_;
+            this.forestWorm = forestWorm_;
         }
 
         public override void OnEnter()
         {
-            forestWormBoss.PlayAnimation("Dead", 0, true, 1f);
+            forestWorm.PlayAnimation("Dead", 0, true, 1f);
         }
 
         public override void OnExit()

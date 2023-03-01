@@ -80,6 +80,7 @@ public class SkeletonAnimationHandler : MonoBehaviour
 
         skeletonAnimation.state.SetAnimation(layerIndex, foundAnimation, loop).TimeScale = speed;
     }
+
     /// <summary>
     /// 재생 애니메이션 추가 함수
     /// </summary>
@@ -91,6 +92,7 @@ public class SkeletonAnimationHandler : MonoBehaviour
     {
         AddPlayAnimation(StringToHash(stateName), layerIndex, loop, speed, delay);
     }
+
     /// <summary>
     /// 재생 애니메이션 추가 함수
     /// </summary>

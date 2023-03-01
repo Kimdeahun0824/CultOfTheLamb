@@ -37,44 +37,17 @@ public class Player : MonoBehaviour, ISubject
 
     [Space(5)]
     [Header("PlayerStat")]
-
     public float MaxHp = default;
-    // public float MaxHp
-    // {
-    //     get;
-    //     private set;
-    // }
     public float CurrentHp = default;
-    // public float CurrentHp
-    // {
-    //     get;
-    //     private set;
-    // }
     public float Default_Speed = 500f;
     public float Speed = default;
-    // public float Speed
-    // {
-    //     get;
-    //     set;
-    // }
-
     public float Damage = default;
-    // public float Damage
-    // {
-    //     get;
-    //     private set;
-    // }
 
     private float m_ActionDelay = default;
 
     private Rigidbody m_Rigidbody = default;
 
     public bool IsAttack;
-    // public bool IsAttack
-    // {
-    //     get;
-    //     set;
-    // }
 
     private bool m_IsRolling;
     public bool IsRolling
@@ -98,6 +71,7 @@ public class Player : MonoBehaviour, ISubject
     }
 
     private Vector3 previousPos = default;
+    public bool IsEventComplete = false;
 
     public bool IsFlip = false;
 
@@ -134,7 +108,6 @@ public class Player : MonoBehaviour, ISubject
     void Update()
     {
         stateMachine.Update();
-        //Debug.Log($"StatePattern Debug(CurrentState :{stateMachine.GetState().ToString()})");
         skeletonAnimationHandler.SetFlip(IsFlip);
     }
 
@@ -145,7 +118,6 @@ public class Player : MonoBehaviour, ISubject
 
     private void Move()
     {
-        //m_Rigidbody.MovePosition(transform.localPosition + m_Position * Speed * Time.deltaTime);
         m_Rigidbody.velocity = m_Position * Speed * Time.deltaTime;
         if (previousPos != transform.position)
         {
@@ -205,10 +177,10 @@ public class Player : MonoBehaviour, ISubject
     }
     public void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
     {
-        Debug.Log($"HandleAnimationStateCompleteEvent Debug(TrackEntry : {trackEntry})");
-        Debug.Log($"HandleAnimationStateCompleteEvent Debug(TrackEntry : {trackEntry.ToString()})");
-        stateMachine.ChangeState();
-
+        if (!IsEventComplete)
+        {
+            stateMachine.ChangeState();
+        }
     }
     #endregion
 
@@ -220,7 +192,6 @@ public class Player : MonoBehaviour, ISubject
         }
         else if (other.tag == "TriggerZone")
         {
-            Debug.Log($"Player TriggerTest(other : {other.name} / {other.GetComponentInParent<Room>().name})");
             int x = other.GetComponentInParent<Room>().x;
             int y = other.GetComponentInParent<Room>().y;
             other.GetComponentInParent<Room>().RoomClear();
@@ -258,7 +229,6 @@ public class Player : MonoBehaviour, ISubject
     public void RegisterObserver(IObserver observer)
     {
         List_Observers.Add(observer);
-        Debug.Log($"ObserPattern Debug(observer : {observer})");
     }
 
     public void RemoveObserver(IObserver observer)
@@ -268,7 +238,6 @@ public class Player : MonoBehaviour, ISubject
 
     public void NotifyObservers()
     {
-        Debug.Log($"ObserPattern Debug(List_Observers Count : {List_Observers.Count})");
         foreach (var observer in List_Observers)
         {
             observer.UpdateDate(gameObject);

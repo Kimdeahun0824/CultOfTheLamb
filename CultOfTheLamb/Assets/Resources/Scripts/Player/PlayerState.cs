@@ -379,6 +379,7 @@ public class Player_Idle_State : StateBase
     }
     public override void OnEnter()
     {
+        player.IsEventComplete = false;
         Direction direction = player.GetDirection();
         switch (direction)
         {
@@ -415,6 +416,7 @@ public class Player_Idle_State : StateBase
     }
     public override void OnExit()
     {
+        player.IsEventComplete = true;
     }
     public override void Action()
     {
@@ -450,11 +452,11 @@ public class Player_Move_State : StateBase
                 player.SetAnimation("Run", 0, true, 1f);
                 break;
             case Direction.HORIZONTAL:
+            default:
                 player.SetAnimation("Run_Horizontal", 0, true, 1f);
                 break;
-            default:
-                break;
         }
+        player.IsEventComplete = false;
     }
     public override void UpdateState()
     {
@@ -544,10 +546,10 @@ public class Player_Move_State : StateBase
                     break;
             }
         }
-
     }
     public override void OnExit()
     {
+        player.IsEventComplete = true;
     }
     public override void Action()
     {
@@ -598,11 +600,11 @@ public class Player_DungeonMove_State : StateBase
         player.SetPosition(pos);
         player.Speed = player.Default_Speed;
         GameManager.Instance.RoomWallOff();
+        player.IsEventComplete = false;
     }
     public override void UpdateState()
     {
         distance = (startPos - player.transform.position).magnitude;
-        Debug.Log($"DungeonMove State Debug(distance : {distance})");
         if (5 <= distance)
         {
             player.SetState(new Player_Idle_State(player));
@@ -612,6 +614,7 @@ public class Player_DungeonMove_State : StateBase
     {
         GameManager.Instance.RoomMoveComplete();
         player.SetPosition(Vector3.zero);
+        player.IsEventComplete = true;
     }
     public override void Action()
     {
@@ -680,6 +683,7 @@ public class Player_Rolling_State : StateBase
                 break;
         }
         player.SetPosition(pos);
+        player.IsEventComplete = false;
     }
     public override void UpdateState()
     {
@@ -697,14 +701,17 @@ public class Player_Rolling_State : StateBase
         player.IsRolling = false;
         player.Speed = player.Default_Speed;
         player.SetPosition(Vector3.zero);
+        player.IsEventComplete = true;
     }
     public override void Action()
     {
     }
     public override void ChangeState()
     {
-        player.SetState(new Player_Idle_State(player));
-
+        if (player.IsRolling)
+        {
+            player.SetState(new Player_Idle_State(player));
+        }
     }
 }
 
@@ -717,6 +724,7 @@ public class Player_Attack_Combo_1State : StateBase
     }
     public override void OnEnter()
     {
+        player.IsEventComplete = false;
         Direction direction = player.GetDirection();
         switch (direction)
         {
@@ -742,6 +750,7 @@ public class Player_Attack_Combo_1State : StateBase
     }
     public override void OnExit()
     {
+        player.IsEventComplete = true;
         player.AttackColloder.SetActive(false);
         player.IsAttack = false;
         player.SetPosition(Vector3.zero);
@@ -751,7 +760,10 @@ public class Player_Attack_Combo_1State : StateBase
     }
     public override void ChangeState()
     {
-        player.SetState(new Player_Idle_State(player));
+        if (player.IsAttack)
+        {
+            player.SetState(new Player_Idle_State(player));
+        }
     }
 }
 
@@ -764,6 +776,7 @@ public class Player_RollingAttack_State : StateBase
     }
     public override void OnEnter()
     {
+        player.IsEventComplete = false;
         Direction direction = player.GetDirection();
         switch (direction)
         {
@@ -785,6 +798,7 @@ public class Player_RollingAttack_State : StateBase
     }
     public override void OnExit()
     {
+        player.IsEventComplete = true;
         player.AttackColloder.SetActive(false);
         player.IsAttack = false;
         player.Speed = player.Default_Speed;
@@ -795,7 +809,10 @@ public class Player_RollingAttack_State : StateBase
     }
     public override void ChangeState()
     {
-        player.SetState(new Player_Idle_State(player));
+        if (player.IsAttack)
+        {
+            player.SetState(new Player_Idle_State(player));
+        }
     }
 }
 
@@ -808,6 +825,7 @@ public class Player_CastDown_State : StateBase
     }
     public override void OnEnter()
     {
+        player.IsEventComplete = false;
         player.SetAnimation("CastDown", 0, true, 1f);
         player.SetPosition(Vector3.zero);
     }
@@ -824,6 +842,7 @@ public class Player_CastDown_State : StateBase
     }
     public override void OnExit()
     {
+        player.IsEventComplete = true;
     }
     public override void Action()
     {
@@ -842,6 +861,7 @@ public class Player_CastUp_State : StateBase
     }
     public override void OnEnter()
     {
+        player.IsEventComplete = false;
         player.SetAnimation("CastUp", 0, false, 1f);
     }
     public override void UpdateState()
@@ -849,6 +869,7 @@ public class Player_CastUp_State : StateBase
     }
     public override void OnExit()
     {
+        player.IsEventComplete = true;
     }
     public override void Action()
     {
@@ -868,6 +889,7 @@ public class Player_Hit_State : StateBase
     }
     public override void OnEnter()
     {
+        player.IsEventComplete = false;
         player.IsHit = true;
         player.Speed *= -0.5f;
         Vector3 pos = default;
@@ -887,6 +909,7 @@ public class Player_Hit_State : StateBase
     }
     public override void OnExit()
     {
+        player.IsEventComplete = true;
         player.IsHit = false;
         player.Speed = player.Default_Speed;
         player.SetPosition(Vector3.zero);
@@ -910,6 +933,7 @@ public class Player_Die_State : StateBase
     }
     public override void OnEnter()
     {
+        player.IsEventComplete = false;
         player.IsDie = true;
         player.Speed = 0;
         player.SetPosition(Vector3.zero);
@@ -920,6 +944,7 @@ public class Player_Die_State : StateBase
     }
     public override void OnExit()
     {
+        player.IsEventComplete = true;
     }
     public override void Action()
     {

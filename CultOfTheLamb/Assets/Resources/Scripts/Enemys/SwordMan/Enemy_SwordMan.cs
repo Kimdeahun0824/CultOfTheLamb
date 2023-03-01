@@ -37,10 +37,5 @@ public class Enemy_SwordMan : Enemy
     protected override void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
     {
         enemyStateMachine.ChangeState();
-        // if (trackEntry.ToString() == "hurt-front" || trackEntry.ToString() == "grunt-attack-charge" || trackEntry.ToString() == "grunt-attack-impact")
-        // {
-        //     enemyStateMachine.ChangeState();
-        // }
-
     }
 }

@@ -1,0 +1,829 @@
+fileFormatVersion: 2
+guid: df593e92219c14c48a5af6a2dfa913a4
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: -0.5
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: images/BELL
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 3218
+        width: 124
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac91388bb9fa4ac10800000000000000
+      internalID: 2063967612592921034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/BlackFloorBlob
+      rect:
+        serializedVersion: 2
+        x: 1632
+        y: 3221
+        width: 208
+        height: 299
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d185a9d1bcedc1b90800000000000000
+      internalID: -7269690734526441443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Crown
+      rect:
+        serializedVersion: 2
+        x: 1632
+        y: 2861
+        width: 218
+        height: 358
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10007ab36477796f0800000000000000
+      internalID: -677942075363753983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Crown_Back
+      rect:
+        serializedVersion: 2
+        x: 3890
+        y: 2123
+        width: 84
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbe0ab3f75fcfcb80800000000000000
+      internalID: -8372245205600301380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Crown_Eye
+      rect:
+        serializedVersion: 2
+        x: 3890
+        y: 1996
+        width: 159
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5660fdd6f33c90830800000000000000
+      internalID: 4037973218108048997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Crown_EyeIris
+      rect:
+        serializedVersion: 2
+        x: 4028
+        y: 1190
+        width: 42
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05c3538f648677920800000000000000
+      internalID: 2987971531804851280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Crown_EyeLash
+      rect:
+        serializedVersion: 2
+        x: 3890
+        y: 1870
+        width: 169
+        height: 124
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f0baef5e1e183dd0800000000000000
+      internalID: -2506220076824612620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/EYES
+      rect:
+        serializedVersion: 2
+        x: 3890
+        y: 1190
+        width: 136
+        height: 332
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a4dbfee8757511c0800000000000000
+      internalID: -4533588287612529504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Fire/flame_0000
+      rect:
+        serializedVersion: 2
+        x: 1117
+        y: 2861
+        width: 513
+        height: 447
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97043cbf3c123d3e0800000000000000
+      internalID: -2030241881387745159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Fire/flame_0001
+      rect:
+        serializedVersion: 2
+        x: 3217
+        y: 3230
+        width: 471
+        height: 510
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 359192e2201b90db0800000000000000
+      internalID: -4825130902828279469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Fire/flame_0002
+      rect:
+        serializedVersion: 2
+        x: 3217
+        y: 2735
+        width: 501
+        height: 493
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77fad03e1aa924500800000000000000
+      internalID: 379035338742280055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Fire/flame_0003
+      rect:
+        serializedVersion: 2
+        x: 3303
+        y: 2239
+        width: 500
+        height: 494
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0b56d81b19763410800000000000000
+      internalID: 1456484686788713231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Fire/flame_0004
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 3638
+        width: 446
+        height: 427
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3246f7068aa9d4d0800000000000000
+      internalID: -3109266575086697924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Fire/flame_0005
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 3218
+        width: 453
+        height: 424
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 953925368dbc08a60800000000000000
+      internalID: 7674357895279055705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Fire/flame_0006
+      rect:
+        serializedVersion: 2
+        x: 3690
+        y: 3701
+        width: 403
+        height: 393
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2b4228cd638bf950800000000000000
+      internalID: 6483920596062325547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Fire/flame_0007
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 3644
+        width: 406
+        height: 390
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ccd4202d164b69d0800000000000000
+      internalID: -2780051254063866681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Fire/flame_0008
+      rect:
+        serializedVersion: 2
+        x: 3690
+        y: 3294
+        width: 396
+        height: 405
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccf276d6f1509dd90800000000000000
+      internalID: -7072616107271049268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Fire/flame_0009
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 3310
+        width: 424
+        height: 407
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e8a39496dd7354b0800000000000000
+      internalID: -5452876363246360352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Fire/flame_0010
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 3218
+        width: 485
+        height: 418
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d00ad0ce27f669e40800000000000000
+      internalID: 5662836120842248205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/HeadOutline_1
+      rect:
+        serializedVersion: 2
+        x: 3720
+        y: 2742
+        width: 321
+        height: 550
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0f15b1f309c37530800000000000000
+      internalID: 3851643125109169933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/HeadOutline_2
+      rect:
+        serializedVersion: 2
+        x: 2895
+        y: 3165
+        width: 320
+        height: 553
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b414dd0c6127fce0800000000000000
+      internalID: -1371590813538839374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/HeadOutline_3
+      rect:
+        serializedVersion: 2
+        x: 2895
+        y: 2608
+        width: 320
+        height: 555
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d292055dbcf362050800000000000000
+      internalID: 5775373716838951213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Horns
+      rect:
+        serializedVersion: 2
+        x: 3890
+        y: 1524
+        width: 128
+        height: 344
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 201c5193fc80453f0800000000000000
+      internalID: -913095138340388606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Lines_1
+      rect:
+        serializedVersion: 2
+        x: 1854
+        y: 2608
+        width: 1039
+        height: 921
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e45935297f9c660a0800000000000000
+      internalID: -6888596514867538610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Lines_2
+      rect:
+        serializedVersion: 2
+        x: 3303
+        y: 1190
+        width: 585
+        height: 1047
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f6a40e28cb580190800000000000000
+      internalID: -7996040223072672011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/PLAYER
+      rect:
+        serializedVersion: 2
+        x: 1117
+        y: 2271
+        width: 735
+        height: 588
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31fc87745b3a50c30800000000000000
+      internalID: 4325043016142737171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Pentagram
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1190
+        width: 1875
+        height: 1079
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4cd6ff13121d4f40800000000000000
+      internalID: 5714243375552977999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Pentagram-Star
+      rect:
+        serializedVersion: 2
+        x: 1879
+        y: 1190
+        width: 1422
+        height: 1416
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bedbdc1be5ae3ee0800000000000000
+      internalID: -1279402814906573130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/RED_TRIANGLE
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2271
+        width: 1113
+        height: 945
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05f6cebd409466e30800000000000000
+      internalID: 4496361563194421072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Symbol
+      rect:
+        serializedVersion: 2
+        x: 3976
+        y: 2123
+        width: 82
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c15af0337b1fa7c0800000000000000
+      internalID: -4057994557680627263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Tunic
+      rect:
+        serializedVersion: 2
+        x: 3805
+        y: 2330
+        width: 220
+        height: 410
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7ea83f4f6de8edd0800000000000000
+      internalID: -2456452534404338052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      images/BELL: 2063967612592921034
+      images/BlackFloorBlob: -7269690734526441443
+      images/Crown: -677942075363753983
+      images/Crown_Back: -8372245205600301380
+      images/Crown_Eye: 4037973218108048997
+      images/Crown_EyeIris: 2987971531804851280
+      images/Crown_EyeLash: -2506220076824612620
+      images/EYES: -4533588287612529504
+      images/Fire/flame_0000: -2030241881387745159
+      images/Fire/flame_0001: -4825130902828279469
+      images/Fire/flame_0002: 379035338742280055
+      images/Fire/flame_0003: 1456484686788713231
+      images/Fire/flame_0004: -3109266575086697924
+      images/Fire/flame_0005: 7674357895279055705
+      images/Fire/flame_0006: 6483920596062325547
+      images/Fire/flame_0007: -2780051254063866681
+      images/Fire/flame_0008: -7072616107271049268
+      images/Fire/flame_0009: -5452876363246360352
+      images/Fire/flame_0010: 5662836120842248205
+      images/HeadOutline_1: 3851643125109169933
+      images/HeadOutline_2: -1371590813538839374
+      images/HeadOutline_3: 5775373716838951213
+      images/Horns: -913095138340388606
+      images/Lines_1: -6888596514867538610
+      images/Lines_2: -7996040223072672011
+      images/PLAYER: 4325043016142737171
+      images/Pentagram: 5714243375552977999
+      images/Pentagram-Star: -1279402814906573130
+      images/RED_TRIANGLE: 4496361563194421072
+      images/Symbol: -4057994557680627263
+      images/Tunic: -2456452534404338052
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

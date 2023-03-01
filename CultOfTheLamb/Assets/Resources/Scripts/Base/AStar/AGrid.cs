@@ -14,9 +14,7 @@ public class AGrid : MonoBehaviour
     public List<AStarNode> path;
     void Start()
     {
-        //gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
-        //gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-        //CreateGrid();
+
     }
 
     public void CreateGrid()
@@ -25,8 +23,6 @@ public class AGrid : MonoBehaviour
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         grid = new AStarNode[gridSizeX, gridSizeY];
-        Debug.Log($"grid X : {grid.GetLength(0)} / grid Y : {grid.GetLength(1)}");
-        //Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
         Vector3 worldBottomLeft = new Vector3(gridWorldSize.x * 0.5f * -1f, 0f, gridWorldSize.y * 0.5f * -1f);
         Vector3 worldPoint;
 
@@ -35,10 +31,7 @@ public class AGrid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++)
             {
                 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-                //bool walkable = !(Physics.CheckBox());
-                //Vector3 middlePoint = new Vector3()
                 bool walkable = !Physics.CheckBox(worldPoint, new Vector3(nodeRadius * 0.5f, nodeRadius * 0.5f, nodeRadius * 0.5f), Quaternion.identity, unwalkableMask);
-                //bool walkable = !Physics.CheckBox(worldPoint, Vector3.zero, Quaternion.identity, unwalkableMask);
                 grid[x, y] = new AStarNode(walkable, worldPoint, x, y);
             }
         }

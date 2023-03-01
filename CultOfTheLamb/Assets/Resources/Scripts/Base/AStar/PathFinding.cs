@@ -38,10 +38,6 @@ public class PathFinding : MonoBehaviour
 
                 for (int i = 1; i < openList.Count; i++)
                 {
-                    // if (openList[i].fCost < currentNode.fCost || openList[i].fCost == currentNode.fCost && openList[i].hCost < currentNode.hCost)
-                    // {
-                    //     currentNode = openList[i];
-                    // }
                     if (openList[i].fCost <= currentNode.fCost && openList[i].hCost < currentNode.hCost)
                     {
                         currentNode = openList[i];
@@ -53,10 +49,8 @@ public class PathFinding : MonoBehaviour
 
                 if (currentNode == targetNode)
                 {
-                    //RetracePath(startNode, targetNode);
                     pathSuccess = true;
                     endNode = currentNode;
-                    //return;
                     break;
                 }
 
@@ -102,7 +96,6 @@ public class PathFinding : MonoBehaviour
         {
             path.Add(currentNode);
             currentNode = currentNode.parentNode;
-            Debug.Log($"AstarDebug Node(parentNode : {currentNode} / x : {currentNode.gridX} / y : {currentNode.gridY})");
         }
         Vector3[] waypoints = SimplifyPath(path);
         Array.Reverse(waypoints);
