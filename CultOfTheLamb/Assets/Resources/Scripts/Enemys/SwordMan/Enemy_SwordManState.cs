@@ -105,11 +105,14 @@ namespace State
         public override void UpdateState()
         {
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.targetPos, enemy.currentSpeed * Time.deltaTime);
+            if (enemy.transform.position == enemy.targetPos)
+            {
+                enemy.attackCollider.SetActive(false);
+            }
         }
         public override void OnExit()
         {
             enemy.currentSpeed = enemy.defaultSpeed;
-            enemy.attackCollider.SetActive(false);
         }
         public override void Action()
         {

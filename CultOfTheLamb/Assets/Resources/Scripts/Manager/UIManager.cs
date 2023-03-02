@@ -11,7 +11,10 @@ public class UIManager : MonoBehaviour, IObserver
     public List<Sprite> ui_hp_sprites;
     private List<GameObject> list_Ui_Hp_Obj;
 
+
     public Player player;
+
+
     #endregion
     private void Awake()
     {
@@ -20,7 +23,16 @@ public class UIManager : MonoBehaviour, IObserver
 
     public void UpdateDate(GameObject data)
     {
-        SetHpUi(data);
+        if (data.GetComponent<Player>() != null)
+        {
+            SetHpUi(data);
+        }
+        else if (data.GetComponent<ForestWorm>() != null)
+        {
+            float maxHp = data.GetComponent<ForestWorm>().maxHp;
+            float currentHp = data.GetComponent<ForestWorm>().currentHp;
+            SetBossHpBar(maxHp, currentHp);
+        }
     }
 
     public void HpUiInit()
@@ -60,5 +72,18 @@ public class UIManager : MonoBehaviour, IObserver
                 }
             }
         }
+    }
+
+    public GameObject bossHpBar;
+    public GameObject bossHpBarFront;
+
+    public void SetBossHpBar(float maxHp, float currentHp)
+    {
+        bossHpBarFront.SetImageFilled(currentHp / maxHp);
+    }
+
+    public void ActiveBossHpBar()
+    {
+        bossHpBar.SetActive(true);
     }
 }

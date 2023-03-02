@@ -177,6 +177,14 @@ public class Player : MonoBehaviour, ISubject
     }
     public void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
     {
+        if (trackEntry.ToString() == "idle"
+        || trackEntry.ToString() == "idle-up"
+        || trackEntry.ToString() == "run-up"
+        || trackEntry.ToString() == "run-up-diagonal"
+        || trackEntry.ToString() == "run-down"
+        || trackEntry.ToString() == "run"
+        || trackEntry.ToString() == "run-horizontal"
+        ) return;
         if (!IsEventComplete)
         {
             stateMachine.ChangeState();

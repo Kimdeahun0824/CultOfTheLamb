@@ -76,6 +76,10 @@ namespace State
             if (currentHp - damage <= 0)
             {
                 currentHp = 0;
+                if (enemyType == EnemyType.FORESTWORM)
+                {
+                    GetComponent<ForestWorm>().NotifyObservers();
+                }
                 Die();
             }
             else
@@ -88,6 +92,10 @@ namespace State
                         break;
                 }
                 currentHp -= damage;
+                if (enemyType == EnemyType.FORESTWORM)
+                {
+                    GetComponent<ForestWorm>().NotifyObservers();
+                }
             }
         }
 

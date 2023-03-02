@@ -27,6 +27,7 @@ public class GameManager : SingletonBase<GameManager>
         base.Awake();
         ConvenienceFunc.SetOnSceneLoaded(OnSceneLoaded);
         currentRoomEnemy = new List<Enemy>();
+        SetCursor();
     }
     private void Start()
     {
@@ -50,10 +51,11 @@ public class GameManager : SingletonBase<GameManager>
                 ConvenienceFunc.LoadScene("01. TitleScene");
                 break;
             case "01. TitleScene":
-                ConvenienceFunc.LoadScene("02. StageScene");
+                //ConvenienceFunc.LoadScene("02. StageScene");
                 break;
             case "02. StageScene":
                 player = GameObject.Find("Player").GetComponent<Player>();
+                SetUimanager();
                 break;
             default:
                 break;
@@ -240,5 +242,29 @@ public class GameManager : SingletonBase<GameManager>
     public void PlayerRemoveObserver(IObserver observer)
     {
         player.RemoveObserver(observer);
+    }
+
+    UIManager uiManager;
+    public void SetUimanager()
+    {
+        uiManager = GameObject.Find("UiCanvas").GetComponent<UIManager>();
+    }
+
+    public ForestWorm forestWorm;
+    public void SetBossRegisterObserver()
+    {
+        forestWorm.RegisterObserver(uiManager);
+        uiManager.ActiveBossHpBar();
+    }
+
+    public void GameClear()
+    {
+        ConvenienceFunc.LoadScene("03. EndScene");
+    }
+
+    public Texture2D cursorImg;
+    public void SetCursor()
+    {
+        Cursor.SetCursor(cursorImg, Vector2.zero, CursorMode.ForceSoftware);
     }
 }

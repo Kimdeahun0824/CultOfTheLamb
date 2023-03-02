@@ -30,4 +30,17 @@ public static partial class ConvenienceFunc
             return null;
         }
     }
+
+    public static void SetImageFilled(this GameObject obj_, float filled)
+    {
+        Image objImage = obj_.GetComponent<Image>();
+        if (objImage != null)
+        {
+            objImage.fillAmount = filled;
+        }
+        else
+        {
+            return;
+        }
+    }
 }

@@ -51,6 +51,12 @@ public class Enemy_Archer : Enemy
 
     protected override void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
     {
-        enemyStateMachine.ChangeState();
+        if (trackEntry.ToString() == "spawn-in"
+        || trackEntry.ToString() == "archer-attack-charge"
+        || trackEntry.ToString() == "archer-attack-impact"
+        || trackEntry.ToString() == "hurt-front")
+        {
+            enemyStateMachine.ChangeState();
+        }
     }
 }

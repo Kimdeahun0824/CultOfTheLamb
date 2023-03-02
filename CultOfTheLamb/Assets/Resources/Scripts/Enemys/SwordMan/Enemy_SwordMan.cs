@@ -36,6 +36,12 @@ public class Enemy_SwordMan : Enemy
 
     protected override void HandleAnimationStateCompleteEvent(TrackEntry trackEntry)
     {
-        enemyStateMachine.ChangeState();
+        if (trackEntry.ToString() == "spawn-in"
+         || trackEntry.ToString() == "grunt-attack-charge"
+         || trackEntry.ToString() == "grunt-attack-impact"
+         || trackEntry.ToString() == "hurt-front")
+        {
+            enemyStateMachine.ChangeState();
+        }
     }
 }

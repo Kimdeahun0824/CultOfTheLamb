@@ -127,7 +127,154 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: sactx-2048x2048-Crunch-Followers-f2225f81_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 711
+        width: 606
+        height: 698
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ed690c7c35f2e447b1b2fe957668f0d
+      internalID: -478714932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-2048x2048-Crunch-Followers-f2225f81_1
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 707
+        width: 574
+        height: 702
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 472e1a44c428a9e448ce9a3d3c52f423
+      internalID: -1090681761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-2048x2048-Crunch-Followers-f2225f81_2
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 1408
+        width: 4
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76d98f937c831d542b2c40f89d5dcf83
+      internalID: -1646062017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-2048x2048-Crunch-Followers-f2225f81_3
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 744
+        width: 480
+        height: 712
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fe13ec3d3af5a6408d046848912c4e4
+      internalID: 1896016601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-2048x2048-Crunch-Followers-f2225f81_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 640
+        height: 711
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ee1e838b6a6dc8488dc6841979856af
+      internalID: 1704469318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-2048x2048-Crunch-Followers-f2225f81_5
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 0
+        width: 626
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f6aabdfa16848a49afb47de479e4794
+      internalID: 1131508788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-2048x2048-Crunch-Followers-f2225f81_6
+      rect:
+        serializedVersion: 2
+        x: 1268
+        y: 0
+        width: 573
+        height: 746
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46efb216256c15e4aad960f774154a8f
+      internalID: -121841517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -138,7 +285,14 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sactx-2048x2048-Crunch-Followers-f2225f81_0: -478714932
+      sactx-2048x2048-Crunch-Followers-f2225f81_1: -1090681761
+      sactx-2048x2048-Crunch-Followers-f2225f81_2: -1646062017
+      sactx-2048x2048-Crunch-Followers-f2225f81_3: 1896016601
+      sactx-2048x2048-Crunch-Followers-f2225f81_4: 1704469318
+      sactx-2048x2048-Crunch-Followers-f2225f81_5: 1131508788
+      sactx-2048x2048-Crunch-Followers-f2225f81_6: -121841517
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -242,6 +242,8 @@ MonoBehaviour:
   previousRoom: {fileID: 0}
   currentRoom: {fileID: 0}
   List_CreateRooms: []
+  forestWorm: {fileID: 0}
+  cursorImg: {fileID: 2800000, guid: 09aba8254e3364c43bdabecd772c3373, type: 3}
 --- !u!4 &1287985364
 Transform:
   m_ObjectHideFlags: 0

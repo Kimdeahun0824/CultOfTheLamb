@@ -363,6 +363,7 @@ namespace State
         public override void OnEnter()
         {
             forestWorm.PlayAnimation("Dead", 0, true, 1f);
+            forestWorm.StartCoroutine(GameClear());
         }
 
         public override void OnExit()
@@ -377,6 +378,12 @@ namespace State
         }
         public override void Action()
         {
+        }
+
+        IEnumerator GameClear()
+        {
+            yield return new WaitForSeconds(2f);
+            GameManager.Instance.GameClear();
         }
     }
 

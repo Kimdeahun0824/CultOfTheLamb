@@ -6,7 +6,7 @@ using Spine.Collections;
 using Spine;
 using State;
 
-public class ForestWorm : Enemy
+public class ForestWorm : Enemy, ISubject
 {
     public List<GameObject> attackColliders = default;
     public GameObject attackSpike;
@@ -47,7 +47,8 @@ public class ForestWorm : Enemy
         base.Start();
         EventAdd();
         EventFind();
-        Debug.Log($"headSmashEvent : {pushThroughGround}");
+        GameManager.Instance.forestWorm = this;
+        GameManager.Instance.SetBossRegisterObserver();
     }
     protected void EventFind()
     {
@@ -124,4 +125,24 @@ public class ForestWorm : Enemy
         Debug.Log($"Event Complete Test : {trackEntry.ToString()}");
     }
 
+    #region ObserverPattern
+    private List<IObserver> List_Observers = new List<IObserver>();
+    public void RegisterObserver(IObserver observer)
+    {
+        List_Observers.Add(observer);
+    }
+
+    public void RemoveObserver(IObserver observer)
+    {
+        List_Observers.Remove(observer);
+    }
+
+    public void NotifyObservers()
+    {
+        foreach (var observer in List_Observers)
+        {
+            observer.UpdateDate(gameObject);
+        }
+    }
+    #endregion
 }
