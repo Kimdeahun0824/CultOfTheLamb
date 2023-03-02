@@ -6,16 +6,12 @@ public class AGrid : MonoBehaviour
     public LayerMask unwalkableMask = default;
     public Vector2 gridWorldSize = default;
     public float nodeRadius;
-    AStarNode[,] grid = default;
-
-    float nodeDiameter = default;
-    int gridSizeX = default;
-    int gridSizeY = default;
     public List<AStarNode> path;
-    void Start()
-    {
 
-    }
+    private AStarNode[,] grid = default;
+    private float nodeDiameter = default;
+    private int gridSizeX = default;
+    private int gridSizeY = default;
 
     public void CreateGrid()
     {

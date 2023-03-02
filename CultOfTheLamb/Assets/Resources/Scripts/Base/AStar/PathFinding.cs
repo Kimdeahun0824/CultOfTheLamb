@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PathFinding : MonoBehaviour
 {
-    AGrid grid;
+    private AGrid grid;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class PathFinding : MonoBehaviour
         StartCoroutine(FindPath(startPos, targetPos));
     }
 
-    IEnumerator FindPath(Vector3 startPos, Vector3 targetPos)
+    private IEnumerator FindPath(Vector3 startPos, Vector3 targetPos)
     {
         Vector3[] waypoints = new Vector3[0];
         bool pathSuccess = false;
@@ -87,7 +87,7 @@ public class PathFinding : MonoBehaviour
 
     }
 
-    Vector3[] RetracePath(AStarNode startNode, AStarNode endNode)
+    private Vector3[] RetracePath(AStarNode startNode, AStarNode endNode)
     {
         List<AStarNode> path = new List<AStarNode>();
         AStarNode currentNode = endNode;
@@ -102,7 +102,7 @@ public class PathFinding : MonoBehaviour
         return waypoints;
     }
 
-    Vector3[] SimplifyPath(List<AStarNode> path)
+    private Vector3[] SimplifyPath(List<AStarNode> path)
     {
         List<Vector3> waypoints = new List<Vector3>();
         Vector2 directionOld = default;
@@ -119,7 +119,7 @@ public class PathFinding : MonoBehaviour
         return waypoints.ToArray();
     }
 
-    int GetDistanceCost(AStarNode nodeA, AStarNode nodeB)
+    private int GetDistanceCost(AStarNode nodeA, AStarNode nodeB)
     {
         int distX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
         int distY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
