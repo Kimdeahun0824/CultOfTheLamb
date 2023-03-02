@@ -37,11 +37,8 @@ public class ForestWorm : Enemy, ISubject
         get;
         set;
     }
-
     private EventData spikeAttackEvent = default;
     private EventData pushThroughGround = default;
-
-
     protected new void Start()
     {
         base.Start();
