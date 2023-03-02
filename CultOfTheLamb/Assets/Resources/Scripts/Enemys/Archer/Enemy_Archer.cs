@@ -54,9 +54,13 @@ public class Enemy_Archer : Enemy
         if (trackEntry.ToString() == "spawn-in"
         || trackEntry.ToString() == "archer-attack-charge"
         || trackEntry.ToString() == "archer-attack-impact"
+        || trackEntry.ToString() == "grunt-attack-charge2"
+        || trackEntry.ToString() == "grunt-attack-impact2"
         || trackEntry.ToString() == "hurt-front")
         {
             enemyStateMachine.ChangeState();
+
         }
+        Debug.Log($"TEST : {trackEntry.ToString()}");
     }
 }
