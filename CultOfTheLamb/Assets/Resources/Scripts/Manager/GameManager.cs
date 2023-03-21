@@ -205,7 +205,7 @@ public class GameManager : SingletonBase<GameManager>
 
     public void EnemySpawn()
     {
-        int count = Random.Range(1, 5);
+        int count = Random.Range(1, 6);
         for (int i = 0; i < count; i++)
         {
             Vector3 randomPos = default;
